@@ -1,4 +1,5 @@
 import { Subject } from 'rxjs';
+import { Rectangle } from '../models/Rectangle';
 
 export default class Selector {
 
@@ -12,7 +13,7 @@ export default class Selector {
     isSelecting = false;
     startDrawing = false;
 
-    rectangle = {x:0, y:0, w:0, h:0};
+    rectangle: Rectangle = {x:0, y:0, w:0, h:0};
 
     selection = new Subject<{x:number, y:number, w:number, h:number}>();
 

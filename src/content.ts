@@ -8,14 +8,12 @@ chrome.runtime.onMessage.addListener( async(dataMsg: {msg: string, tabId: number
     console.log("message",dataMsg,"sender",sender)
     
     if(dataMsg.msg == "screenshot-selection"){
-        console.log("select area")
         const selection = selector.select().subscribe( (rec)=>{
-            console.log("new selection:", rec)
+            
             selection.unsubscribe();
-            sendResponce(rec);
+            setTimeout( ()=> chrome.runtime.sendMessage( {msg: "screenshot-selection-result", data: rec}), 10);
         });
         
-
     }else if(dataMsg.msg == "screenshot-selection-with-options"){
         console.log("take screenshot with options")
 
