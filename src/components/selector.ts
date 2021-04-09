@@ -52,12 +52,16 @@ export default class Selector {
         return this.selection;
     }
 
-    selectionEnd(evt: MouseEvent){
+    async selectionEnd(evt: MouseEvent){
         this.coordEnd = {x: evt.clientX,y: evt.clientY};
         
         this.isSelecting = false;
         this.startDrawing = false;
         document.body.removeChild(this.tzone);
+
+        //Wait a bit to make time for the selector to be removed from display
+        await new Promise( (res)=>setTimeout(()=>res(null),10))
+        
         this.selection.next(this.rectangle);
     }
 

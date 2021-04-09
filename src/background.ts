@@ -40,9 +40,13 @@ chrome.runtime.onMessage.addListener( (msg: DataMessage<Rectangle>)=>{
     if(msg.msg == "screenshot-selection-result"){
         
         //when the selection have been done, make a screenshoot
-        chrome.tabs.captureVisibleTab({format:"png"},(responce)=>{
-            console.log("responce",responce)
-            console.log("Cropped result", ImageCropper.cropImage(responce,msg.data) )
+        chrome.tabs.captureVisibleTab({format:"png"}, async (responce)=>{
+            const croppedImageData = await ImageCropper.cropImage(responce,msg.data)
+            if(croppedImageData){
+                //TODO api call
+            }
+            console.log("Cropped result",  await ImageCropper.cropImage(responce,msg.data))
+
         });
 
     }
