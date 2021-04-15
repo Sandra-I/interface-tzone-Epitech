@@ -1,5 +1,5 @@
 import * as React from "react";
-import logo from "./logo.svg";
+import logo from "./logoWhite.svg";
 import "./App.css";
 
 const App = () => {
