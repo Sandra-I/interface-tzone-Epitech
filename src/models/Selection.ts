@@ -1,4 +1,4 @@
-export interface Rectangle{
+export interface Selection{
     x: number
     y: number
     w: number

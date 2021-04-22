@@ -1,22 +1,18 @@
 import { Subject } from 'rxjs';
-import { Rectangle } from '../models/Rectangle';
+import { Selection } from '../models/Selection';
 
 export default class Selector {
-
     coordStart: {x:number, y:number} = {x:0, y:0};
     coordEnd: {x:number, y:number} = {x:0, y:0};
-
     tzone: HTMLDivElement;
     selector: HTMLDivElement;
-
     listen = false;
     isSelecting = false;
     startDrawing = false;
+    rectangle: Selection = {x:0, y:0, w:0, h:0};
+    selection = new Subject<Selection>();
 
-    rectangle: Rectangle = {x:0, y:0, w:0, h:0};
-
-    selection = new Subject<{x:number, y:number, w:number, h:number}>();
-
+    //Initialise all required elements for an area selection
     constructor(){
         this.selector = document.createElement("div");
         this.selector.style.border = "1px solid black";
@@ -34,7 +30,11 @@ export default class Selector {
         
     }
 
-    select(): Subject<{x:number, y:number, w:number, h:number}>{
+    /**
+     * Make the selection of the window start, and wait the user to select the area
+     * @return Selection of the window
+     */
+    select(): Subject<Selection>{
         this.coordStart = {x:0, y:0};
         this.coordEnd = {x:0, y:0};
         this.drawSelector();
@@ -42,6 +42,7 @@ export default class Selector {
         this.isSelecting = true;
         document.body.appendChild(this.tzone);
        
+        //Add listener if not already done
         if(!this.listen){
             this.listen = true;
             window.addEventListener( "mousedown", (evt)=>this.isSelecting?this.selectionStart(evt):null, true)
@@ -59,8 +60,8 @@ export default class Selector {
         this.startDrawing = false;
         document.body.removeChild(this.tzone);
 
-        //Wait a bit to make time for the selector to be removed from display
-        await new Promise( (res)=>setTimeout(()=>res(null),10))
+        //Wait a bit to make time for the selector to be removed from display, to not be on the screenshot
+        await new Promise( (res)=>setTimeout(()=>res(null),20))
         
         this.selection.next(this.rectangle);
     }
@@ -75,6 +76,9 @@ export default class Selector {
         if(this.startDrawing) this.drawSelector();
     }
 
+    /**
+     * Draw the selection rectangle
+     */
     drawSelector(){
         this.rectangle = {x:0, y:0, w:0, h:0};
 
