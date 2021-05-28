@@ -1,6 +1,7 @@
 {
   "name": "T-Zone",
   "description": "Fait avec amour",
+  "permissions": ["activeTab", "declarativeContent", "storage", "clipboardWrite", "tabCapture", "accessibilityFeatures.read"],
   "manifest_version": 2,
   "version": "1.0.0",
   "icons": {
@@ -30,5 +31,25 @@
         "content.js"
       ]
     }
+<<<<<<< HEAD
   ]
+=======
+  ],
+  "commands": {
+		"take-screenshot": {
+		  "suggested_key": {
+			"default": "Alt + S",
+			"mac": "Alt + S"
+		  },
+		  "description": "Prendre une capture"
+		},
+		"take-screenshot-with-options": {
+			"suggested_key": {
+			  "default": "Ctrl + Shift + S",
+			  "mac": "Command + Shift + S"
+			},
+			"description": "Prendre une capture avec options"
+		  }
+	}
+>>>>>>> front_zoneSelection_rt
 }
