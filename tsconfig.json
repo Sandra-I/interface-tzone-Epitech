@@ -9,13 +9,14 @@
         "module": "es6",
         "moduleResolution": "node",
         "target": "es5",
-        "types": ["jest"],
         "allowJs": true,
         "jsx": "react",
         "resolveJsonModule": true
     },
     "include": [
-        "./src/**/*"
+        "./src/**/*",
+        "test/test.ts",
+        "test"
     ],
     "exclude": [
         "node_modules",
