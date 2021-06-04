@@ -4,6 +4,8 @@ import ImageCropper from "./components/ImageCropper";
 import { DataMessage } from "./models/DataMessage";
 import { Selection } from "./models/Selection";
 
+console.log("Run tests")
+export * from "./test"
 
 console.log("Init TZone")
 

@@ -6,7 +6,7 @@
         "noImplicitReturns": true,
         "noImplicitAny": true,
         "lib": ["es2018", "dom"],
-        "module": "es6",
+        "module": "ES2020",
         "moduleResolution": "node",
         "target": "es5",
         "allowJs": true,
@@ -15,12 +15,14 @@
     },
     "include": [
         "./src/**/*",
-        "test/test.ts",
+        "**/*.spec.ts",
+        "tests/test.ts",
         "test"
     ],
     "exclude": [
         "node_modules",
-        "**/*.spec.ts",
-        "**/*.test.ts"
+        //Test in browser, so it's require'
+        //"**/*.spec.ts",
+        //"**/*.test.ts"
     ]
 }
