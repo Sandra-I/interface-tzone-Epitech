@@ -24,7 +24,7 @@ export default class ImageCropper {
                 res( ctx.getImageData(0, 0, bounds.w, bounds.h) )
             }else{
                 
-                //This error is just in case, normaly can't be trigger as of the canvas is create localy
+                //This error is just in case, normaly can't be trigger beacause the canvas is create localy
                 console.error("Unable to find graphic context of generated canvas")
                 res(null)
             }

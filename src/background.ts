@@ -3,6 +3,7 @@
 import ImageCropper from "./components/ImageCropper";
 import { DataMessage } from "./models/DataMessage";
 import { Selection } from "./models/Selection";
+import API from "./components/api";
 
 console.log("Run tests")
 export * from "./test"
@@ -60,7 +61,9 @@ chrome.runtime.onMessage.addListener( (msg: DataMessage<Selection>)=>{
             const croppedImageData = await ImageCropper.cropImage(responce,msg.data);
             if(croppedImageData){
                 console.log("croppedImageData",croppedImageData)
-                //TODO api call
+
+                //TODO api url and stuff with result
+                const apiResult = await API.getTextFromImage(croppedImageData);
             }
 
         });
