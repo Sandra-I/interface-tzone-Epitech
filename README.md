@@ -1,4 +1,6 @@
-# Chrome Extension boilerplate created with React Typescript
+# interface
+
+Interface du projet TZone
 
 ## Getting started
 
