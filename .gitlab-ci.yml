@@ -1,0 +1,3 @@
+init:gitlab-ci:
+	script:
+		- echo 'hello gitlab-ci'
