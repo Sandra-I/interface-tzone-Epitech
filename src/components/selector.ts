@@ -6,6 +6,9 @@ export default class Selector {
     coordEnd: {x:number, y:number} = {x:0, y:0};
     tzone: HTMLDivElement;
     selector: HTMLDivElement;
+    selectorBackground: {topL: HTMLDivElement, topR: HTMLDivElement, bottomL: HTMLDivElement, bottomRight: HTMLDivElement, title: HTMLDivElement};
+    bodyScrollStyle: string = "initial";
+    bodySelectStyle: string = "auto";
     listen = false;
     isSelecting = false;
     startDrawing = false;
@@ -14,18 +17,58 @@ export default class Selector {
 
     //Initialise all required elements for an area selection
     constructor(){
-        this.selector = document.createElement("div");
-        this.selector.style.border = "1px solid black";
-        this.selector.style.position = "absolute";
-        this.selector.style.overflow = "hidden";
+        //Main container
         this.tzone = document.createElement("div");
-        this.tzone.appendChild(this.selector);
         this.tzone.id = "TZone";
         this.tzone.style.position = "absolute";
         this.tzone.style.left = "0px";
         this.tzone.style.top = "0px";
         this.tzone.style.width = "100%";
         this.tzone.style.height = "100%";
+
+        //Selection rectangle
+        this.selector = document.createElement("div");
+        this.selector.style.border = "1px solid black";
+        this.selector.style.position = "absolute";
+        this.selector.style.overflow = "hidden";
+        this.selector.style.zIndex = "10000";
+        this.tzone.appendChild(this.selector);
+
+        //Selection rectangle background
+        this.selectorBackground = {
+            topL: this.createBackground(this.tzone),
+            topR: this.createBackground(this.tzone),
+            bottomL: this.createBackground(this.tzone),
+            bottomRight: this.createBackground(this.tzone),
+            title: this.setBackgroundTitle(this.tzone)
+        }
+
+        //Add mouse listener
+        window.addEventListener( "mousedown", (evt)=>this.isSelecting?this.selectionStart(evt):null, true);
+        window.addEventListener( "mousemove", (evt)=>this.isSelecting?this.selectionChange(evt):null, true);
+        window.addEventListener( "mouseup", (evt)=>this.isSelecting?this.selectionEnd(evt):null, true);
+    }
+
+    private createBackground(parent?: HTMLElement){
+        const background = document.createElement("div");
+        background.style.position = "absolute";
+        background.style.zIndex = "10000";
+        background.style.backgroundColor = "rgba(0,0,0,0.5)";
+        if(parent) parent.appendChild(background)
+
+        return background;
+    }
+
+    private setBackgroundTitle(parent?: HTMLElement){
+        const title = document.createElement("h1");
+        title.innerHTML = 'Sélectionner la zone souhaitée'
+        title.style.position = "absolute";
+        title.style.transform = 'translate(-50%, 50%)';
+        title.style.color = 'white';
+        title.style.fontSize = '32px';
+        title.style.zIndex = "10001";
+        if(parent) parent.appendChild(title);
+        return title
     }
 
     /**
@@ -33,43 +76,44 @@ export default class Selector {
      * @return Selection of the window
      */
     select(): Subject<Selection>{
+        this.bodyScrollStyle = document.body.style.overflow
+        document.body.style.overflow = "hidden"
+        this.bodySelectStyle = document.body.style.userSelect
+        document.body.style.userSelect = "none"
+        this.selectorBackground.title.style.opacity = '1';
+        this.selectorBackground.title.style.left = `calc(50% + ${window.scrollX}px)`;
+        this.selectorBackground.title.style.top = `calc(50% + ${window.scrollY}px)`;
         this.coordStart = {x:0, y:0};
         this.coordEnd = {x:0, y:0};
         this.drawSelector();
+        this.drawSelectionBackground();
         this.isSelecting = true;
         document.body.appendChild(this.tzone);
-        //Add listener if not already done
-        if(!this.listen){
-            this.listen = true;
-            window.addEventListener( "mousedown", (evt)=>this.isSelecting?this.selectionStart(evt):null, true);
-            window.addEventListener( "mousemove", (evt)=>this.isSelecting?this.selectionChange(evt):null, true);
-            window.addEventListener( "mouseup", (evt)=>this.isSelecting?this.selectionEnd(evt):null, true);
-        }
-
         return this.selection;
     }
 
     async selectionEnd(evt: MouseEvent){
-        this.coordEnd = {x: evt.clientX,y: evt.clientY};
-        
+        this.coordEnd = {x: evt.pageX,y: evt.pageY};
         this.isSelecting = false;
         this.startDrawing = false;
         document.body.removeChild(this.tzone);
-
+        document.body.style.overflow = this.bodyScrollStyle;
+        document.body.style.userSelect = this.bodySelectStyle;
         //Wait a bit to make time for the selector to be removed from display, to not be on the screenshot
         await new Promise( (res)=>setTimeout(()=>res(null),20))
-        
         this.selection.next(this.rectangle);
     }
 
     selectionStart(evt: MouseEvent){
-        this.coordStart = {x: evt.clientX,y: evt.clientY};
+        this.coordStart = {x: evt.pageX,y: evt.pageY};
         this.startDrawing = true;
+        this.selectorBackground.title.style.opacity = '0';
     }
 
     selectionChange(evt: MouseEvent){
-        this.coordEnd = {x: evt.clientX,y: evt.clientY};
+        this.coordEnd = {x: evt.pageX,y: evt.pageY};
         if(this.startDrawing) this.drawSelector();
+        this.drawSelectionBackground();
     }
 
     /**
@@ -98,6 +142,28 @@ export default class Selector {
         this.selector.style.top = this.rectangle.y+"px"
         this.selector.style.width = this.rectangle.w+"px"
         this.selector.style.height = this.rectangle.h+"px"
+    }
+
+    drawSelectionBackground(){
+        this.selectorBackground.topL.style.left = "0px";
+        this.selectorBackground.topL.style.top = '0px';
+        this.selectorBackground.topL.style.width = (this.rectangle.x+this.rectangle.w)+"px";
+        this.selectorBackground.topL.style.height = this.rectangle.y+"px";
+
+        this.selectorBackground.topR.style.left = this.selectorBackground.topL.style.width;
+        this.selectorBackground.topR.style.top = window.pageYOffset+"px";
+        this.selectorBackground.topR.style.width = (window.innerWidth + window.pageXOffset - this.rectangle.x)+"px";
+        this.selectorBackground.topR.style.height = "100%";
+
+        this.selectorBackground.bottomL.style.left = "0px";
+        this.selectorBackground.bottomL.style.top = (this.rectangle.y) + 'px';
+        this.selectorBackground.bottomL.style.width = this.rectangle.x+"px";
+        this.selectorBackground.bottomL.style.height = "100%";
+        
+        this.selectorBackground.bottomRight.style.left = (this.rectangle.x)+"px";
+        this.selectorBackground.bottomRight.style.top = (this.rectangle.y+this.rectangle.h)+"px";
+        this.selectorBackground.bottomRight.style.width = (this.rectangle.w>0?this.rectangle.w:0)+"px";
+        this.selectorBackground.bottomRight.style.height = '100%';
     }
     
 }
