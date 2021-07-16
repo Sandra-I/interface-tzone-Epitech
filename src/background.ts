@@ -40,7 +40,6 @@ chrome.commands.onCommand.addListener(async (command: string) => {
             } else if (command == "screenshot-selection-with-options") {
                 //TODO
                 console.log("take screenshot with options")
-
             }
         } else {
             throw Error("Can't find active tab !")
@@ -58,9 +57,9 @@ chrome.runtime.onMessage.addListener((msg: DataMessage<Selection | NotificationO
             //Crop the image according to the selection
             const croppedImageData = await ImageCropper.cropImage(responce, msg.data as Selection);
             if (croppedImageData) {
-                console.log(croppedImageData)
                 //TODO api url and stuff with result
                 const apiResult = await API.getTextFromImage(croppedImageData);
+                copyText(apiResult.data.text);
             }
 
         });
@@ -71,3 +70,12 @@ chrome.runtime.onMessage.addListener((msg: DataMessage<Selection | NotificationO
         response(true)
     }
 })
+
+function copyText(text: string): void{
+    const elem = document.createElement('textarea');
+    elem.value = text;
+    document.body.appendChild(elem);
+    elem.select();
+    document.execCommand('copy');
+    document.body.removeChild(elem);
+}

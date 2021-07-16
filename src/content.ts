@@ -11,7 +11,6 @@ const selector = new Selector();
 let isCurrentlySelection = false;
 
 chrome.runtime.onMessage.addListener( async(dataMsg: DataMessage<null>, sender, sendResponce) => {
-    console.log("dataMsg",dataMsg)
     if(isCurrentlySelection){
         console.error("Already selecting an area !")
     }else{

@@ -9,7 +9,6 @@ import {
 import History from "./Views/History";
 
 const App = () => {
-
     return (
         <Router>
             <div className="App">
