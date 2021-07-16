@@ -6,7 +6,7 @@ import { Selection } from "./models/Selection";
 import API from "./components/api";
 
 console.log("Run tests")
-export * from "./custom-test";
+export * from "./tests/check-result"
 
 console.log("Init TZone")
 
@@ -31,14 +31,12 @@ if(savedConf) options = JSON.parse(savedConf);
 chrome.commands.onCommand.addListener( async(command: string) => {
     //Get active tab
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        console.log(tabs.length,tabs)
         //TODO Verify if it's possible to have multiple active tabs
         let tab = tabs[0];
         if(tab && tab.id){
             if(command == "take-screenshot"){
                 //Tell the page script ta make a screenshot
                 chrome.tabs.sendMessage(tab.id, {msg:"screenshot-selection", tabId: tab.id});
-                
             }else if(command == "screenshot-selection-with-options"){
                 //TODO
                 console.log("take screenshot with options")
@@ -60,8 +58,7 @@ chrome.runtime.onMessage.addListener( (msg: DataMessage<Selection>)=>{
             //Crop the image according to the selection
             const croppedImageData = await ImageCropper.cropImage(responce,msg.data);
             if(croppedImageData){
-                console.log("croppedImageData",croppedImageData)
-
+                console.log(croppedImageData)
                 //TODO api url and stuff with result
                 const apiResult = await API.getTextFromImage(croppedImageData);
             }

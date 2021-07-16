@@ -8,8 +8,7 @@ export default class API {
      * @param img 
      */
     static async getTextFromImage(img: string){
-        const responce = await axios.get(config.backendurl+"/", {params: {image: img}})
-        console.log( responce )
+        const responce = await axios.post<{text: string}>(config.backendurl+"/upload", {img: img})
         return responce;
     }
 }
