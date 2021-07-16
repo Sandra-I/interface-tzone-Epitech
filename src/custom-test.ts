@@ -1,6 +1,4 @@
-export * from "./tests/index"
-
-
+export * from "./tests/check-result"
 
 export function describe(name: string, test: Function) {
     console.info("Running "+name)

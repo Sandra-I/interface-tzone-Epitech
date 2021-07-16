@@ -6,7 +6,7 @@ import { Selection } from "./models/Selection";
 import API from "./components/api";
 
 console.log("Run tests")
-export * from "./test"
+export * from "./custom-test";
 
 console.log("Init TZone")
 

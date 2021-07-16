@@ -18,7 +18,6 @@ export default class Selector {
         this.selector.style.border = "1px solid black";
         this.selector.style.position = "absolute";
         this.selector.style.overflow = "hidden";
-        
         this.tzone = document.createElement("div");
         this.tzone.appendChild(this.selector);
         this.tzone.id = "TZone";
@@ -27,7 +26,6 @@ export default class Selector {
         this.tzone.style.top = "0px";
         this.tzone.style.width = "100%";
         this.tzone.style.height = "100%";
-        
     }
 
     /**
@@ -38,16 +36,14 @@ export default class Selector {
         this.coordStart = {x:0, y:0};
         this.coordEnd = {x:0, y:0};
         this.drawSelector();
-
         this.isSelecting = true;
         document.body.appendChild(this.tzone);
-       
         //Add listener if not already done
         if(!this.listen){
             this.listen = true;
-            window.addEventListener( "mousedown", (evt)=>this.isSelecting?this.selectionStart(evt):null, true)
-            window.addEventListener( "mousemove", (evt)=>this.isSelecting?this.selectionChange(evt):null, true)
-            window.addEventListener( "mouseup", (evt)=>this.isSelecting?this.selectionEnd(evt):null, true)
+            window.addEventListener( "mousedown", (evt)=>this.isSelecting?this.selectionStart(evt):null, true);
+            window.addEventListener( "mousemove", (evt)=>this.isSelecting?this.selectionChange(evt):null, true);
+            window.addEventListener( "mouseup", (evt)=>this.isSelecting?this.selectionEnd(evt):null, true);
         }
 
         return this.selection;
