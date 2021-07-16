@@ -2,21 +2,21 @@ import { Subject } from 'rxjs';
 import { Selection } from '../models/Selection';
 
 export default class Selector {
-    coordStart: {x:number, y:number} = {x:0, y:0};
-    coordEnd: {x:number, y:number} = {x:0, y:0};
+    coordStart: { x: number, y: number } = { x: 0, y: 0 };
+    coordEnd: { x: number, y: number } = { x: 0, y: 0 };
     tzone: HTMLDivElement;
     selector: HTMLDivElement;
-    selectorBackground: {topL: HTMLDivElement, topR: HTMLDivElement, bottomL: HTMLDivElement, bottomRight: HTMLDivElement, title: HTMLDivElement};
+    selectorBackground: { topL: HTMLDivElement, topR: HTMLDivElement, bottomL: HTMLDivElement, bottomRight: HTMLDivElement, title: HTMLDivElement };
     bodyScrollStyle: string = "initial";
     bodySelectStyle: string = "auto";
     listen = false;
     isSelecting = false;
     startDrawing = false;
-    rectangle: Selection = {x:0, y:0, w:0, h:0};
+    rectangle: Selection = { x: 0, y: 0, w: 0, h: 0 };
     selection = new Subject<Selection>();
 
     //Initialise all required elements for an area selection
-    constructor(){
+    constructor() {
         //Main container
         this.tzone = document.createElement("div");
         this.tzone.id = "TZone";
@@ -44,22 +44,21 @@ export default class Selector {
         }
 
         //Add mouse listener
-        window.addEventListener( "mousedown", (evt)=>this.isSelecting?this.selectionStart(evt):null, true);
-        window.addEventListener( "mousemove", (evt)=>this.isSelecting?this.selectionChange(evt):null, true);
-        window.addEventListener( "mouseup", (evt)=>this.isSelecting?this.selectionEnd(evt):null, true);
+        window.addEventListener("mousedown", (evt) => this.isSelecting ? this.selectionStart(evt) : null, true);
+        window.addEventListener("mousemove", (evt) => this.isSelecting ? this.selectionChange(evt) : null, true);
+        window.addEventListener("mouseup", (evt) => this.isSelecting ? this.selectionEnd(evt) : null, true);
     }
 
-    private createBackground(parent?: HTMLElement){
+    private createBackground(parent?: HTMLElement) {
         const background = document.createElement("div");
         background.style.position = "absolute";
         background.style.zIndex = "10000";
         background.style.backgroundColor = "rgba(0,0,0,0.5)";
-        if(parent) parent.appendChild(background)
-
+        if (parent) parent.appendChild(background)
         return background;
     }
 
-    private setBackgroundTitle(parent?: HTMLElement){
+    private setBackgroundTitle(parent?: HTMLElement) {
         const title = document.createElement("h1");
         title.innerHTML = 'Sélectionner la zone souhaitée'
         title.style.position = "absolute";
@@ -67,7 +66,7 @@ export default class Selector {
         title.style.color = 'white';
         title.style.fontSize = '32px';
         title.style.zIndex = "10001";
-        if(parent) parent.appendChild(title);
+        if (parent) parent.appendChild(title);
         return title
     }
 
@@ -75,7 +74,7 @@ export default class Selector {
      * Make the selection of the window start, and wait the user to select the area
      * @return Selection of the window
      */
-    select(): Subject<Selection>{
+    select(): Subject<Selection> {
         this.bodyScrollStyle = document.body.style.overflow
         document.body.style.overflow = "hidden"
         this.bodySelectStyle = document.body.style.userSelect
@@ -83,8 +82,8 @@ export default class Selector {
         this.selectorBackground.title.style.opacity = '1';
         this.selectorBackground.title.style.left = `calc(50% + ${window.scrollX}px)`;
         this.selectorBackground.title.style.top = `calc(50% + ${window.scrollY}px)`;
-        this.coordStart = {x:0, y:0};
-        this.coordEnd = {x:0, y:0};
+        this.coordStart = { x: 0, y: 0 };
+        this.coordEnd = { x: 0, y: 0 };
         this.drawSelector();
         this.drawSelectionBackground();
         this.isSelecting = true;
@@ -92,78 +91,76 @@ export default class Selector {
         return this.selection;
     }
 
-    async selectionEnd(evt: MouseEvent){
-        this.coordEnd = {x: evt.pageX,y: evt.pageY};
+    selectionEnd(evt: MouseEvent) {
+        this.coordEnd = { x: evt.pageX, y: evt.pageY };
         this.isSelecting = false;
         this.startDrawing = false;
         document.body.removeChild(this.tzone);
         document.body.style.overflow = this.bodyScrollStyle;
         document.body.style.userSelect = this.bodySelectStyle;
         //Wait a bit to make time for the selector to be removed from display, to not be on the screenshot
-        await new Promise( (res)=>setTimeout(()=>res(null),20))
-        this.selection.next(this.rectangle);
+        new Promise((res) => setTimeout(() => res(null), 20))
+        .then(() => this.selection.next(this.rectangle));
     }
 
-    selectionStart(evt: MouseEvent){
-        this.coordStart = {x: evt.pageX,y: evt.pageY};
+    public selectionStart(evt: MouseEvent) {
+        this.coordStart = { x: evt.pageX, y: evt.pageY };
         this.startDrawing = true;
         this.selectorBackground.title.style.opacity = '0';
     }
 
-    selectionChange(evt: MouseEvent){
-        this.coordEnd = {x: evt.pageX,y: evt.pageY};
-        if(this.startDrawing) this.drawSelector();
+    selectionChange(evt: MouseEvent) {
+        this.coordEnd = { x: evt.pageX, y: evt.pageY };
+        if (this.startDrawing) this.drawSelector();
         this.drawSelectionBackground();
     }
 
     /**
      * Draw the selection rectangle
      */
-    drawSelector(){
-        this.rectangle = {x:0, y:0, w:0, h:0};
-
-        if(this.coordStart.x < this.coordEnd.x){
+    drawSelector() {
+        this.rectangle = { x: 0, y: 0, w: 0, h: 0 };
+        if (this.coordStart.x < this.coordEnd.x) {
             this.rectangle.x = this.coordStart.x;
             this.rectangle.w = this.coordEnd.x - this.coordStart.x
-        }else{
+        } else {
             this.rectangle.x = this.coordEnd.x
             this.rectangle.w = this.coordStart.x - this.coordEnd.x
         }
 
-        if(this.coordStart.y < this.coordEnd.y){
+        if (this.coordStart.y < this.coordEnd.y) {
             this.rectangle.y = this.coordStart.y;
             this.rectangle.h = this.coordEnd.y - this.coordStart.y
-        }else{
+        } else {
             this.rectangle.y = this.coordEnd.y
             this.rectangle.h = this.coordStart.y - this.coordEnd.y
         }
-        
-        this.selector.style.left = this.rectangle.x+"px"
-        this.selector.style.top = this.rectangle.y+"px"
-        this.selector.style.width = this.rectangle.w+"px"
-        this.selector.style.height = this.rectangle.h+"px"
+        this.selector.style.left = this.rectangle.x + "px"
+        this.selector.style.top = this.rectangle.y + "px"
+        this.selector.style.width = this.rectangle.w + "px"
+        this.selector.style.height = this.rectangle.h + "px"
     }
 
-    drawSelectionBackground(){
+    drawSelectionBackground() {
         this.selectorBackground.topL.style.left = "0px";
         this.selectorBackground.topL.style.top = '0px';
-        this.selectorBackground.topL.style.width = (this.rectangle.x+this.rectangle.w)+"px";
-        this.selectorBackground.topL.style.height = this.rectangle.y+"px";
+        this.selectorBackground.topL.style.width = (this.rectangle.x + this.rectangle.w) + "px";
+        this.selectorBackground.topL.style.height = this.rectangle.y + "px";
 
         this.selectorBackground.topR.style.left = this.selectorBackground.topL.style.width;
-        this.selectorBackground.topR.style.top = window.pageYOffset+"px";
-        this.selectorBackground.topR.style.width = (window.innerWidth + window.pageXOffset - this.rectangle.x)+"px";
+        this.selectorBackground.topR.style.top = window.pageYOffset + "px";
+        this.selectorBackground.topR.style.width = (window.innerWidth + window.pageXOffset - this.rectangle.x) + "px";
         this.selectorBackground.topR.style.height = "100%";
 
         this.selectorBackground.bottomL.style.left = "0px";
         this.selectorBackground.bottomL.style.top = (this.rectangle.y) + 'px';
-        this.selectorBackground.bottomL.style.width = this.rectangle.x+"px";
+        this.selectorBackground.bottomL.style.width = this.rectangle.x + "px";
         this.selectorBackground.bottomL.style.height = "100%";
-        
-        this.selectorBackground.bottomRight.style.left = (this.rectangle.x)+"px";
-        this.selectorBackground.bottomRight.style.top = (this.rectangle.y+this.rectangle.h)+"px";
-        this.selectorBackground.bottomRight.style.width = (this.rectangle.w>0?this.rectangle.w:0)+"px";
+
+        this.selectorBackground.bottomRight.style.left = (this.rectangle.x) + "px";
+        this.selectorBackground.bottomRight.style.top = (this.rectangle.y + this.rectangle.h) + "px";
+        this.selectorBackground.bottomRight.style.width = (this.rectangle.w > 0 ? this.rectangle.w : 0) + "px";
         this.selectorBackground.bottomRight.style.height = '100%';
     }
-    
+
 }
