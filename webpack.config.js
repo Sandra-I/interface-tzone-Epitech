@@ -71,6 +71,8 @@ const config = {
       patterns: [{ from: "public", to: "." }],
     }),
   ],
+  //eval() is not allow in chrome extension
+  devtool: 'cheap-module-source-map'
 };
 
 module.exports = config;

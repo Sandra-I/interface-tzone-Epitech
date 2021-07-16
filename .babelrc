@@ -1,19 +1,30 @@
 {
     "env": {
         "test": {
+<<<<<<< HEAD
+            "plugins": [
+                "@babel/plugin-transform-modules-commonjs"
+            ]
+=======
             "plugins": ["@babel/plugin-transform-modules-commonjs"]
+>>>>>>> 59563aa83bab1ed6aac8be89b50878ad5354e910
         }
     },
     "presets": [
         [
             "@babel/preset-env",
             {
-                "modules": false
+                "modules": false,
+                "targets": {
+                    "node": "current"
+                }
             }
         ],
-        "@babel/preset-react"
+        "@babel/preset-react",
+        "@babel/preset-typescript"
     ],
     "plugins": [
-        "react-hot-loader/babel"
+        "react-hot-loader/babel",
+        "wildcard"
     ]
 }
