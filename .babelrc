@@ -1,30 +1,28 @@
 {
-    "env": {
-        "test": {
-<<<<<<< HEAD
-            "plugins": [
-                "@babel/plugin-transform-modules-commonjs"
-            ]
-=======
-            "plugins": ["@babel/plugin-transform-modules-commonjs"]
->>>>>>> 59563aa83bab1ed6aac8be89b50878ad5354e910
+  "env": {
+    "test": {
+      "plugins": [
+        "@babel/plugin-transform-modules-commonjs"
+      ]
+    }
+  },
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "modules": false,
+        "useBuiltIns": "usage",
+        "corejs": 3,
+        "targets": {
+          "node": "current"
         }
-    },
-    "presets": [
-        [
-            "@babel/preset-env",
-            {
-                "modules": false,
-                "targets": {
-                    "node": "current"
-                }
-            }
-        ],
-        "@babel/preset-react",
-        "@babel/preset-typescript"
+      }
     ],
-    "plugins": [
-        "react-hot-loader/babel",
-        "wildcard"
-    ]
+    "@babel/preset-react",
+    "@babel/preset-typescript"
+  ],
+  "plugins": [
+    "react-hot-loader/babel",
+    "wildcard"
+  ]
 }
