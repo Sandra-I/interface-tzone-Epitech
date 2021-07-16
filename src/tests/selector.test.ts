@@ -11,7 +11,7 @@ describe('selector', () => {
     });
 
     it('should triggered `selectionStart`', () => {
-        selector.isSelecting = true;
+        selector.isSelecting = true;    
         jest.spyOn(selector, 'selectionStart');
         document.dispatchEvent(new Event('mousedown'));
         expect(selector.selectionStart).toHaveBeenCalled();
@@ -51,17 +51,14 @@ describe('selector', () => {
         expect(selector.selectorBackground.topL.style.top).toEqual("0px");
         expect(selector.selectorBackground.topL.style.width).toEqual("125px");
         expect(selector.selectorBackground.topL.style.height).toEqual("40px");
-
         expect(selector.selectorBackground.topR.style.left).toEqual("125px");
         expect(selector.selectorBackground.topR.style.top).toEqual("0px");
         expect(selector.selectorBackground.topR.style.width).toEqual("1150px");
         expect(selector.selectorBackground.topR.style.height).toEqual("100%");
-
         expect(selector.selectorBackground.bottomL.style.left).toEqual("0px");
         expect(selector.selectorBackground.bottomL.style.top).toEqual("40px");
         expect(selector.selectorBackground.bottomL.style.width).toEqual("50px");
         expect(selector.selectorBackground.bottomL.style.height).toEqual("100%");
-
         expect(selector.selectorBackground.bottomRight.style.left).toEqual("50px");
         expect(selector.selectorBackground.bottomRight.style.top).toEqual("100px");
         expect(selector.selectorBackground.bottomRight.style.width).toEqual("75px");

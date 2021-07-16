@@ -5,13 +5,16 @@
         "strict": true,
         "noImplicitReturns": true,
         "noImplicitAny": true,
-        "lib": ["es2018", "dom"],
+        "lib": [
+            "es2018",
+            "dom"
+        ],
         "module": "ES2020",
         "moduleResolution": "node",
         "target": "es5",
         "allowJs": true,
         "jsx": "react",
-        "resolveJsonModule": true
+        "resolveJsonModule": true,
     },
     "include": [
         "./src/**/*",
@@ -21,8 +24,7 @@
     ],
     "exclude": [
         "node_modules",
-        //Test in browser, so it's require'
-        //"**/*.spec.ts",
-        //"**/*.test.ts"
+        "src/custom.d.ts",
+        "./jest-setup.ts"
     ]
 }
