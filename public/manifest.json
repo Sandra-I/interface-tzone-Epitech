@@ -1,16 +1,17 @@
 {
-  "name": "Chrome Extension Boilerplate",
-  "description": "Chrome Extension boilerplate created with React Typescript.",
+  "name": "T-Zone",
+  "description": "Fait avec amour",
+  "permissions": ["activeTab", "declarativeContent", "storage", "clipboardWrite", "tabCapture", "accessibilityFeatures.read"],
   "manifest_version": 2,
   "version": "1.0.0",
   "icons": {
-    "16": "icon16.png",
+    "16": "iconWhite16.png",
     "48": "icon48.png",
-    "128": "icon128.png"
+    "128": "iconWhite128.png"
   },
   "browser_action": {
     "default_icon": {
-      "16": "icon16.png",
+      "16": "iconWhite16.png",
       "48": "icon48.png"
     },
     "default_popup": "popup.html"
@@ -30,5 +31,21 @@
         "content.js"
       ]
     }
-  ]
+  ],
+  "commands": {
+		"take-screenshot": {
+		  "suggested_key": {
+			"default": "Alt + S",
+			"mac": "Alt + S"
+		  },
+		  "description": "Prendre une capture"
+		},
+		"take-screenshot-with-options": {
+			"suggested_key": {
+			  "default": "Ctrl + Shift + S",
+			  "mac": "Command + Shift + S"
+			},
+			"description": "Prendre une capture avec options"
+		  }
+	}
 }

@@ -5,14 +5,26 @@
         "strict": true,
         "noImplicitReturns": true,
         "noImplicitAny": true,
-        "module": "es6",
+        "lib": [
+            "es2018",
+            "dom"
+        ],
+        "module": "ES2020",
         "moduleResolution": "node",
         "target": "es5",
         "allowJs": true,
         "jsx": "react",
+        "resolveJsonModule": true,
     },
     "include": [
         "./src/**/*",
-        "src/custom.d.ts"
+        "**/*.spec.ts",
+        "tests/test.ts",
+        "test"
+    ],
+    "exclude": [
+        "node_modules",
+        "src/custom.d.ts",
+        "./jest-setup.ts"
     ]
 }

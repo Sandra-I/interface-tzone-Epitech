@@ -17,8 +17,8 @@ const config = {
         exclude: /node_modules/,
       },
       {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        test: /\.scss$/,
+        use: ["style-loader", "css-loader", "sass-loader"],
         exclude: /\.module\.css$/,
       },
       {
@@ -71,6 +71,8 @@ const config = {
       patterns: [{ from: "public", to: "." }],
     }),
   ],
+  //eval() is not allow in chrome extension
+  devtool: 'cheap-module-source-map'
 };
 
 module.exports = config;
