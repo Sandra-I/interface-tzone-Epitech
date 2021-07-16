@@ -1,13 +1,9 @@
 {
     "env": {
         "test": {
-<<<<<<< HEAD
             "plugins": [
                 "@babel/plugin-transform-modules-commonjs"
             ]
-=======
-            "plugins": ["@babel/plugin-transform-modules-commonjs"]
->>>>>>> 59563aa83bab1ed6aac8be89b50878ad5354e910
         }
     },
     "presets": [
