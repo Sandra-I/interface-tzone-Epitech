@@ -57,9 +57,12 @@ chrome.runtime.onMessage.addListener((msg: DataMessage<Selection | NotificationO
             //Crop the image according to the selection
             const croppedImageData = await ImageCropper.cropImage(responce, msg.data as Selection);
             if (croppedImageData) {
-                //TODO api url and stuff with result
-                const apiResult = await API.getTextFromImage(croppedImageData);
-                copyText(apiResult.data.text);
+                API.getTextFromImage(croppedImageData).then( (result)=>{
+                    copyText(result.data.text);
+                }).catch( err=>{
+                    if(sender.tab && sender.tab.id)
+                    chrome.tabs.sendMessage(sender.tab.id, {msg: "api-error", data: err, tabId: sender.tab.id});
+                });
             }
 
         });
