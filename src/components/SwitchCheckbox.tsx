@@ -5,7 +5,7 @@ import {useState} from "react";
 const SwitchCheckbox = () => {
     const [value, setValue]: any = useState({
         previous: {name: "Prévisualisation", check: false},
-        getWord: {name: "Récupérer la police", check: false},
+        //getWord: {name: "Récupérer la police", check: false},
         getForm: {name: "Récupérer la mise en forme", check: false},
     });
 
@@ -17,7 +17,7 @@ const SwitchCheckbox = () => {
     return (
         <>
             {Object.keys(value).map(key =>
-                <div className="Options">
+                <div className="Options" key={key}>
                     <label htmlFor={key}>{value[key].name}</label>
                     <input
                         name={key}
