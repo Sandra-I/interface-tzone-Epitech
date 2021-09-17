@@ -40,14 +40,34 @@ function addLoadingAnimation(){
     if(!existingLoader){
         let loaderContainer = document.createElement("div")
         loaderContainer.id = "TZone-loader";
-        loaderContainer.style.position = "absolute";
+        loaderContainer.style.position = "fixed";
         loaderContainer.style.top = "0";
         loaderContainer.style.right = "0";
-        let loader = document.createElement("img")
-        loader.setAttribute("src", chrome.runtime.getURL("tzone-loader.svg") );
-        loader.style.width = "100px"
-        loader.style.height = "100px"
-        loaderContainer.appendChild(loader)
+        loaderContainer.style.zIndex = "99999";
+        loaderContainer.style.backgroundColor = "#404040";
+        loaderContainer.style.color = "white";
+        loaderContainer.style.borderRadius = "20px";
+        loaderContainer.style.fontWeight = "700";
+        loaderContainer.style.margin = "5px";
+        loaderContainer.style.padding = "10px";
+        loaderContainer.style.textAlign = "center";
+        loaderContainer.style.fontSize = "14px";
+        loaderContainer.style.fontFamily = "arial";
+
+        let loadingAnimation = document.createElement("img")
+        loadingAnimation.setAttribute("src", chrome.runtime.getURL("tzone-loader.svg") );
+        loadingAnimation.style.width = "60px"
+        loadingAnimation.style.height = "60px"
+        loadingAnimation.style.display = "block"
+        loaderContainer.appendChild(loadingAnimation)
+        
+        let textLoading = document.createElement("div")
+        textLoading.innerText = "Loading"
+        loaderContainer.appendChild(textLoading)
+
+        let textImage = document.createElement("div")
+        textImage.innerText = "image"
+        loaderContainer.appendChild(textImage)
 
         document.body.appendChild(loaderContainer);
     }

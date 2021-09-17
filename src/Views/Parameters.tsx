@@ -1,6 +1,6 @@
 import * as React from "react";
 import "../App.scss";
-import SwitchCheckbox from "../components/SwitchCheckbox";
+import {SwitchCheckbox} from "../components/SwitchCheckbox";
 import {Link} from "react-router-dom";
 const Parameters = () => {
 
