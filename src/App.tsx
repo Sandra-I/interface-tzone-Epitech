@@ -6,20 +6,20 @@ import {
     Switch,
     Route,
 } from "react-router-dom";
-import History from "./Views/History";
+//import History from "./Views/History";
 
 const App = () => {
     return (
         <Router>
             <div className="App">
-                <div className="App-header">
+                <div className="App-header" id="popup">
                     <Switch>
                         <Route path="/popup.html">
                             <Parameters/>
                         </Route>
-                        <Route path="/history">
+                        {/* <Route path="/history">
                             <History/>
-                        </Route>
+                        </Route> */}
                     </Switch>
                 </div>
             </div>
