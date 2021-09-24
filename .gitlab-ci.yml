@@ -1,3 +1,17 @@
-init:gitlab-ci:
+stages:
+  - build
+  - test
+
+build:
+  stage: build
   script:
-    - echo 'hello gitlab-ci'
+    - echo 'build'
+    - mkdir
+    - touch build/info.txt
+
+test:
+  stage: test
+  script:
+    - echo 'test'
+    - mkdir
+    - test -f 'build/info.txt'
