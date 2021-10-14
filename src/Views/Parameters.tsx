@@ -18,9 +18,9 @@ const Parameters = () => {
                     <span className="short">Ctrl + Shift + I</span>
                 </div>
             </div>
-            <Link to="/history"><button>Historique</button></Link>
+            {/* <Link to="/history"><button>Historique</button></Link>
             <br/>
-            <button>Deconnexion</button>
+            <button>Deconnexion</button> */}
         </>
     );
 };
