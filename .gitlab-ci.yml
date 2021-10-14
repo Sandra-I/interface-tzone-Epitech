@@ -10,6 +10,7 @@ stages:
 
 build:
   stage: build
+  image: node:latest
   script:
     - echo 'Hello, $GITLAB_USER_LOGIN!'
     - echo 'Commit branch, $CI_COMMIT_BRANCH'
