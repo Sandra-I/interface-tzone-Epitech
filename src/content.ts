@@ -7,6 +7,7 @@ import Selector from "./components/selector"
 import { DataMessage } from "./models/DataMessage";
 import { Selection } from "./models/Selection";
 import Swal from "sweetalert2"
+import Popup from "./components/popup";
 const selector = new Selector();
 
 let isCurrentlySelection = false;
@@ -30,6 +31,10 @@ chrome.runtime.onMessage.addListener( async(dataMsg: DataMessage<null | Error>, 
         }else if(dataMsg.msg == "api-error"){
             removeLoadingAnimation()
             Swal.fire({"icon": "error", title:"API Error", text: "Impossible de convertire en text la capture : "+dataMsg.data?.message})
+        }else if(dataMsg.msg === "show-preview"){
+            showPreview(dataMsg.data)
+        }else if(dataMsg.msg === "api-success"){
+            removeLoadingAnimation();
         }
     }
 
@@ -76,4 +81,17 @@ function addLoadingAnimation(){
 function removeLoadingAnimation(){
     const existingLoader = document.getElementById("TZone-loader")
     if(existingLoader) existingLoader.remove();
+}
+
+function showPreview(data: any){
+    const htlm = ``+
+    `<div style="width: 320px;margin: 5px;">`+
+        `<h2>Résultat</h2><br>`+
+        `<b>Text original :</b><br>`+
+        `<textarea style="resize: none;" cols="40" rows="5" readonly>`+
+            `${data.text}`+
+        `</textarea>`+
+    `</div>`;
+    const popup = new Popup("tzon-preview",htlm, { timeout: 2, fadeTime: 3} )
+    popup.show();
 }

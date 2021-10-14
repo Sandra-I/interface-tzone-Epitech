@@ -1,7 +1,7 @@
 {
   "name": "T-Zone",
   "description": "Fait avec amour",
-  "permissions": ["activeTab", "declarativeContent", "storage", "clipboardWrite", "tabCapture", "accessibilityFeatures.read"],
+  "permissions": ["activeTab", "declarativeContent", "storage", "clipboardWrite", "tabCapture", "accessibilityFeatures.read", "notifications"],
   "manifest_version": 2,
   "version": "1.0.0",
   "icons": {
