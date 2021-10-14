@@ -92,6 +92,8 @@ function showPreview(data: any){
             `${data.text}`+
         `</textarea>`+
     `</div>`;
+    const existingElement = document.getElementById("tzon-preview");
+    if(existingElement) existingElement.remove();
     const popup = new Popup("tzon-preview",htlm, { timeout: 2, fadeTime: 3} )
     popup.show();
 }

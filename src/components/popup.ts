@@ -71,7 +71,7 @@ export default class Popup {
                 setTimeout( ()=>{this.popupContent.style.opacity = "0";}, 10);
                 setTimeout( ()=>{
                     existingElement.remove();
-                }, this.options.fadeTime)
+                }, this.options.fadeTime * 1000)
             }else
                 existingElement.remove();
         }
