@@ -30,22 +30,12 @@
     }
 }
 
-.Options {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
 .Params > * {
     padding: 0 0 2% 5%;
-}
-
-.shortCut {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
 }
-
 .short {
     border: dashed 1px;
     padding: 5px;

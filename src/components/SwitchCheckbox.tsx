@@ -38,7 +38,7 @@ export class SwitchCheckbox extends React.Component {
         return (
             <>
                 { Array.from(value.keys()).map((key: any) =>
-                    <div key={key} className="Options">
+                    <div key={key}>
                         <label htmlFor={key}>{value.get(key).name}</label>
                         <input
                             name={key}
