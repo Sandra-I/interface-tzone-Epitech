@@ -5,13 +5,12 @@ export default function Result(params: {text: string, translatedText: string, tr
     return (
         <>
             <h3>Résultat</h3>
-            <div>
-                
-                <div className="shortCut">
+            <div>                
+                <div>
                     <span>Texte Original:</span>
                     <span className="short">{params.text}</span>
                 </div>
-                <div className="shortCut">
+                <div>
                     <span>Texte Traduit({params.translatLanguage}):</span>
                     <span className="short">{params.text}</span>
                 </div>
