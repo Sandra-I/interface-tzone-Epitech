@@ -17,7 +17,7 @@ const SwitchCheckbox = () => {
     return (
         <>
             {Object.keys(value).map(key =>
-                <div className="Options">
+                <div>
                     <label htmlFor={key}>{value[key].name}</label>
                     <input
                         name={key}
