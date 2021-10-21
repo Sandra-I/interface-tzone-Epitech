@@ -1,7 +1,7 @@
 {
   "name": "T-Zone",
   "description": "Fait avec amour",
-  "permissions": ["activeTab", "declarativeContent", "storage", "clipboardWrite", "tabCapture", "accessibilityFeatures.read"],
+  "permissions": ["activeTab", "declarativeContent", "storage", "clipboardWrite", "tabCapture", "accessibilityFeatures.read", "notifications"],
   "manifest_version": 2,
   "version": "1.0.0",
   "icons": {
@@ -9,6 +9,7 @@
     "48": "icon48.png",
     "128": "iconWhite128.png"
   },
+  "web_accessible_resources": ["tzone-loader.svg"],
   "browser_action": {
     "default_icon": {
       "16": "iconWhite16.png",

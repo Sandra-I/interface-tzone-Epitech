@@ -26,12 +26,17 @@ let options: {
 //Load config
 const savedConf = localStorage.getItem("options")
 if (savedConf) options = JSON.parse(savedConf);
-
+chrome.commands.getAll( (cmd)=>{
+    console.log("Commands:",cmd)
+    const takeScreenshot = cmd.findIndex( c=>{
+        return c.name == "take-screenshot"
+    });
+    if(takeScreenshot) cmd[takeScreenshot].shortcut = "Alt+w";
+})
 //Listen command keys
 chrome.commands.onCommand.addListener(async (command: string) => {
     //Get active tab
     chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
-        //TODO Verify if it's possible to have multiple active tabs
         let tab = tabs[0];
         if (tab && tab.id) {
             if (command == "take-screenshot") {
@@ -57,15 +62,25 @@ chrome.runtime.onMessage.addListener((msg: DataMessage<Selection | NotificationO
             //Crop the image according to the selection
             const croppedImageData = await ImageCropper.cropImage(responce, msg.data as Selection);
             if (croppedImageData) {
-                //TODO api url and stuff with result
-                const apiResult = await API.getTextFromImage(croppedImageData);
-                copyText(apiResult.data.text);
+                console.log(croppedImageData)
+                API.getTextFromImage(croppedImageData).then( (result)=>{
+                    copyText(result.data.text);
+                    if (sender.tab && sender.tab.id) {
+                        chrome.tabs.sendMessage(sender.tab.id, {msg: "api-success", tabId: sender.tab.id});
+                        if(options.preview || true){
+                            chrome.tabs.sendMessage(sender.tab.id, {msg: "show-preview", tabId: sender.tab.id, data: result.data});
+                        }
+                    }
+                }).catch( err=>{
+                    console.error(err)
+                    if(sender.tab && sender.tab.id)
+                        chrome.tabs.sendMessage(sender.tab.id, {msg: "api-error", data: err, tabId: sender.tab.id});
+                });
             }
 
         });
 
-    }
-    if (msg.msg === 'notification') {
+    }else if (msg.msg === 'notification') {
         chrome.notifications.create('', msg.data as NotificationOptions);
         response(true)
     }

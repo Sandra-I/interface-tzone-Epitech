@@ -33,12 +33,12 @@
     "@babel/preset-env": "^7.14.2",
     "@babel/preset-react": "^7.12.1",
     "@babel/preset-typescript": "^7.13.0",
+    "@hot-loader/react-dom": "^16.14.0",
     "@testing-library/jest-dom": "^5.14.1",
-    "@types/expect": "^24.3.0",
-    "@hot-loader/react-dom": "^17.0.0-rc.2",
     "@testing-library/react": "^12.0.0",
     "@types/chrome": "0.0.125",
     "@types/dom-to-image": "^2.6.2",
+    "@types/expect": "^24.3.0",
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
     "babel-jest": "^27.0.1",
@@ -61,17 +61,18 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
-    "axios": "^0.21.1",
-    "react-dom": "^16.14.0",
-    "react-hot-loader": "^4.13.0",
-    "rxjs": "^7.1.0",
     "@types/react-router-dom": "^5.1.7",
+    "axios": "^0.21.1",
     "core-js": "^3.15.2",
     "dom-to-image": "^2.6.0",
     "html2canvas": "^1.0.0-rc.7",
     "jest": "^27.0.6",
     "react": "^16.14.0",
-    "react-router-dom": "^5.2.0"
+    "react-dom": "^16.14.0",
+    "react-hot-loader": "^4.13.0",
+    "react-router-dom": "^5.2.0",
+    "rxjs": "^7.1.0",
+    "sweetalert2": "^11.1.4"
   },
   "jest": {
     "testEnvironmentOptions": {
