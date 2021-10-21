@@ -1,4 +1,4 @@
-import ImageCropper from "../components/imageCropper";
+import ImageCropper from "../components/ImageCropper";
 import { Selection } from "../models/Selection";
 import 'jest-canvas-mock';
 const imgUrl = "data:image/png;";
