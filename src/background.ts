@@ -1,6 +1,6 @@
 //Use to tell to get chrome if it 
 /// <reference types="chrome"/>
-import ImageCropper from "./components/imageCropper";
+import ImageCropper from "./components/ImageCropper";
 import {DataMessage} from "./models/DataMessage";
 import {Selection} from "./models/Selection";
 import API from "./components/api";
