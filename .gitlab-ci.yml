@@ -6,6 +6,7 @@ cache:
 
 stages:
   - build
+  - lint
   - test
 
 build:
@@ -23,6 +24,12 @@ build:
   # artifacts:
   #     paths:
   #       - dist/
+
+lint:
+  stage: lint
+  script:
+    - echo 'Linting time'
+    - npm run lint
 
 test:
   stage: test
