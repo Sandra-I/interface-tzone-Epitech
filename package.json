@@ -6,7 +6,8 @@
     "test": "npx jest --colors",
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
-    "start": "webpack --watch --mode development"
+    "start": "webpack --watch --mode development",
+    "lint": "eslint src/**/*.ts src/**/*.tsx"
   },
   "repository": {
     "type": "git",
