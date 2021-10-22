@@ -27,6 +27,7 @@ build:
 
 lint:
   stage: lint
+  image: node:latest
   script:
     - echo 'Linting time'
     - npm run lint
