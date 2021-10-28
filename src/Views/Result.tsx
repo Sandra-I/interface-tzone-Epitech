@@ -1,12 +1,11 @@
-import * as React from "react";
+import * as React from 'react';
 
 export default function Result(params: {text: string, translatedText: string, translatLanguage: string}) {
-
-    return (
+  return (
         <>
             <h3>Résultat</h3>
             <div>
-                
+
                 <div className="shortCut">
                     <span>Texte Original:</span>
                     <span className="short">{params.text}</span>
@@ -16,7 +15,7 @@ export default function Result(params: {text: string, translatedText: string, tr
                     <span className="short">{params.text}</span>
                 </div>
             </div>
-        
+
         </>
-    );
+  );
 }

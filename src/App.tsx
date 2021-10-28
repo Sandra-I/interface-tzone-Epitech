@@ -1,15 +1,15 @@
-import * as React from "react";
-import Parameters from "./Views/Parameters";
-import "./App.scss"
+import * as React from 'react';
+import Parameters from './Views/Parameters';
+import './App.scss';
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-} from "react-router-dom";
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from 'react-router-dom';
 // import History from "./Views/History";
 
 const App = () => {
-    return (
+  return (
         <Router>
             <div className="App">
                 <div className="App-header">
@@ -24,7 +24,7 @@ const App = () => {
                 </div>
             </div>
         </Router>
-    );
+  );
 };
 
 export default App;

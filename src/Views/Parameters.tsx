@@ -1,10 +1,10 @@
-import * as React from "react";
-import "../App.scss";
-import {SwitchCheckbox} from "../components/SwitchCheckbox";
-import {Link} from "react-router-dom";
-const Parameters = () => {
+import * as React from 'react';
+import '../App.scss';
+import { SwitchCheckbox } from '../components/SwitchCheckbox';
+import { Link } from 'react-router-dom';
 
-    return (
+const Parameters = () => {
+  return (
         <>
             <h3>Paramètres</h3>
             <div className="Params">
@@ -22,6 +22,6 @@ const Parameters = () => {
             <br/>
             <button>Deconnexion</button> */}
         </>
-    );
+  );
 };
 export default Parameters;

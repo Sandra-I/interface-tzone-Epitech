@@ -1,8 +1,8 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
-import App from "./App";
-import "./popup.scss";
+import App from './App';
+import './popup.scss';
 
-var mountNode = document.getElementById("popup");
+var mountNode = document.getElementById('popup');
 ReactDOM.render(<App />, mountNode);
