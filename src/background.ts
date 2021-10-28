@@ -62,8 +62,8 @@ chrome.runtime.onMessage.addListener((msg: DataMessage<Selection | NotificationO
             //Crop the image according to the selection
             const croppedImageData = await ImageCropper.cropImage(responce, msg.data as Selection);
             if (croppedImageData) {
-                console.log(croppedImageData)
-                API.getTextFromImage(croppedImageData).then( (result)=>{
+                const translate = localStorage.getItem("translate");
+                API.getTextFromImage(croppedImageData, translate).then( (result)=>{
                     copyText(result.data.text);
                     if (sender.tab && sender.tab.id) {
                         chrome.tabs.sendMessage(sender.tab.id, {msg: "api-success", tabId: sender.tab.id});

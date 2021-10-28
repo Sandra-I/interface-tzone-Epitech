@@ -1,7 +1,5 @@
 .react-switch-checkbox {
-    height: 0;
-    width: 0;
-    visibility: hidden;
+    display: none;
     &:checked {
         + {
             .react-switch-label {
@@ -14,7 +12,6 @@
     }
 }
 .react-switch-label {
-    display: table;
     cursor: pointer;
     width: 30px;
     height: 15px;
@@ -22,7 +19,6 @@
     border-radius: 100px;
     position: relative;
     transition: background-color .2s;
-    margin-right: 15%;
     .react-switch-button {
         content: '';
         position: absolute;
