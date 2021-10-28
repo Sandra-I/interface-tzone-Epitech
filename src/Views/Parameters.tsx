@@ -1,6 +1,7 @@
 import * as React from "react";
 import "../App.scss";
 import {SwitchCheckbox} from "../components/SwitchCheckbox";
+import Translate from "../components/Translate";
 import {Link} from "react-router-dom";
 const Parameters = () => {
 
@@ -9,6 +10,7 @@ const Parameters = () => {
             <h3>Paramètres</h3>
             <div className="Params">
                 <SwitchCheckbox/>
+                <Translate/>
                 <div className="shortCut">
                     <span>Raccourci clavier avec option</span>
                     <span className="short">Ctrl + Shift + K</span>
