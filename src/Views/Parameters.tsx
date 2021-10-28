@@ -11,11 +11,11 @@ const Parameters = () => {
             <div className="Params">
                 <SwitchCheckbox/>
                 <Translate/>
-                <div className="shortCut">
+                <div>
                     <span>Raccourci clavier avec option</span>
                     <span className="short">Ctrl + Shift + K</span>
                 </div>
-                <div className="shortCut">
+                <div>
                     <span>Raccourci clavier sans option</span>
                     <span className="short">Ctrl + Shift + I</span>
                 </div>
