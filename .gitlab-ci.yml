@@ -37,4 +37,4 @@ test:
   stage: test
   script:
     - echo 'test'
-    - test -f 'build/info.txt'
+    - test -f 'dist/hello.tkt'
