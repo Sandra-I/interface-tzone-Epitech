@@ -5,7 +5,7 @@ const History = () => {
 
     return (
         <>
-            <h3>Historique</h3>
+            <h3 className="tz-title">Historique</h3>
             <Link to="/popup.html"><button>Retour</button></Link>
         </>
     );

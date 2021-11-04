@@ -8,6 +8,7 @@ import { DataMessage } from "./models/DataMessage";
 import { Selection } from "./models/Selection";
 import Swal from "sweetalert2"
 import Popup from "./components/popup";
+import "./App.scss"
 const selector = new Selector();
 
 let isCurrentlySelection = false;
@@ -84,11 +85,11 @@ function removeLoadingAnimation(){
 }
 
 function showPreview(data: any){
-    const htlm = ``+
+    const htlm = 
     `<div style="width: 320px;margin: 5px;">`+
-        `<h2>Résultat</h2><br>`+
+        `<h2 class="tz-title">Résultat</h2><br>`+
         `<b>Text original :</b><br>`+
-        `<textarea style="resize: none;" cols="40" rows="5" readonly>`+
+        `<textarea style="resize: none;overflow: auto;width: 320px;" cols="40" rows="5" class="tz-result-text" readonly>`+
             `${data.text}`+
         `</textarea>`+
     `</div>`;

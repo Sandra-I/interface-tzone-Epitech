@@ -16,6 +16,7 @@ export default class Popup {
         const existingElement = document.getElementById(id)
         if(existingElement) throw new Error("Can't create the popup, id already exist !")
         this.popupContent.id = id;
+        this.popupContent.className = "tz-normal-text"
         this.popupContent.style.opacity = "1";
         this.popupContent.style.position = "fixed";
         this.popupContent.style.top = "0";
@@ -47,10 +48,6 @@ export default class Popup {
                 })
                 this.popupContent.appendChild(buttons);
             }
-            if(options.timeout)
-                setTimeout( ()=>{
-                    this.hide();
-                }, options.timeout * 1000)
         }
     }
 
@@ -60,6 +57,10 @@ export default class Popup {
             console.log("Show popup")
             document.body.appendChild(this.popupContent);
         }
+        if(this.options && this.options.timeout)
+            setTimeout( ()=>{
+                this.hide();
+            }, this.options.timeout * 1000)
     }
 
     hide(){

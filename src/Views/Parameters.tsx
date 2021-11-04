@@ -2,13 +2,13 @@ import * as React from "react";
 import "../App.scss";
 import {SwitchCheckbox} from "../components/SwitchCheckbox";
 import Translate from "../components/Translate";
-import {Link} from "react-router-dom";
+
 const Parameters = () => {
 
     return (
         <>
-            <h3>Paramètres</h3>
-            <div className="Params">
+            <h3 className="tz-title">Paramètres</h3>
+            <div className="Params tz-small-text">
                 <SwitchCheckbox/>
                 <Translate/>
                 <div>

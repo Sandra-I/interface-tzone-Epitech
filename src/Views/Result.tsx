@@ -4,8 +4,8 @@ export default function Result(params: {text: string, translatedText: string, tr
 
     return (
         <>
-            <h3>Résultat</h3>
-            <div>                
+            <h3 className="tz-title">Résultat</h3>
+            <div className="tz-small-text">                
                 <div>
                     <span>Texte Original:</span>
                     <span className="short">{params.text}</span>
