@@ -4,6 +4,7 @@ import ImageCropper from "./components/ImageCropper";
 import {DataMessage} from "./models/DataMessage";
 import {Selection} from "./models/Selection";
 import API from "./components/api";
+import { Options } from "./models/options"
 
 console.log("Run tests")
 export * from "./tests/check-result"
@@ -11,12 +12,7 @@ export * from "./tests/check-result"
 console.log("Init TZone")
 
 //Default config
-let options: {
-    preview: boolean,
-    retrivePolice: boolean,
-    retriveFormat: boolean,
-    translate: string | null
-} = {
+let options: Options = {
     preview: false,
     retrivePolice: false,
     retriveFormat: false,
@@ -26,13 +22,7 @@ let options: {
 //Load config
 const savedConf = localStorage.getItem("options")
 if (savedConf) options = JSON.parse(savedConf);
-chrome.commands.getAll( (cmd)=>{
-    console.log("Commands:",cmd)
-    const takeScreenshot = cmd.findIndex( c=>{
-        return c.name == "take-screenshot"
-    });
-    if(takeScreenshot) cmd[takeScreenshot].shortcut = "Alt+w";
-})
+
 //Listen command keys
 chrome.commands.onCommand.addListener(async (command: string) => {
     //Get active tab
@@ -42,7 +32,7 @@ chrome.commands.onCommand.addListener(async (command: string) => {
             if (command == "take-screenshot") {
                 //Tell the page script ta make a screenshot
                 chrome.tabs.sendMessage(tab.id, {msg: "screenshot-selection", tabId: tab.id});
-            } else if (command == "screenshot-selection-with-options") {
+            } else if (command == "take-screenshot-with-options") {
                 //TODO
                 console.log("take screenshot with options")
             }
@@ -63,19 +53,42 @@ chrome.runtime.onMessage.addListener((msg: DataMessage<Selection | NotificationO
             const croppedImageData = await ImageCropper.cropImage(responce, msg.data as Selection);
             if (croppedImageData) {
                 const translate = localStorage.getItem("translate");
-                API.getTextFromImage(croppedImageData, translate).then( (result)=>{
-                    copyText(result.data.text);
-                    if (sender.tab && sender.tab.id) {
-                        chrome.tabs.sendMessage(sender.tab.id, {msg: "api-success", tabId: sender.tab.id});
-                        if(options.preview || true){
-                            chrome.tabs.sendMessage(sender.tab.id, {msg: "show-preview", tabId: sender.tab.id, data: result.data});
+                if(translate){
+
+                    
+                    API.getTextFromImageWithTraduction(croppedImageData, translate).then( (result)=>{
+                        copyText(result.data.original.text);
+                        if (sender.tab && sender.tab.id) {
+                            chrome.tabs.sendMessage(sender.tab.id, {msg: "api-success", tabId: sender.tab.id});
+                            if(options.preview || true){
+                                //TODO
+                                //chrome.tabs.sendMessage(sender.tab.id, {msg: "show-preview", tabId: sender.tab.id, data: result.data});
+                            }
                         }
-                    }
-                }).catch( err=>{
-                    console.error(err)
-                    if(sender.tab && sender.tab.id)
-                        chrome.tabs.sendMessage(sender.tab.id, {msg: "api-error", data: err, tabId: sender.tab.id});
-                });
+                    }).catch( err=>{
+                        console.error(err)
+                        if(sender.tab && sender.tab.id)
+                            chrome.tabs.sendMessage(sender.tab.id, {msg: "api-error", data: err, tabId: sender.tab.id});
+                    });
+
+                }else{
+
+                    
+                    API.getTextFromImage(croppedImageData).then( (result)=>{
+                        copyText(result.data.text);
+                        if (sender.tab && sender.tab.id) {
+                            chrome.tabs.sendMessage(sender.tab.id, {msg: "api-success", tabId: sender.tab.id});
+                            if(options.preview || true){
+                                chrome.tabs.sendMessage(sender.tab.id, {msg: "show-preview", tabId: sender.tab.id, data: result.data});
+                            }
+                        }
+                    }).catch( err=>{
+                        console.error(err)
+                        if(sender.tab && sender.tab.id)
+                            chrome.tabs.sendMessage(sender.tab.id, {msg: "api-error", data: err, tabId: sender.tab.id});
+                    });
+
+                }
             }
 
         });

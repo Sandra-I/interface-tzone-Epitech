@@ -15,7 +15,8 @@ export class SwitchCheckbox extends React.Component {
         super(props)
         this.state = this.options;
         this.handleChange = this.handleChange.bind(this);
-        chrome.storage.local.get("checkOptions",(result)=>{
+        
+        chrome.storage.local.get("options",(result)=>{
             if(result.checkOptions && this.options.checkOptions.size == result.checkOptions.length ){
                 this.setState({ checkOptions: new Map(result.checkOptions)})
             }
@@ -29,7 +30,7 @@ export class SwitchCheckbox extends React.Component {
         newValue.set(id, {name: changeField.name, check: e.target.checked});
         this.setState({checkOptions: newValue});
         //Transforming the map into array is require, otherwise it will be empty for most data storage/manipulation
-        chrome.storage.local.set({'checkOptions': Array.from(newValue.entries()) })
+        chrome.storage.local.set({'options': Array.from(newValue.entries()) })
     }
 
     render(){
