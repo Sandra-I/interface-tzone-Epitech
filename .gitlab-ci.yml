@@ -37,4 +37,5 @@ test:
   stage: test
   script:
     - echo 'test'
+    - npm install
     - npm run test
