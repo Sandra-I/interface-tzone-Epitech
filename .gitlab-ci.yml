@@ -17,12 +17,14 @@ build:
     - echo 'Hello, $GITLAB_USER_LOGIN!'
     - echo 'Commit branch, $CI_COMMIT_BRANCH'
     - echo 'build'
+    - mkdir dist
+    - touch dist/hello.tkt
     - npm install
     - npm run build
 
-  # artifacts:
-  #     paths:
-  #       - dist/
+  artifacts:
+    paths:
+      - dist/
 
 # lint:
 #   stage: lint
@@ -35,5 +37,4 @@ test:
   stage: test
   script:
     - echo 'test'
-    # - mkdir
-    # - test -f 'build/info.txt'
+    - test -f 'build/info.txt'
