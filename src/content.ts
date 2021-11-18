@@ -4,38 +4,49 @@
 // This file is injected as a content script
 console.log("Hello from content script!")
 import Selector from "./components/selector"
-import { DataMessage } from "./models/DataMessage";
+import { DataMessage, MessageType } from "./models/DataMessage";
 import { Selection } from "./models/Selection";
 import Swal from "sweetalert2"
 import Popup from "./components/popup";
 import "./App.scss"
+import { UnknowMessageError } from "./errors/unknowMessageError";
+import { APIResponce } from "./models/apiResponce";
+import { APIResponceWithTraduction } from "./models/apiResponceWithTraduction";
 const selector = new Selector();
 
 let isCurrentlySelection = false;
 
-chrome.runtime.onMessage.addListener( async(dataMsg: DataMessage<null | Error>, sender, sendResponce) => {
+chrome.runtime.onMessage.addListener( async(dataMsg: DataMessage<any>, sender, sendResponce) => {
     if(isCurrentlySelection){
         console.error("Already selecting an area !")
     }else{
-        if(dataMsg.msg == "screenshot-selection"){
-            isCurrentlySelection = true;
-            const selection = selector.select().subscribe( (rec: Selection)=>{
-                isCurrentlySelection = false
-                selection.unsubscribe();
-                addLoadingAnimation();
-                setTimeout( ()=> chrome.runtime.sendMessage( {msg: "screenshot-selection-result", data: rec, tabId: dataMsg.tabId}), 10);
-            });
-        }else if(dataMsg.msg == "screenshot-selection-with-options"){
-            //TODO
-            console.log("take screenshot with options")
+        switch(dataMsg.msg){
+            case MessageType.SCREENSHOT_SELECTION:
+                isCurrentlySelection = true;
+                const selection = selector.select().subscribe( (rec: Selection)=>{
+                    isCurrentlySelection = false
+                    selection.unsubscribe();
+                    addLoadingAnimation();
+                    setTimeout( ()=> chrome.runtime.sendMessage( {msg: MessageType.SCREENSHOT_SELECTION_RESULT, data: rec, tabId: dataMsg.tabId}), 10);
+                });
+                break;
+            case MessageType.API_ERROR:
+                removeLoadingAnimation();
+                removePopup();
+                Swal.fire({"icon": "error", title:"API Error", text: "Impossible de convertire en text la capture : "+dataMsg.data?.message});
+                break;
+            case MessageType.SHOW_PREVIEW:
+                showPreview(dataMsg.data);
+                break;
+            case MessageType.SHOW_PREVIEW_WITH_TRANSLATION:
+                showPreviewWithTranslation(dataMsg.data);
+                break;
+            case MessageType.API_SUCCESS:
+                removeLoadingAnimation();
+                break;
+            default:
+                throw new UnknowMessageError(`Can't find action for unknow MessageType "${dataMsg.msg}"`)
 
-        }else if(dataMsg.msg == "api-error"){
-            removeLoadingAnimation()
-            Swal.fire({"icon": "error", title:"API Error", text: "Impossible de convertire en text la capture : "+dataMsg.data?.message})
-        }else if(dataMsg.msg === "show-preview"){
-            showPreview(dataMsg.data)
-        }else if(dataMsg.msg === "api-success"){
-            removeLoadingAnimation();
         }
     }
 
@@ -84,17 +95,38 @@ function removeLoadingAnimation(){
     if(existingLoader) existingLoader.remove();
 }
 
-function showPreview(data: any){
+function removePopup(){
+    const existingElement = document.getElementById("tzone-preview");
+    if(existingElement) existingElement.remove();
+}
+
+function showPreview(data: APIResponce){
+    removePopup();
     const htlm = 
     `<div style="width: 320px;margin: 5px;">`+
         `<h2 class="tz-title">Résultat</h2><br>`+
-        `<b>Text original :</b><br>`+
         `<textarea style="resize: none;overflow: auto;width: 320px;" cols="40" rows="5" class="tz-result-text" readonly>`+
             `${data.text}`+
         `</textarea>`+
     `</div>`;
-    const existingElement = document.getElementById("tzon-preview");
-    if(existingElement) existingElement.remove();
-    const popup = new Popup("tzon-preview",htlm, { timeout: 2, fadeTime: 3} )
+    const popup = new Popup("tzone-preview",htlm, { timeout: 2, fadeTime: 3} )
+    popup.show();
+}
+
+function showPreviewWithTranslation(data: APIResponceWithTraduction){
+    removePopup();
+    const htlm = 
+    `<div style="width: 320px;margin: 5px;">`+
+        `<h2 class="tz-title">Résultat</h2><br>`+
+        `<b>Texte original (${data.original.lang}):</b><br>`+
+        `<p style="overflow: auto;width: 320px;" class="tz-result-text">`+
+            `${data.original.text}`+
+        `</p><br><br>`+
+        `<b>Texte traduit (${data.translated.lang}):</b><br>`+
+        `<p style="overflow: auto;width: 320px;" class="tz-result-text">`+
+            `${data.translated.text}`+
+        `</textarea>`+
+    `</div>`;
+    const popup = new Popup("tzone-preview",htlm, { buttons: [{actionType: "exit", name: "Ok"}]} )
     popup.show();
 }

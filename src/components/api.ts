@@ -1,4 +1,6 @@
 import axios from "axios"
+import { APIResponce } from "../models/apiResponce";
+import { APIResponceWithTraduction } from "../models/apiResponceWithTraduction";
 import * as config from "./../../app.config.json"
 export default class API {
 
@@ -7,7 +9,7 @@ export default class API {
      */
     static async getTextFromImage(img: string){
         img = img.split('data:image/png;base64,')[1];
-        return axios.post<{ text: string }>(config.backendurl+"/upload", {img})
+        return axios.post<APIResponce>(config.backendurl+"/upload", {img})
     }
 
     /**
@@ -15,15 +17,6 @@ export default class API {
      */
     static async getTextFromImageWithTraduction(img: string, language: string){
         img = img.split('data:image/png;base64,')[1];
-        return axios.post<{
-            original: {
-                lang: string,
-                text: string
-            },
-            translated: {
-                lang: string,
-                text: string
-            }
-        }>(config.backendurl+"/uploadWithTraduction", {img, language})
+        return axios.post<APIResponceWithTraduction>(config.backendurl+"/uploadWithTraduction", {img, language})
     }
 }

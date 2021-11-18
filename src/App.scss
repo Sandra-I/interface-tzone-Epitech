@@ -1,4 +1,4 @@
-body {
+.tz-body {
     font-family: 'Montserrat';
 }
 
@@ -64,20 +64,20 @@ body {
 
 @font-face {
     font-family: "Roboto Mono";
-    src: url("./assets/fonts/RobotoMono-Regular.ttf") format('truetype');
+    src: url("fonts/RobotoMono-Regular.ttf") format('truetype');
 }
 
 @font-face {
     font-family: "Poppins";
-    src: url("./assets/fonts/Poppins-Medium.ttf") format('truetype');
+    src: url("fonts/Poppins-Medium.ttf") format('truetype');
 }
 
 @font-face {
     font-family: "Source Sans Pro";
-    src: url("./assets/fonts/SourceSansPro-ExtraLight.ttf") format('truetype');
+    src: url("fonts/SourceSansPro-ExtraLight.ttf") format('truetype');
 }
 
 @font-face {
     font-family: "Montserrat";
-    src: url("./assets/fonts/Montserrat-Regular.ttf") format('truetype');
+    src: url("fonts/Montserrat-Regular.ttf") format('truetype');
 }

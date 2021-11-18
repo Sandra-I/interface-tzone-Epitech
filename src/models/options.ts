@@ -1,6 +1,8 @@
 export interface Options {
-    preview: boolean,
-    retrivePolice: boolean,
-    retriveFormat: boolean,
-    translate: string | null
+    checkOptions: {
+        preview: boolean,
+        retrivePolice: boolean,
+        retriveFormat: boolean
+    },
+    translateLanguage: string | null
 }
