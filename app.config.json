@@ -1,3 +1,4 @@
 {
-    "backendurl": "http://sandrai.pythonanywhere.com/" 
+    "backendurl": "http://sandrai.pythonanywhere.com/",
+    "backendurldev": "http://localhost:8080/" 
 }

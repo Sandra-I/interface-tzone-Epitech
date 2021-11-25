@@ -6,7 +6,7 @@ import {
     Switch,
     Route,
 } from "react-router-dom";
-import History from "./Views/History";
+// import History from "./Views/History";
 
 const App = () => {
     return (
@@ -17,9 +17,9 @@ const App = () => {
                         <Route path="/popup.html">
                             <Parameters/>
                         </Route>
-                        <Route path="/history">
+                        {/* <Route path="/history">
                             <History/>
-                        </Route>
+                        </Route> */}
                     </Switch>
                 </div>
             </div>
