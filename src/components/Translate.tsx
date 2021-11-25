@@ -1,48 +1,59 @@
 import * as React from "react";
+import { Options } from "../models/options";
 import OptionsService from "./optionsService"
 
-const langueAvalaible: any = {
-    Aucun: "",
-    France: 'FR',
-    German: 'DE',
-    American: 'EN-US',
-    British: 'EN-GB',
-    Spain: 'ES',
-}
-function handleSubmit(e: any) {
-    OptionsService.getOptions().then( options=>{
-        if(e.target.value === "") options.translateLanguage = null;
-        else options.translateLanguage = e.target.value;
-        OptionsService.updateOptions(options);
-    });
-}
+class Translate extends React.Component {
 
-const Translate = () => {
-    return (
-        <>
-            {
-                new Promise( (res,rej)=> OptionsService.getOptions().then( (options)=>{
-                    let language = options.translateLanguage
-                
-                    console.log("language",language)
-                    if(!language) language = "";
-                    res (
+    langueAvailable: any = {
+        Aucun: "",
+        France: 'FR',
+        German: 'DE',
+        American: 'EN-US',
+        British: 'EN-GB',
+        Spain: 'ES',
+    }
+
+    state: { loading: boolean, options?: Options } = {loading: true};
+
+    _asyncRequest: Promise<void | Options> | null = null;
+
+    componentWillMount() {
+        this._asyncRequest = OptionsService.getOptions().then( options => {
+            this._asyncRequest = null;
+            this.setState({loading: false,options})
+            console.log("request :",options)
+          }
+        );
+    }
+
+    handleSubmit(e: any) {
+        OptionsService.getOptions().then( options=>{
+            if(e.target.value === "") options.translateLanguage = null;
+            else options.translateLanguage = e.target.value;
+            OptionsService.updateOptions(options);
+        });
+    }
+
+    render(){
+        let language = this.state.options?.translateLanguage
+        if(!language) language = "";
+        return (
+            <>
+                {
                             <form>
                                 <label>
                                     Traduire mon texte en :
                                 </label>
-                                <select onChange={handleSubmit} defaultValue={language}>
-                                    {Object.keys(langueAvalaible).map(key =>
-                                        <option key={key} value={langueAvalaible[key]}>{key}</option>
+                                {!this.state.loading?<select onChange={this.handleSubmit} defaultValue={language}>
+                                    {Object.keys(this.langueAvailable).map(key =>
+                                        <option key={key} value={this.langueAvailable[key]}>{key}</option>
                                     )}
-                                </select>
+                                </select>:""}
                             </form>
-                    )
                     
-                }))
-            }
-        </>
-    )
-};
-
+                }
+            </>
+        )
+    };
+}
 export default Translate

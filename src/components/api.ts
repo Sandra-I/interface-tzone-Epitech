@@ -17,6 +17,6 @@ export default class API {
      */
     static async getTextFromImageWithTraduction(img: string, language: string){
         img = img.split('data:image/png;base64,')[1];
-        return axios.post<APIResponceWithTraduction>(config.backendurl+"/uploadWithTraduction", {img, language})
+        return axios.post<APIResponceWithTraduction>(config.backendurl+"/upload-with-translation", {img, language})
     }
 }
