@@ -7,16 +7,7 @@ export class SwitchCheckbox extends React.Component {
     //TODO change default options place to Background.ts
     options = new Map([
             ["preview", {name: "Prévisualisation", check: false}],
-            ["retrivePolice", {name: "Récupérer la police", check: false}],
-            ["retriveFormat", {name: "Récupérer la mise en forme", check: false}],
     ]);
-
-    tt = {
-        preview: false,
-        retrivePolice: false,
-        retriveFormat: false,
-        translateLanguage: null
-    }
 
     state: {checkOptions: Map<string,{name: string, check: boolean}>};
 

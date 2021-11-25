@@ -8,14 +8,9 @@ export default function Result(params: {text: string, translatedText: string, tr
             <div className="tz-small-text">                
                 <div>
                     <span>Texte Original:</span>
-                    <span className="short">{params.text}</span>
-                </div>
-                <div>
-                    <span>Texte Traduit({params.translatLanguage}):</span>
-                    <span className="short">{params.text}</span>
+                    <span>{params.text}</span>
                 </div>
             </div>
-        
         </>
     );
 }

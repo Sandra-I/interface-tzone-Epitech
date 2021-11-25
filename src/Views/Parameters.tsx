@@ -12,12 +12,8 @@ const Parameters = () => {
                 <SwitchCheckbox/>
                 <Translate/>
                 <div>
-                    <span>Raccourci clavier avec option</span>
-                    <span className="short">Ctrl + Shift + K</span>
-                </div>
-                <div>
-                    <span>Raccourci clavier sans option</span>
-                    <span className="short">Ctrl + Shift + I</span>
+                    <span>Raccourci clavier récupération :</span>
+                    <span className="short">ALT + S</span>
                 </div>
             </div>
             {/* <Link to="/history"><button>Historique</button></Link>
