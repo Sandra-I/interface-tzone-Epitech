@@ -89,7 +89,8 @@ chrome.runtime.onMessage.addListener((dataMsg: DataMessage<Selection | Notificat
         chrome.notifications.create('', dataMsg.data as NotificationOptions);
         response(true)
     }else{
-        throw new UnknowMessageError(`Can't find action for unknow MessageType "${dataMsg.msg}"`)
+        if( !Object.keys(MessageType).find( (o)=>o===dataMsg.msg) )
+            throw new UnknowMessageError(`Can't find action for unknow MessageType "${dataMsg.msg}"`)
     }
 })
 

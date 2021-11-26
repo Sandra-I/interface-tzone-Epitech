@@ -104,12 +104,12 @@ function showPreview(data: APIResponce){
     removePopup();
     const htlm = 
     `<div style="width: 320px;margin: 5px;">`+
-        `<h2 class="tz-title">Résultat</h2><br>`+
-        `<textarea style="resize: none;overflow: auto;width: 320px;" cols="40" rows="5" class="tz-result-text" readonly>`+
+        `<h2 class="tz-title">Texte copié</h2><br>`+
+        `<textarea style="resize: none;overflow: auto;width: 320px;background-color: white; color: black;" cols="40" rows="5" class="tz-result-text" readonly>`+
             `${data.text}`+
         `</textarea>`+
     `</div>`;
-    const popup = new Popup("tzone-preview",htlm, { timeout: 2, fadeTime: 3} )
+    const popup = new Popup("tzone-preview",htlm, { timeout: 2, fadeTime: 3 } );
     popup.show();
 }
 

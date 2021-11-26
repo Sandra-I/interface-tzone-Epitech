@@ -16,7 +16,7 @@ export default class Popup {
         const existingElement = document.getElementById(id)
         if(existingElement) throw new Error("Can't create the popup, id already exist !")
         this.popupContent.id = id;
-        this.popupContent.className = "tz-normal-text"
+        this.popupContent.className = "tz-normal-text tz-global"
         this.popupContent.style.opacity = "1";
         this.popupContent.style.position = "fixed";
         this.popupContent.style.top = "0";
@@ -52,6 +52,7 @@ export default class Popup {
     }
 
     show(){
+        console.log("Show")
         const existingElement = document.getElementById(this.id)
         if(!existingElement){
             console.log("Show popup")
@@ -64,6 +65,7 @@ export default class Popup {
     }
 
     hide(){
+        console.log("Hide")
         const existingElement = document.getElementById(this.id)
         if(existingElement){
             console.log("Hide popup")

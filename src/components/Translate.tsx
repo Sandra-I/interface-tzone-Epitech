@@ -21,20 +21,16 @@ class Translate extends React.Component {
         this._asyncRequest = OptionsService.getOptions().then( options => {
             this._asyncRequest = null;
             this.setState({loading: false,options})
-            console.log("request :",options)
           }
         );
     }
 
-    handleSubmit(e: any) {
+    handleSubmit = (e: any) =>  {
+        const target = e.target;
         OptionsService.getOptions().then( options=>{
-            if(e.target.value === "") options.translateLanguage = null;
-            else options.translateLanguage = e.target.value;
+            if(target.value === "") options.translateLanguage = null;
+            else options.translateLanguage = target.value;
             OptionsService.updateOptions(options);
-            console.log("save opt",options)
-            OptionsService.getOptions().then( (opt)=>{
-                console.log("load",opt.translateLanguage)
-            })
         });
     }
 

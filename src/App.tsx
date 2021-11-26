@@ -10,7 +10,7 @@ import {
 
 const App = () => {
     return (
-        <div className="tz-body">
+        <div className="tz-body tz-global">
             <Router>
                 <div className="App">
                     <div className="App-header">

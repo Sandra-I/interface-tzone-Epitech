@@ -17,6 +17,7 @@ export default class OptionsService {
     static init(){
         OptionsService.isBackground=true;
         chrome.runtime.onMessage.addListener((dataMsg: DataMessage<NotificationOptions>, sender, reply) => {
+            console.log("options event",dataMsg)
             if(dataMsg.msg == MessageType.OPTIONS_REQUEST){
                 reply(OptionsService.options)
             }else if(dataMsg.msg == MessageType.OPTIONS_UPDATE){
@@ -45,7 +46,7 @@ export default class OptionsService {
             OptionsService.options = JSON.parse( optionsString );
             localStorage.setItem("options", optionsString);
         }else{
-            chrome.runtime.sendMessage( {msg: MessageType.OPTIONS_REQUEST, data: options, tabId: null})
+            chrome.runtime.sendMessage( {msg: MessageType.OPTIONS_UPDATE, data: options, tabId: null})
         }
     }
 }
