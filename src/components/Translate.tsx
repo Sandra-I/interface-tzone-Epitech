@@ -31,6 +31,10 @@ class Translate extends React.Component {
             if(e.target.value === "") options.translateLanguage = null;
             else options.translateLanguage = e.target.value;
             OptionsService.updateOptions(options);
+            console.log("save opt",options)
+            OptionsService.getOptions().then( (opt)=>{
+                console.log("load",opt.translateLanguage)
+            })
         });
     }
 
