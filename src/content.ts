@@ -36,10 +36,10 @@ chrome.runtime.onMessage.addListener( async(dataMsg: DataMessage<any>, sender, s
                 Swal.fire({"icon": "error", title:"API Error", text: "Impossible de convertire en text la capture : "+dataMsg.data?.message});
                 break;
             case MessageType.SHOW_PREVIEW:
-                showPreview(dataMsg.data);
+                showPopup(dataMsg.data);
                 break;
             case MessageType.SHOW_PREVIEW_WITH_TRANSLATION:
-                showPreviewWithTranslation(dataMsg.data);
+                showPopupWithTranslation(dataMsg.data);
                 break;
             case MessageType.API_SUCCESS:
                 removeLoadingAnimation();
@@ -100,7 +100,7 @@ function removePopup(){
     if(existingElement) existingElement.remove();
 }
 
-function showPreview(data: APIResponce){
+function showPopup(data: APIResponce){
     removePopup();
     const htlm = 
     `<div style="width: 320px;margin: 5px;">`+
@@ -113,7 +113,7 @@ function showPreview(data: APIResponce){
     popup.show();
 }
 
-function showPreviewWithTranslation(data: APIResponceWithTraduction){
+function showPopupWithTranslation(data: APIResponceWithTraduction){
     removePopup();
     const htlm = 
     `<div style="width: 320px;margin: 5px;">`+
