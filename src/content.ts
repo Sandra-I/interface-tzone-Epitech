@@ -45,7 +45,27 @@ chrome.runtime.onMessage.addListener(async (dataMsg: DataMessage<any>, sender, s
                 });
                 break;
             case MessageType.SHOW_PREVIEW:
-                showPopup(dataMsg.data);
+                chrome.storage.local.get('preview', function (result) {
+                    if (result.preview) { //todo: check if is not member premium
+                        showPopup(dataMsg.data, {
+                            buttons: [
+                                {
+                                    name: "Copier",
+                                    actionType: "callback",
+                                    callback: () => copyText(dataMsg.data.text)
+                                },
+                                {
+                                    name: "Fermer",
+                                    actionType: "exit",
+                                }
+                            ]
+                        });
+                    } else {
+                        showPopup(dataMsg.data, {
+                            timeout: 2, fadeTime: 3
+                        });
+                    }
+                });
                 break;
             case MessageType.SHOW_PREVIEW_WITH_TRANSLATION:
                 showPopupWithTranslation(dataMsg.data);
@@ -113,7 +133,7 @@ function removePopup() {
     }
 }
 
-function showPopup(data: APIResponce) {
+function showPopup(data: APIResponce, options?: object) {
     removePopup();
     const htlm =
         `<div style="width: 320px;margin: 5px;">` +
@@ -122,7 +142,7 @@ function showPopup(data: APIResponce) {
         `${data.text}` +
         `</textarea>` +
         `</div>`;
-    const popup = new Popup("tzone-preview", htlm, {timeout: 2, fadeTime: 3});
+    const popup = new Popup("tzone-preview", htlm, options);
     popup.show();
 }
 
@@ -142,4 +162,13 @@ function showPopupWithTranslation(data: APIResponceWithTraduction) {
         `</div>`;
     const popup = new Popup("tzone-preview", htlm, {buttons: [{actionType: "exit", name: "Ok"}]});
     popup.show();
+}
+
+function copyText(text: string): void {
+    const elem = document.createElement('textarea');
+    elem.value = text;
+    document.body.appendChild(elem);
+    elem.select();
+    document.execCommand('copy');
+    document.body.removeChild(elem);
 }
