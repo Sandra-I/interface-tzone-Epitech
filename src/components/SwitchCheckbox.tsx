@@ -1,25 +1,40 @@
 import * as React from "react";
+import { Options } from "../models/options";
 import './SwitchCheckbox.scss'
+import OptionsService from "./optionsService"
 
 export class SwitchCheckbox extends React.Component {
     //TODO change default options place to Background.ts
-    options = {
-        checkOptions: new Map([
-            ["previous", {name: "Prévisualisation", check: false}],
-            ["getWord", {name: "Récupérer la police", check: false}],
-            ["getForm", {name: "Récupérer la mise en forme", check: false}],
-        ])
-    };
+    options = new Map([
+            ["preview", {name: "Prévisualisation", check: false}],
+            ["retrivePolice", {name: "Récupérer la police", check: false}],
+            ["retriveFormat", {name: "Récupérer la mise en forme", check: false}],
+    ]);
+
+    tt = {
+        preview: false,
+        retrivePolice: false,
+        retriveFormat: false,
+        translateLanguage: null
+    }
+
+    state: {checkOptions: Map<string,{name: string, check: boolean}>};
 
     constructor(props: any){
         super(props)
-        this.state = this.options;
+        
+        this.state = {checkOptions: this.options };
+
+        let optionsString = localStorage.getItem("options");
+        if(optionsString){
+            let options = JSON.parse(optionsString);
+            Array.from(this.options.keys()).forEach( key=>{
+                const value: any = this.options.get(key);
+                this.options.set(key, {name: value.name, check: options.checkOptions[key]})
+            });
+        }
         this.handleChange = this.handleChange.bind(this);
-        chrome.storage.local.get("checkOptions",(result)=>{
-            if(result.checkOptions && this.options.checkOptions.size == result.checkOptions.length ){
-                this.setState({ checkOptions: new Map(result.checkOptions)})
-            }
-        })
+        this.setState( {checkOptions: this.options } );
     }
 
     private handleChange(e: any, state: any) {
@@ -28,13 +43,24 @@ export class SwitchCheckbox extends React.Component {
         const changeField = newValue.get(id);
         newValue.set(id, {name: changeField.name, check: e.target.checked});
         this.setState({checkOptions: newValue});
+
+        this.setOption(newValue);
         //Transforming the map into array is require, otherwise it will be empty for most data storage/manipulation
-        chrome.storage.local.set({'checkOptions': Array.from(newValue.entries()) })
+    }
+
+    setOption(optionsMap: Map<string,any>){
+        OptionsService.getOptions().then( options=>{
+            let checkOptions: any = {};
+            Array.from(optionsMap.keys()).forEach( (key)=>{
+                checkOptions[key] = optionsMap.get(key).check;
+            })
+            options.checkOptions = checkOptions;
+            OptionsService.updateOptions(options);
+        });
     }
 
     render(){
-        let value: any = this.state
-        value = value.checkOptions
+        let value: any = this.state.checkOptions
         return (
             <>
                 { Array.from(value.keys()).map((key: any) =>

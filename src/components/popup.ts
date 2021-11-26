@@ -16,13 +16,14 @@ export default class Popup {
         const existingElement = document.getElementById(id)
         if(existingElement) throw new Error("Can't create the popup, id already exist !")
         this.popupContent.id = id;
+        this.popupContent.className = "tz-normal-text tz-global"
         this.popupContent.style.opacity = "1";
         this.popupContent.style.position = "fixed";
         this.popupContent.style.top = "0";
         this.popupContent.style.right = "0";
         this.popupContent.style.zIndex = "99999";
         this.popupContent.style.backgroundColor = "#FFFFFF";
-        this.popupContent.style.color = "white";
+        this.popupContent.style.color = "black";
         this.popupContent.style.borderRadius = "20px";
         this.popupContent.style.fontWeight = "700";
         this.popupContent.style.margin = "5px";
@@ -47,22 +48,24 @@ export default class Popup {
                 })
                 this.popupContent.appendChild(buttons);
             }
-            if(options.timeout)
-                setTimeout( ()=>{
-                    this.hide();
-                }, options.timeout * 1000)
         }
     }
 
     show(){
+        console.log("Show")
         const existingElement = document.getElementById(this.id)
         if(!existingElement){
             console.log("Show popup")
             document.body.appendChild(this.popupContent);
         }
+        if(this.options && this.options.timeout)
+            setTimeout( ()=>{
+                this.hide();
+            }, this.options.timeout * 1000)
     }
 
     hide(){
+        console.log("Hide")
         const existingElement = document.getElementById(this.id)
         if(existingElement){
             console.log("Hide popup")
