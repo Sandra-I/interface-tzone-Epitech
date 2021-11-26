@@ -2,7 +2,7 @@
 /// <reference types="chrome"/>
 
 // This file is injected as a content script
-console.log("Hello from content script!")
+console.log("Hello from content script!");
 import Selector from "./components/selector"
 import {DataMessage, MessageType} from "./models/DataMessage";
 import {Selection} from "./models/Selection";
@@ -25,7 +25,7 @@ chrome.runtime.onMessage.addListener(async (dataMsg: DataMessage<any>, sender, s
             case MessageType.SCREENSHOT_SELECTION:
                 isCurrentlySelection = true;
                 const selection = selector.select().subscribe((rec: Selection) => {
-                    isCurrentlySelection = false
+                    isCurrentlySelection = false;
                     selection.unsubscribe();
                     addLoadingAnimation();
                     setTimeout(() => chrome.runtime.sendMessage({
@@ -62,9 +62,9 @@ chrome.runtime.onMessage.addListener(async (dataMsg: DataMessage<any>, sender, s
 });
 
 function addLoadingAnimation() {
-    const existingLoader = document.getElementById("TZone-loader")
+    const existingLoader = document.getElementById("TZone-loader");
     if (!existingLoader) {
-        let loaderContainer = document.createElement("div")
+        let loaderContainer = document.createElement("div");
         loaderContainer.id = "TZone-loader";
         loaderContainer.style.position = "fixed";
         loaderContainer.style.top = "0";
@@ -80,33 +80,37 @@ function addLoadingAnimation() {
         loaderContainer.style.fontSize = "14px";
         loaderContainer.style.fontFamily = "arial";
 
-        let loadingAnimation = document.createElement("img")
+        let loadingAnimation = document.createElement("img");
         loadingAnimation.setAttribute("src", chrome.runtime.getURL("tzone-loader.svg"));
-        loadingAnimation.style.width = "60px"
-        loadingAnimation.style.height = "60px"
-        loadingAnimation.style.display = "block"
-        loaderContainer.appendChild(loadingAnimation)
+        loadingAnimation.style.width = "60px";
+        loadingAnimation.style.height = "60px";
+        loadingAnimation.style.display = "block";
+        loaderContainer.appendChild(loadingAnimation);
 
-        let textLoading = document.createElement("div")
-        textLoading.innerText = "Loading"
-        loaderContainer.appendChild(textLoading)
+        let textLoading = document.createElement("div");
+        textLoading.innerText = "Loading";
+        loaderContainer.appendChild(textLoading);
 
-        let textImage = document.createElement("div")
-        textImage.innerText = "image"
-        loaderContainer.appendChild(textImage)
+        let textImage = document.createElement("div");
+        textImage.innerText = "image";
+        loaderContainer.appendChild(textImage);
 
         document.body.appendChild(loaderContainer);
     }
 }
 
 function removeLoadingAnimation() {
-    const existingLoader = document.getElementById("TZone-loader")
-    if (existingLoader) existingLoader.remove();
+    const existingLoader = document.getElementById("TZone-loader");
+    if (existingLoader) {
+        existingLoader.remove();
+    }
 }
 
 function removePopup() {
     const existingElement = document.getElementById("tzone-preview");
-    if (existingElement) existingElement.remove();
+    if (existingElement) {
+        existingElement.remove();
+    }
 }
 
 function showPopup(data: APIResponce) {
@@ -136,6 +140,6 @@ function showPopupWithTranslation(data: APIResponceWithTraduction) {
         `${data.translated.text}` +
         `</textarea>` +
         `</div>`;
-    const popup = new Popup("tzone-preview", htlm, {buttons: [{actionType: "exit", name: "Ok"}]})
+    const popup = new Popup("tzone-preview", htlm, {buttons: [{actionType: "exit", name: "Ok"}]});
     popup.show();
 }
