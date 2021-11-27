@@ -1,4 +1,4 @@
 {
-    "backendurl": "http://sandrai.pythonanywhere.com/",
-    "backendurldev": "http://localhost:8080/" 
+    "backendurl": "https://tzone.yamikamisama.fr",
+    "backendurldev": "https://tzone.yamikamisama.fr/dev" 
 }
