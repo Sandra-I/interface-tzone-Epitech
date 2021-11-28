@@ -7,15 +7,13 @@ cache:
 
 stages:
   - build
-  # - lint
-  - test
+  - lint
+  # - test
 
 build:
   stage: build
   image: node:latest
   script:
-    - echo 'Hello, $GITLAB_USER_LOGIN!'
-    - echo 'Commit branch, $CI_COMMIT_BRANCH'
     - echo 'build'
     - npm install
     - npm run build
@@ -26,16 +24,16 @@ build:
     # expire_in: 1 week
     # default value 30 days
 
-# lint:
-#   stage: lint
-#   image: node:latest
-#   script:
-#     - echo 'Linting time'
-#     - npm run lint
-
-test:
-  stage: test
+lint:
+  stage: lint
+  image: node:latest
   script:
-    - echo 'test'
-    - npm install
-    - npm run test
+    - echo 'Linting time'
+    - npm run lint
+
+# test:
+#   stage: test
+#   script:
+#     - echo 'test'
+#     - npm install
+#     - npm run test
