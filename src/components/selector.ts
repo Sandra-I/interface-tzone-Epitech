@@ -91,6 +91,17 @@ export default class Selector {
         return this.selection;
     }
 
+    /**
+     * Normalize position to be window position and not page position
+     * @param selection Selection
+     * @returns Selection
+     */
+    private normalizeSelection(selection:Selection): Selection {
+        selection.x = selection.x - window.pageXOffset;
+        selection.y = selection.y - window.pageYOffset;
+        return selection;
+    }
+
     selectionEnd(evt: MouseEvent) {
         this.coordEnd = { x: evt.pageX, y: evt.pageY };
         this.isSelecting = false;
@@ -100,7 +111,7 @@ export default class Selector {
         document.body.style.userSelect = this.bodySelectStyle;
         //Wait a bit to make time for the selector to be removed from display, to not be on the screenshot
         new Promise((res) => setTimeout(() => res(null), 20))
-        .then(() => this.selection.next(this.rectangle));
+        .then(() => this.selection.next( this.normalizeSelection(this.rectangle) ));
     }
 
     public selectionStart(evt: MouseEvent) {

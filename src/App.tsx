@@ -6,24 +6,26 @@ import {
     Switch,
     Route,
 } from "react-router-dom";
-import History from "./Views/History";
+// import History from "./Views/History";
 
 const App = () => {
     return (
-        <Router>
-            <div className="App">
-                <div className="App-header">
-                    <Switch>
-                        <Route path="/popup.html">
-                            <Parameters/>
-                        </Route>
-                        <Route path="/history">
-                            <History/>
-                        </Route>
-                    </Switch>
+        <div className="tz-body tz-global">
+            <Router>
+                <div className="App">
+                    <div className="App-header">
+                        <Switch>
+                            <Route path="/popup.html">
+                                <Parameters/>
+                            </Route>
+                            {/* <Route path="/history">
+                                <History/>
+                            </Route> */}
+                        </Switch>
+                    </div>
                 </div>
-            </div>
-        </Router>
+            </Router>
+        </div>
     );
 };
 

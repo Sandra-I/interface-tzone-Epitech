@@ -1,3 +1,4 @@
 {
-    "backendurl": "http://localhost:8080" 
+    "backendurl": "https://tzone.yamikamisama.fr",
+    "backendurldev": "https://tzone.yamikamisama.fr/dev" 
 }

@@ -1,26 +1,24 @@
 import * as React from "react";
 import "../App.scss";
-import SwitchCheckbox from "../components/SwitchCheckbox";
-import {Link} from "react-router-dom";
+import {SwitchCheckbox} from "../components/SwitchCheckbox";
+import Translate from "../components/Translate";
+
 const Parameters = () => {
 
     return (
         <>
-            <h3>Paramètres</h3>
-            <div className="Params">
+            <h3 className="tz-title">Paramètres</h3>
+            <div className="Params tz-small-text">
                 <SwitchCheckbox/>
-                <div className="shortCut">
-                    <span>Raccourci clavier avec option</span>
-                    <span className="short">Ctrl + Shift + K</span>
-                </div>
-                <div className="shortCut">
-                    <span>Raccourci clavier sans option</span>
-                    <span className="short">Ctrl + Shift + I</span>
+                <Translate/>
+                <div>
+                    <span>Raccourci clavier récupération :</span>
+                    <span className="short">ALT + S</span>
                 </div>
             </div>
-            <Link to="/history"><button>Historique</button></Link>
+            {/* <Link to="/history"><button>Historique</button></Link>
             <br/>
-            <button>Deconnexion</button>
+            <button>Deconnexion</button> */}
         </>
     );
 };

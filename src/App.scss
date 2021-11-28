@@ -1,3 +1,7 @@
+.tz-body {
+    font-family: 'Montserrat';
+}
+
 .App-logo {
     height: 40vmin;
     pointer-events: none;
@@ -30,24 +34,59 @@
     }
 }
 
-.Options {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
 .Params > * {
     padding: 0 0 2% 5%;
-}
-
-.shortCut {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
 }
-
 .short {
     border: dashed 1px;
     padding: 5px;
     width: 35%;
+}
+
+.tz-normal-text {
+    font-family: 'Montserrat';
+}
+
+.tz-title {
+    font-family: 'Poppins';
+}
+
+.tz-small-text {
+    font-family: 'Source Sans Pro';
+}
+
+.tz-result-text {
+    font-family: 'Roboto Mono';
+    background: white !important;
+    color: black !important;
+
+    &::-webkit-scrollbar {
+        background-color: #f1f1f1 !important;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: #c1c1c1 !important;
+    }
+}
+
+@font-face {
+    font-family: "Roboto Mono";
+    src: url("fonts/RobotoMono-Regular.ttf") format('truetype');
+}
+
+@font-face {
+    font-family: "Poppins";
+    src: url("fonts/Poppins-Medium.ttf") format('truetype');
+}
+
+@font-face {
+    font-family: "Source Sans Pro";
+    src: url("fonts/SourceSansPro-ExtraLight.ttf") format('truetype');
+}
+
+@font-face {
+    font-family: "Montserrat";
+    src: url("fonts/Montserrat-Regular.ttf") format('truetype');
 }
