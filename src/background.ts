@@ -6,7 +6,7 @@ import {Selection} from "./models/Selection";
 import API from "./components/api";
 import { Options } from "./models/options"
 import OptionsService from "./components/optionsService"
-import { UnknowMessageError } from "./errors/unknowMessageError";
+import { UnknownMessageError } from "./errors/UnknownMessageError";
 
 console.log("Run tests")
 export * from "./tests/check-result"
@@ -90,7 +90,7 @@ chrome.runtime.onMessage.addListener((dataMsg: DataMessage<Selection | Notificat
         response(true)
     }else{
         if( !Object.keys(MessageType).find( (o)=>o===dataMsg.msg) )
-            throw new UnknowMessageError(`Can't find action for unknow MessageType "${dataMsg.msg}"`)
+            throw new UnknownMessageError(`Can't find action for unknow MessageType "${dataMsg.msg}"`)
     }
 })
 

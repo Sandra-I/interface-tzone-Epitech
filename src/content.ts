@@ -9,7 +9,7 @@ import {Selection} from "./models/Selection";
 import Swal from "sweetalert2"
 import Popup from "./components/popup";
 import "./App.scss"
-import {UnknowMessageError} from "./errors/unknowMessageError";
+import {UnknownMessageError} from "./errors/UnknownMessageError";
 import {APIResponce} from "./models/apiResponce";
 import {APIResponceWithTraduction} from "./models/apiResponceWithTraduction";
 
@@ -74,7 +74,7 @@ chrome.runtime.onMessage.addListener(async (dataMsg: DataMessage<any>, sender, s
                 removeLoadingAnimation();
                 break;
             default:
-                throw new UnknowMessageError(`Can't find action for unknow MessageType "${dataMsg.msg}"`)
+                throw new UnknownMessageError(`Can't find action for unknow MessageType "${dataMsg.msg}"`)
 
         }
     }
