@@ -1,3 +1,3 @@
-export class UnknowMessageError extends ErrorEvent {
+export default class UnknownMessageError extends ErrorEvent {
 
 }

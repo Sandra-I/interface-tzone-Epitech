@@ -1,6 +1,4 @@
-import * as React from 'react';
-
-export const Notifications = () => {
+export default () => {
   chrome.runtime.sendMessage('', {
     type: 'notification',
     options: {
