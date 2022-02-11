@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import Selector from '../components/selector';
 
 describe('selector', () => {
