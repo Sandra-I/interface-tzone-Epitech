@@ -17,9 +17,9 @@ export default class OptionsService {
       OptionsService.isBackground = true;
       chrome.runtime.onMessage.addListener((dataMsg: DataMessage<NotificationOptions>, sender, reply) => {
         console.log('options event', dataMsg);
-        if (dataMsg.msg == MessageType.OPTIONS_REQUEST) {
+        if (dataMsg.msg === MessageType.OPTIONS_REQUEST) {
           reply(OptionsService.options);
-        } else if (dataMsg.msg == MessageType.OPTIONS_UPDATE) {
+        } else if (dataMsg.msg === MessageType.OPTIONS_UPDATE) {
           const optionsString = JSON.stringify(dataMsg.data);
           OptionsService.options = JSON.parse(optionsString);
           localStorage.setItem('options', optionsString);
@@ -28,7 +28,7 @@ export default class OptionsService {
     }
 
     static getOptions() {
-      return new Promise<Options>((res, rej) => {
+      return new Promise<Options>((res) => {
         if (OptionsService.isBackground) {
           res(OptionsService.options);
         } else {

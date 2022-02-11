@@ -8,7 +8,7 @@ import { DataMessage, MessageType } from './models/DataMessage';
 import { Selection } from './models/Selection';
 import Popup from './components/popup';
 import './App.scss';
-import { UnknownMessageError } from './errors/UnknownMessageError';
+import UnknownMessageError from './errors/unknownMessageError';
 import { APIResponce } from './models/apiResponce';
 import { APIResponceWithTraduction } from './models/apiResponceWithTraduction';
 

@@ -1,4 +1,5 @@
 import { Selection } from '../models/Selection';
+import UnknownMessageError from '../errors/unknownMessageError';
 
 export default class ImageCropper {
   /**
@@ -34,7 +35,7 @@ export default class ImageCropper {
           this.hasCtx(ctx);
           res(this.sendImage(ctx!, img, bounds, canvas));
         } catch {
-          rej(null);
+          rej(new UnknownMessageError('Impossible to crop the image'));
         }
       };
     });

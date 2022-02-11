@@ -1,3 +1,5 @@
+/* eslint-disable no-shadow */
+/* eslint-disable no-unused-vars */
 export interface DataMessage<T> {
     msg: MessageType
     tabId: number

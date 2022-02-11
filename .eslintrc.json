@@ -33,7 +33,9 @@
                 "tsx": "never"
             }
         ],
-        "max-len": [2, { "code": 100, "ignoreComments": true }]
+        "max-len": [2, { "code": 120, "ignoreComments": true }],
+        "react/sort-comp": [0]
+        // "react/destructuring-assignment": [0]
     },
     "settings": {
         "import/resolver": {
