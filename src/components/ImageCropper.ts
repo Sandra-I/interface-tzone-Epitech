@@ -22,12 +22,13 @@ export default class ImageCropper {
      * @returns A promise returning a string or null
      */
   public static loadAndSend(
-    img: HTMLImageElement,
+    _img: HTMLImageElement,
     ctx: CanvasRenderingContext2D | null,
     bounds: Selection,
     canvas: HTMLCanvasElement,
   ): Promise<string | null> {
     return new Promise((res, rej) => {
+      const img = _img;
       img.onload = () => {
         try {
           this.hasCtx(ctx);
