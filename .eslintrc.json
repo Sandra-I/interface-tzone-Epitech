@@ -33,7 +33,7 @@
                 "tsx": "never"
             }
         ],
-        "max-len": ["error", { "ignoreComments": true }]
+        "max-len": [2, { "code": 100, "ignoreComments": true }]
     },
     "settings": {
         "import/resolver": {
