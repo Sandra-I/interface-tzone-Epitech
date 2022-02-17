@@ -23,10 +23,10 @@ chrome.commands.onCommand.addListener(async (command: string) => {
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     const tab = tabs[0];
     if (tab && tab.id) {
-      if (command == 'take-screenshot') {
+      if (command === 'take-screenshot') {
         // Tell the page script ta make a screenshot
         chrome.tabs.sendMessage(tab.id, { msg: MessageType.SCREENSHOT_SELECTION, tabId: tab.id });
-      } else if (command == 'take-screenshot-with-options') {
+      } else if (command === 'take-screenshot-with-options') {
         // TODO
         console.log('take screenshot with options');
       }
@@ -39,7 +39,7 @@ chrome.commands.onCommand.addListener(async (command: string) => {
 // Responce of selection call
 chrome.runtime.onMessage.addListener((dataMsg: DataMessage<Selection | NotificationOptions>, sender, response) => {
   // if it's the result of a selection then
-  if (dataMsg.msg == MessageType.SCREENSHOT_SELECTION_RESULT) {
+  if (dataMsg.msg === MessageType.SCREENSHOT_SELECTION_RESULT) {
     // make a screenshoot
     chrome.tabs.captureVisibleTab({ format: 'png' }, async (responce) => {
       // Crop the image according to the selection
