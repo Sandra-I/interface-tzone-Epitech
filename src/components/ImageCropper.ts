@@ -71,7 +71,12 @@ export default class ImageCropper {
      * @param bounds The bounds of the image to return
      * @returns The string of the original image corresponding to the bounds
      */
-  public static sendImage(ctx: CanvasRenderingContext2D, img: HTMLImageElement, bounds: Selection, canvas: HTMLCanvasElement): string {
+  public static sendImage(
+    ctx: CanvasRenderingContext2D,
+    img: HTMLImageElement,
+    bounds: Selection,
+    canvas: HTMLCanvasElement,
+  ): string {
     ctx.drawImage(img, -bounds.x, -bounds.y, img.width, img.height);
     return canvas.toDataURL();
   }

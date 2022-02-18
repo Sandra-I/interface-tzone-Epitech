@@ -1,6 +1,7 @@
 import { Options } from '../models/options';
 import { DataMessage, MessageType } from '../models/DataMessage';
 
+declare type NotificationOptions = any;
 export default class OptionsService {
     private static options: Options = {
       checkOptions: {
@@ -16,7 +17,6 @@ export default class OptionsService {
     static init() {
       OptionsService.isBackground = true;
       chrome.runtime.onMessage.addListener((dataMsg: DataMessage<NotificationOptions>, sender, reply) => {
-        console.log('options event', dataMsg);
         if (dataMsg.msg === MessageType.OPTIONS_REQUEST) {
           reply(OptionsService.options);
         } else if (dataMsg.msg === MessageType.OPTIONS_UPDATE) {

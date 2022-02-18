@@ -3,7 +3,7 @@ import Selector from '../components/selector';
 
 describe('selector', () => {
   let selector: Selector = new Selector();
-  beforeEach(() => selector = new Selector());
+  beforeEach(() => { selector = new Selector(); });
 
   it('should init selector', () => {
     selector.select();

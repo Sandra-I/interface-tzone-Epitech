@@ -34,41 +34,41 @@ export default class SwitchCheckbox extends React.Component {
     newValue.set(id, { name: changeField.name, check: e.target.checked });
     this.setState({ checkOptions: newValue });
 
-    this.setOption(newValue);
+    SwitchCheckbox.setOption(newValue);
     chrome.storage.local.set({ [id]: e.target.checked });
     // Transforming the map into array is require, otherwise it will be empty for most data storage/manipulation
   }
 
-  setOption(optionsMap: Map<string, any>) {
+  private static setOption(optionsMap: Map<string, any>) {
     OptionsService.getOptions().then((options) => {
       const checkOptions: any = {};
       Array.from(optionsMap.keys()).forEach((key) => {
         checkOptions[key] = optionsMap.get(key).check;
       });
-      options.checkOptions = checkOptions;
-      OptionsService.updateOptions(options);
+      OptionsService.updateOptions({ ...options, checkOptions });
     });
   }
 
   render() {
-    const value: any = this.state.checkOptions;
+    const { checkOptions } = this.state;
     return (
       <>
-        { Array.from(value.keys()).map((key: any) => (
+        { Array.from(checkOptions.keys()).map((key: any) => (
           <div key={key}>
-            <label htmlFor={key}>{value.get(key).name}</label>
+            <label htmlFor={key}>{checkOptions.get(key)?.name}</label>
             <input
               name={key}
-              checked={value.get(key).check}
-              onChange={(e) => this.handleChange(e, value)}
+              checked={checkOptions.get(key)?.check}
+              onChange={(e) => this.handleChange(e, checkOptions)}
               className="react-switch-checkbox"
               id={key}
               type="checkbox"
             />
             <label
-              className={`react-switch-label ${value.get(key).check ? 'background-color-of-switch' : ''}`}
+              className={`react-switch-label ${checkOptions.get(key)?.check ? 'background-color-of-switch' : ''}`}
               htmlFor={key}
             >
+              {/* Flo s'en occupe */}
               <span className="react-switch-button" />
             </label>
           </div>

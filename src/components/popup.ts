@@ -1,8 +1,3 @@
-enum ActionType {
-  exit = 'exit',
-  callback = 'callback'
-}
-
 export default class Popup {
   popupContent = document.createElement('div');
 
@@ -11,7 +6,12 @@ export default class Popup {
    * @param html
    * @param options time parameters are all in secondes
    */
-  constructor(private id: string, html: string, private options?: {buttons?: {name: string, actionType: 'exit' | 'callback', callback?: any}[], timeout?: number, fadeTime?: number}) {
+  constructor(
+    private id: string,
+    html: string,
+    private options?: {buttons?: {name: string, actionType: 'exit' | 'callback', callback?: any}[],
+    timeout?: number, fadeTime?: number},
+  ) {
     const existingElement = document.getElementById(id);
     if (existingElement) throw new Error("Can't create the popup, id already exist !");
     this.popupContent.id = id;
@@ -40,8 +40,10 @@ export default class Popup {
         options.buttons.forEach((button) => {
           const buttonElement = document.createElement('button');
           buttonElement.innerHTML = button.name;
-          if (button.actionType === ActionType.exit) buttonElement.addEventListener('click', () => this.hide());
-          if (button.actionType === ActionType.callback && button.callback) buttonElement.addEventListener('click', () => button.callback());
+          if (button.actionType === 'exit') buttonElement.addEventListener('click', () => this.hide());
+          else if (button.actionType === 'callback' && button.callback) {
+            buttonElement.addEventListener('click', () => button.callback());
+          }
           buttons.appendChild(buttonElement);
         });
         this.popupContent.appendChild(buttons);
@@ -50,10 +52,8 @@ export default class Popup {
   }
 
   show() {
-    console.log('Show');
     const existingElement = document.getElementById(this.id);
     if (!existingElement) {
-      console.log('Show popup');
       document.body.appendChild(this.popupContent);
     }
     if (this.options && this.options.timeout) {
@@ -64,10 +64,8 @@ export default class Popup {
   }
 
   hide() {
-    console.log('Hide');
     const existingElement = document.getElementById(this.id);
     if (existingElement) {
-      console.log('Hide popup');
       if (this.options && this.options.fadeTime) {
         this.popupContent.style.transition = `opacity ${this.options.fadeTime}s ease-in-out`;
         setTimeout(() => { this.popupContent.style.opacity = '0'; }, 10);

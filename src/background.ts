@@ -7,10 +7,9 @@ import API from './components/api';
 import OptionsService from './components/optionsService';
 import UnknownMessageError from './errors/unknownMessageError';
 
-console.log('Run tests');
-export * from './tests/check-result';
+declare type NotificationOptions = any;
 
-console.log('Init TZone');
+export * from './tests/check-result';
 
 // Load config
 OptionsService.init();
@@ -27,14 +26,22 @@ chrome.commands.onCommand.addListener(async (command: string) => {
         // Tell the page script ta make a screenshot
         chrome.tabs.sendMessage(tab.id, { msg: MessageType.SCREENSHOT_SELECTION, tabId: tab.id });
       } else if (command === 'take-screenshot-with-options') {
-        // TODO
-        console.log('take screenshot with options');
+        // TODO - take screenshot with options
       }
     } else {
       throw Error("Can't find active tab !");
     }
   });
 });
+
+function copyText(text: string): void {
+  const elem = document.createElement('textarea');
+  elem.value = text;
+  document.body.appendChild(elem);
+  elem.select();
+  document.execCommand('copy');
+  document.body.removeChild(elem);
+}
 
 // Responce of selection call
 chrome.runtime.onMessage.addListener((dataMsg: DataMessage<Selection | NotificationOptions>, sender, response) => {
@@ -52,25 +59,34 @@ chrome.runtime.onMessage.addListener((dataMsg: DataMessage<Selection | Notificat
               if (sender.tab && sender.tab.id) {
                 chrome.tabs.sendMessage(sender.tab.id, { msg: MessageType.API_SUCCESS, tabId: sender.tab.id });
                 if (options.checkOptions.preview) {
-                  chrome.tabs.sendMessage(sender.tab.id, { msg: MessageType.SHOW_PREVIEW_WITH_TRANSLATION, tabId: sender.tab.id, data: result.data });
+                  chrome.tabs.sendMessage(sender.tab.id,
+                    { msg: MessageType.SHOW_PREVIEW_WITH_TRANSLATION, tabId: sender.tab.id, data: result.data });
                 }
               }
             }).catch((err: Error) => {
               console.error(err);
-              if (sender.tab && sender.tab.id) { chrome.tabs.sendMessage(sender.tab.id, { msg: MessageType.API_ERROR, data: err, tabId: sender.tab.id }); }
+              if (sender.tab && sender.tab.id) {
+                chrome.tabs.sendMessage(sender.tab.id, { msg: MessageType.API_ERROR, data: err, tabId: sender.tab.id });
+              }
             });
           } else {
             API.getTextFromImage(croppedImageData).then((result) => {
               copyText(result.data.text);
               if (sender.tab && sender.tab.id) {
                 chrome.tabs.sendMessage(sender.tab.id, { msg: MessageType.API_SUCCESS, tabId: sender.tab.id });
-                if (options.checkOptions.preview || true) {
-                  chrome.tabs.sendMessage(sender.tab.id, { msg: MessageType.SHOW_PREVIEW, tabId: sender.tab.id, data: result.data });
-                }
+                // if (options.checkOptions.preview || true) {
+                chrome.tabs.sendMessage(sender.tab.id, {
+                  msg: MessageType.SHOW_PREVIEW,
+                  tabId: sender.tab.id,
+                  data: result.data,
+                });
+                // }
               }
             }).catch((err) => {
               console.error(err);
-              if (sender.tab && sender.tab.id) { chrome.tabs.sendMessage(sender.tab.id, { msg: MessageType.API_ERROR, data: err, tabId: sender.tab.id }); }
+              if (sender.tab && sender.tab.id) {
+                chrome.tabs.sendMessage(sender.tab.id, { msg: MessageType.API_ERROR, data: err, tabId: sender.tab.id });
+              }
             });
           }
         });
@@ -79,14 +95,7 @@ chrome.runtime.onMessage.addListener((dataMsg: DataMessage<Selection | Notificat
   } else if (dataMsg.msg === MessageType.NOTIFICATION) {
     chrome.notifications.create('', dataMsg.data as NotificationOptions);
     response(true);
-  } else if (!Object.keys(MessageType).find((o) => o === dataMsg.msg)) throw new UnknownMessageError(`Can't find action for unknow MessageType "${dataMsg.msg}"`);
+  } else if (!Object.keys(MessageType).find((o) => o === dataMsg.msg)) {
+    throw new UnknownMessageError(`Can't find action for unknow MessageType "${dataMsg.msg}"`);
+  }
 });
-
-function copyText(text: string): void {
-  const elem = document.createElement('textarea');
-  elem.value = text;
-  document.body.appendChild(elem);
-  elem.select();
-  document.execCommand('copy');
-  document.body.removeChild(elem);
-}

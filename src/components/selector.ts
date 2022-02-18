@@ -55,11 +55,11 @@ export default class Selector {
 
     // Selection rectangle background
     this.selectorBackground = {
-      topL: this.createBackground(this.tzone),
-      topR: this.createBackground(this.tzone),
-      bottomL: this.createBackground(this.tzone),
-      bottomRight: this.createBackground(this.tzone),
-      title: this.setBackgroundTitle(this.tzone),
+      topL: Selector.createBackground(this.tzone),
+      topR: Selector.createBackground(this.tzone),
+      bottomL: Selector.createBackground(this.tzone),
+      bottomRight: Selector.createBackground(this.tzone),
+      title: Selector.setBackgroundTitle(this.tzone),
     };
 
     // Add mouse listener
@@ -68,7 +68,7 @@ export default class Selector {
     window.addEventListener('mouseup', (evt) => (this.isSelecting ? this.selectionEnd(evt) : null), true);
   }
 
-  private createBackground(parent?: HTMLElement) {
+  private static createBackground(parent?: HTMLElement) {
     const background = document.createElement('div');
     background.style.position = 'absolute';
     background.style.zIndex = '10000';
@@ -77,7 +77,7 @@ export default class Selector {
     return background;
   }
 
-  private setBackgroundTitle(parent?: HTMLElement) {
+  private static setBackgroundTitle(parent?: HTMLElement) {
     const title = document.createElement('h1');
     title.innerHTML = 'Sélectionner la zone souhaitée';
     title.style.position = 'absolute';
@@ -115,10 +115,12 @@ export default class Selector {
    * @param selection Selection
    * @returns Selection
    */
-  private normalizeSelection(selection:Selection): Selection {
-    selection.x -= window.pageXOffset;
-    selection.y -= window.pageYOffset;
-    return selection;
+  private static normalizeSelection(selection:Selection): Selection {
+    return {
+      ...selection,
+      x: selection.x - window.pageXOffset,
+      y: selection.y - window.pageYOffset,
+    };
   }
 
   selectionEnd(evt: MouseEvent) {
@@ -130,7 +132,7 @@ export default class Selector {
     document.body.style.userSelect = this.bodySelectStyle;
     // Wait a bit to make time for the selector to be removed from display, to not be on the screenshot
     new Promise((res) => setTimeout(() => res(null), 20))
-      .then(() => this.selection.next(this.normalizeSelection(this.rectangle)));
+      .then(() => this.selection.next(Selector.normalizeSelection(this.rectangle)));
   }
 
   public selectionStart(evt: MouseEvent) {
