@@ -3,11 +3,11 @@ import UnknownMessageError from '../errors/unknownMessageError';
 
 export default class ImageCropper {
   /**
-     * Crop given image
-     * @param imgUrl html address or URL of the image to crop
-     * @param bounds Selection area of the image to crop
-     * @return The cropped image corresponding to the bounds selected
-     */
+   * Crop given image
+   * @param imgUrl html address or URL of the image to crop
+   * @param bounds Selection area of the image to crop
+   * @return The cropped image corresponding to the bounds selected
+   */
   public static cropImage(imgUrl: string, bounds: Selection): Promise<string | null> {
     const img = this.getImg(imgUrl);
     const canvas = this.getCanvas(bounds);
@@ -16,12 +16,12 @@ export default class ImageCropper {
   }
 
   /**
-     * Wait for `img` to load then try to crop the wanted image
-     * @param img The image to load
-     * @param ctx The rendering context of the canvas displaying the image
-     * @param bounds The dimension to cut from the original image
-     * @returns A promise returning a string or null
-     */
+   * Wait for `img` to load then try to crop the wanted image
+   * @param img The image to load
+   * @param ctx The rendering context of the canvas displaying the image
+   * @param bounds The dimension to cut from the original image
+   * @returns A promise returning a string or null
+   */
   public static loadAndSend(
     _img: HTMLImageElement,
     ctx: CanvasRenderingContext2D | null,
@@ -42,10 +42,10 @@ export default class ImageCropper {
   }
 
   /**
-     * Create an `HTMLImageElement` and pass `imgUrl` to its `src` property
-     * @param imgUrl The sources of the image. Can be a html address or an URL
-     * @returns The `HTMLImageElement` with `src` set
-     */
+   * Create an `HTMLImageElement` and pass `imgUrl` to its `src` property
+   * @param imgUrl The sources of the image. Can be a html address or an URL
+   * @returns The `HTMLImageElement` with `src` set
+   */
   public static getImg(imgUrl: string): HTMLImageElement {
     const img = document.createElement('img');
     img.src = imgUrl;
@@ -53,10 +53,10 @@ export default class ImageCropper {
   }
 
   /**
-     * Create an `HTMLCanvasElement` and pass properties `w` and `h` of `bounds` to its `width` and `height` properties
-     * @param bounds Selection area of the image to crop
-     * @returns The `HTMLCanvasElement` with `height` & `width` set
-     */
+   * Create an `HTMLCanvasElement` and pass properties `w` and `h` of `bounds` to its `width` and `height` properties
+   * @param bounds Selection area of the image to crop
+   * @returns The `HTMLCanvasElement` with `height` & `width` set
+   */
   public static getCanvas(bounds: Selection): HTMLCanvasElement {
     const canvas = document.createElement('canvas');
     canvas.width = bounds.w;
@@ -65,12 +65,12 @@ export default class ImageCropper {
   }
 
   /**
-     * Draw the image and get the part corresponding to the bounds
-     * @param ctx The context of the canvas rendering the image
-     * @param img The image to render
-     * @param bounds The bounds of the image to return
-     * @returns The string of the original image corresponding to the bounds
-     */
+   * Draw the image and get the part corresponding to the bounds
+   * @param ctx The context of the canvas rendering the image
+   * @param img The image to render
+   * @param bounds The bounds of the image to return
+   * @returns The string of the original image corresponding to the bounds
+   */
   public static sendImage(
     ctx: CanvasRenderingContext2D,
     img: HTMLImageElement,
@@ -82,9 +82,9 @@ export default class ImageCropper {
   }
 
   /**
-     * Throw an error if the `CanvasRenderingContext2D` is null
-     * @param ctx The context to check
-     */
+   * Throw an error if the `CanvasRenderingContext2D` is null
+   * @param ctx The context to check
+   */
   public static hasCtx(ctx: CanvasRenderingContext2D | null): void {
     if (!ctx) {
       throw new Error('Unable to find graphic context of generated canvas');
