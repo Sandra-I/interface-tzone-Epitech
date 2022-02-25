@@ -32,7 +32,8 @@ lint:
 
 test:
   stage: test
+  dependencies:
+    - build
   script:
     - echo 'Job => Test'
-    # - mkdir
-    # - test -f 'build/info.txt'
+    - npm run test
