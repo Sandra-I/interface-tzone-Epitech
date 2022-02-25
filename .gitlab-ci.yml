@@ -1,3 +1,5 @@
+image: node:latest
+
 # This folder is cached between builds for faster runs
 # http://docs.gitlab.com/ce/ci/yaml/README.html#cache
 cache:
@@ -11,13 +13,10 @@ stages:
 
 build:
   stage: build
-  image: node:latest
   script:
     - echo 'Hello, $GITLAB_USER_LOGIN!'
     - echo 'Commit branch, $CI_COMMIT_BRANCH'
-    - echo 'build'
-    # - mkdir
-    # - touch build/info.txt
+    - echo 'Job => Build'
     - npm install
     - npm run build
 
@@ -27,14 +26,13 @@ build:
 
 lint:
   stage: lint
-  image: node:latest
   script:
-    - echo 'Linting time'
+    - echo 'Job => Lint'
     - npm run lint
 
 test:
   stage: test
   script:
-    - echo 'test'
+    - echo 'Job => Test'
     # - mkdir
     # - test -f 'build/info.txt'
