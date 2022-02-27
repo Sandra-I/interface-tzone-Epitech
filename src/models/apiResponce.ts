@@ -1,3 +1,3 @@
-export interface APIResponce { 
-    text: string;
+export interface APIResponce {
+  text: string;
 }

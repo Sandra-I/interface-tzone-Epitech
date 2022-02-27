@@ -6,7 +6,8 @@
     "test": "npx jest --colors",
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
-    "start": "webpack --watch --mode development"
+    "start": "webpack --watch --mode development",
+    "lint": "npx eslint src/**/*.ts src/**/*.tsx"
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,7 @@
     "image",
     "recognition"
   ],
-  "author": "Sandra IBRAHIM, Florent MOUTON, Rodolphe TIQUET-DURIEZ, Youssef ZAKRAOUI, Iyad CALLAS, Reyane REMACHE",
+  "author": "Sandra IBRAHIM, Florent MOUTON, Rodolphe TIQUET-DURIEZ, Youssef ZAKRAOUI, Reyane REMACHE",
   "license": "ISC",
   "bugs": {
     "url": "https://gitlab.com/t-zone/interface/issues"
@@ -41,11 +42,18 @@
     "@types/expect": "^24.3.0",
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
+    "@typescript-eslint/eslint-plugin": "^5.1.0",
+    "@typescript-eslint/parser": "^5.1.0",
     "babel-jest": "^27.0.1",
     "babel-loader": "^8.1.0",
     "babel-plugin-wildcard": "^7.0.0",
     "copy-webpack-plugin": "^6.2.1",
     "css-loader": "^5.0.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.26.1",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "file-loader": "^6.2.0",
     "jest-canvas-mock": "^2.3.1",
     "jsdom-global": "^3.0.2",
