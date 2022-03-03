@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { Options } from '../models/options';
-import OptionsService from './optionsService';
+import OptionsService from '../utils/optionsService';
 
 type LangueAvailable = {[key: string]: string};
 

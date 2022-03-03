@@ -3,82 +3,19 @@
 
 // This file is injected as a content script
 import Swal from 'sweetalert2';
-import Selector from './components/selector';
+import { first } from 'rxjs';
+import Selector from './utils/selector';
 import { DataMessage, MessageType } from './models/DataMessage';
 import { Selection } from './models/Selection';
-import Popup from './components/popup';
+import Popup from './utils/popup';
 import './App.scss';
 import UnknownMessageError from './errors/unknownMessageError';
 import { APIResponce } from './models/apiResponce';
 import { APIResponceWithTraduction } from './models/apiResponceWithTraduction';
 
-console.log('Hello from content script!');
-
 const selector = new Selector();
 
 let isCurrentlySelection = false;
-
-chrome.runtime.onMessage.addListener(async (dataMsg: DataMessage<any>, sender, sendResponce) => {
-  if (isCurrentlySelection) {
-    console.error('Already selecting an area !');
-  } else {
-    switch (dataMsg.msg) {
-      case MessageType.SCREENSHOT_SELECTION:
-        isCurrentlySelection = true;
-        const selection = selector.select().subscribe((rec: Selection) => {
-          isCurrentlySelection = false;
-          selection.unsubscribe();
-          addLoadingAnimation();
-          setTimeout(() => chrome.runtime.sendMessage({
-            msg: MessageType.SCREENSHOT_SELECTION_RESULT,
-            data: rec,
-            tabId: dataMsg.tabId,
-          }), 10);
-        });
-        break;
-      case MessageType.API_ERROR:
-        removeLoadingAnimation();
-        removePopup();
-        Swal.fire({
-          icon: 'error',
-          title: 'API Error',
-          text: `Impossible de convertire en text la capture : ${dataMsg.data?.message}`,
-        });
-        break;
-      case MessageType.SHOW_PREVIEW:
-        chrome.storage.local.get('preview', (result) => {
-          if (result.preview) { // todo: check if is not member premium
-            showPopup(dataMsg.data, {
-              buttons: [
-                {
-                  name: 'Copier',
-                  actionType: 'callback',
-                  callback: () => copyText(dataMsg.data.text),
-                },
-                {
-                  name: 'Fermer',
-                  actionType: 'exit',
-                },
-              ],
-            });
-          } else {
-            showPopup(dataMsg.data, {
-              timeout: 2, fadeTime: 3,
-            });
-          }
-        });
-        break;
-      case MessageType.SHOW_PREVIEW_WITH_TRANSLATION:
-        showPopupWithTranslation(dataMsg.data);
-        break;
-      case MessageType.API_SUCCESS:
-        removeLoadingAnimation();
-        break;
-      default:
-        throw new UnknownMessageError(`Can't find action for unknow MessageType "${dataMsg.msg}"`);
-    }
-  }
-});
 
 function addLoadingAnimation() {
   const existingLoader = document.getElementById('tzone-loader');
@@ -169,3 +106,64 @@ function copyText(text: string): void {
   document.execCommand('copy');
   document.body.removeChild(elem);
 }
+
+chrome.runtime.onMessage.addListener(async (dataMsg: DataMessage<any>, sender, sendResponce) => {
+  if (isCurrentlySelection) {
+    console.error('Already selecting an area !');
+  } else {
+    switch (dataMsg.msg) {
+      case MessageType.SCREENSHOT_SELECTION:
+        isCurrentlySelection = true;
+        selector.select().pipe(first()).subscribe((rec: Selection) => {
+          isCurrentlySelection = false;
+          addLoadingAnimation();
+          setTimeout(() => chrome.runtime.sendMessage({
+            msg: MessageType.SCREENSHOT_SELECTION_RESULT,
+            data: rec,
+            tabId: dataMsg.tabId,
+          }), 10);
+        });
+        break;
+      case MessageType.API_ERROR:
+        removeLoadingAnimation();
+        removePopup();
+        Swal.fire({
+          icon: 'error',
+          title: 'API Error',
+          text: `Impossible de convertire en text la capture : ${dataMsg.data?.message}`,
+        });
+        break;
+      case MessageType.SHOW_PREVIEW:
+        chrome.storage.local.get('preview', (result) => {
+          if (result.preview) { // todo: check if is not member premium
+            showPopup(dataMsg.data, {
+              buttons: [
+                {
+                  name: 'Copier',
+                  actionType: 'callback',
+                  callback: () => copyText(dataMsg.data.text),
+                },
+                {
+                  name: 'Fermer',
+                  actionType: 'exit',
+                },
+              ],
+            });
+          } else {
+            showPopup(dataMsg.data, {
+              timeout: 2, fadeTime: 3,
+            });
+          }
+        });
+        break;
+      case MessageType.SHOW_PREVIEW_WITH_TRANSLATION:
+        showPopupWithTranslation(dataMsg.data);
+        break;
+      case MessageType.API_SUCCESS:
+        removeLoadingAnimation();
+        break;
+      default:
+        throw new UnknownMessageError(`Can't find action for unknow MessageType "${dataMsg.msg}"`);
+    }
+  }
+});

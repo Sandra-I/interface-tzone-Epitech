@@ -1,4 +1,4 @@
-export * from './tests/check-result';
+export * from './check-result';
 
 export function describe(name: string, test: Function) {
   console.info(`Running ${name}`);

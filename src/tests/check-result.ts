@@ -1,6 +1,6 @@
 import { Selection } from '../models/Selection';
-import { describe, expected } from '../custom-test';
-import ImageCropper from '../components/ImageCropper';
+import { describe, expected } from './custom-test';
+import ImageCropper from '../utils/ImageCropper';
 
 describe('imageCropper', async () => {
   // eslint-disable-next-line max-len
