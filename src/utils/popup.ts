@@ -23,7 +23,6 @@ export default class Popup {
     this.popupContent.style.top = '0';
     this.popupContent.style.right = '0';
     this.popupContent.style.zIndex = '99999';
-    this.popupContent.style.backgroundColor = '#F3FFDE';
     this.popupContent.style.color = 'black';
     this.popupContent.style.borderRadius = '20px';
     this.popupContent.style.fontWeight = '700';
