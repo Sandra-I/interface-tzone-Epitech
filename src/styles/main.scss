@@ -1,0 +1,7 @@
+// importer tous les fichiers styles ici attention à l'ordre de déclaration
+@import './settings/colors.scss';
+@import './settings/fonts.scss';
+
+@import './elements/button.scss';
+
+@import './structure/card.scss';

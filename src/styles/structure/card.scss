@@ -1,0 +1,12 @@
+.card {
+    margin: auto;
+    background: var(--bg_color);
+    box-shadow: rgba(0, 0, 0, .35) 0px 5px 15px;
+    padding: 15px 25px;
+    border-radius: 10px;
+    min-width: 400px;
+    & h1 {
+        font-size: 25px;
+        color: white;
+    }
+}
