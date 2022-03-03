@@ -6,7 +6,7 @@ import Translate from '../components/Translate';
 const Parameters = () => (
   <>
     <h3 className="tz-title">Paramètres</h3>
-    <div className="Params tz-small-text">
+    <div className="params tz-small-text">
       <SwitchCheckbox />
       <Translate />
       <div>

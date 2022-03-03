@@ -11,8 +11,8 @@ import Parameters from './Views/Parameters';
 const App = () => (
   <div className="tz-body tz-global">
     <Router>
-      <div className="App">
-        <div className="App-header">
+      <div className="app">
+        <div className="app-header">
           <Switch>
             <Route path="/popup.html">
               <Parameters />

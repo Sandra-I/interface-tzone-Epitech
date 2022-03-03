@@ -81,10 +81,10 @@ chrome.runtime.onMessage.addListener(async (dataMsg: DataMessage<any>, sender, s
 });
 
 function addLoadingAnimation() {
-  const existingLoader = document.getElementById('TZone-loader');
+  const existingLoader = document.getElementById('tzone-loader');
   if (!existingLoader) {
     const loaderContainer = document.createElement('div');
-    loaderContainer.id = 'TZone-loader';
+    loaderContainer.id = 'tzone-loader';
     loaderContainer.style.position = 'fixed';
     loaderContainer.style.top = '0';
     loaderContainer.style.right = '0';
@@ -119,7 +119,7 @@ function addLoadingAnimation() {
 }
 
 function removeLoadingAnimation() {
-  const existingLoader = document.getElementById('TZone-loader');
+  const existingLoader = document.getElementById('tzone-loader');
   if (existingLoader) {
     existingLoader.remove();
   }
