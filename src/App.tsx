@@ -6,7 +6,7 @@ import {
   Route,
 } from 'react-router-dom';
 import Parameters from './views/Parameters';
-// import History from "./views/History";
+// import History from './views/History';
 
 const App = () => (
   <div className="tz-body tz-global">
@@ -21,8 +21,8 @@ const App = () => (
               <Parameters />
             </Route>
             {/* <Route path="/history">
-                            <History/>
-                        </Route> */}
+              <History />
+            </Route> */}
           </Switch>
         </div>
         <div className="app-footer">FOOTER</div>
