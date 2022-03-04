@@ -1,6 +1,28 @@
 .tz-body {
     font-family: var(--main_font);
+    .app {
+        color: var(--white);
+        background-color: var(--bg_color);
+        font-size: calc(8px + 2vmin);
+        min-width: 300px;
+        .app-header {
+            background-color: green;
+            box-sizing: border-box;
+            width: 100%;
+            height: 15%;
+        }
+        .app-body {
+            padding: 10px;
+        }
+        .app-footer {
+            background-color: green;
+            box-sizing: border-box;
+            width: 100%;
+            height: 15%;
+        }
+    }
 }
+
 
 .app-logo {
     height: 40vmin;
@@ -11,14 +33,6 @@
     .app-logo {
         animation: app-logo-spin infinite 20s linear;
     }
-}
-
-.app-header {
-    background-color: var(--bg_color);
-    font-size: calc(8px + 2vmin);
-    color: var(--white);
-    min-width: 300px;
-    padding: 10px;
 }
 
 @keyframes app-logo-spin {

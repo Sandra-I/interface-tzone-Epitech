@@ -13,6 +13,9 @@ const App = () => (
     <Router>
       <div className="app">
         <div className="app-header">
+          HEADER
+        </div>
+        <div className="app-body">
           <Switch>
             <Route path="/index.html">
               <Parameters />
@@ -22,6 +25,7 @@ const App = () => (
                         </Route> */}
           </Switch>
         </div>
+        <div className="app-footer">FOOTER</div>
       </div>
     </Router>
   </div>

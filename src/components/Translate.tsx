@@ -32,18 +32,20 @@ const Translate: React.FC = () => {
   }
 
   return (
-    <form>
-      {!loading && (
-        <label htmlFor="langSelector">
-          Traduire mon texte en :
-          <select id="langSelector" onChange={handleSubmit} defaultValue={options?.translateLanguage || ''}>
-            {Object.keys(langueAvailable).map(
-              (key) => <option key={key} value={langueAvailable[key]}>{key}</option>,
-            )}
-          </select>
-        </label>
-      )}
-    </form>
+    <div>
+      <form className="form">
+        {!loading && (
+          <label htmlFor="langSelector">
+            Traduire mon texte en :
+            <select id="langSelector" onChange={handleSubmit} defaultValue={options?.translateLanguage || ''}>
+              {Object.keys(langueAvailable).map(
+                (key) => <option key={key} value={langueAvailable[key]}>{key}</option>,
+              )}
+            </select>
+          </label>
+        )}
+      </form>
+    </div>
   );
 };
 

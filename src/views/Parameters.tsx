@@ -1,12 +1,11 @@
 import * as React from 'react';
-import '../App.scss';
 import SwitchCheckbox from '../components/SwitchCheckbox';
 import Translate from '../components/Translate';
 
 const Parameters = () => (
   <>
     <h3 className="tz-title">Paramètres</h3>
-    <div className="params tz-normal-text">
+    <div className="params">
       <SwitchCheckbox />
       <Translate />
       <div>
