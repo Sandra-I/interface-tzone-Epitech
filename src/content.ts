@@ -72,7 +72,7 @@ function removePopup() {
 function showPopup(data: APIResponce, options?: object) {
   removePopup();
   const htlm = '<div style="width: 320px;margin: 5px;">'
-        + '<h1>Texte copié</h1><br>'
+        + '<h1 class="tz-title">Texte copié</h1><br>'
         + '<textarea style="resize: none;overflow: auto;width: 320px;background-color: white; color: black;" cols="40" rows="5" class="tz-result-text" readonly>'
         + `${data.text}`
         + '</textarea>'
@@ -84,7 +84,7 @@ function showPopup(data: APIResponce, options?: object) {
 function showPopupWithTranslation(data: APIResponceWithTraduction) {
   removePopup();
   const htlm = '<div style="width: 320px;margin: 5px;">'
-        + '<h1>Résultat</h1><br>'
+        + '<h1 class="tz-title">Résultat</h1><br>'
         + `<b>Texte original (${data.original.lang}):</b><br>`
         + '<p style="overflow: auto;width: 320px;" class="tz-result-text">'
         + `${data.original.text}`
