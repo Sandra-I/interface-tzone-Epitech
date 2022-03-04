@@ -1,5 +1,5 @@
 import { Selection } from '../models/Selection';
-import { describe, expected } from './custom-test';
+import { describe, checkExpected } from './custom-test';
 import ImageCropper from '../utils/ImageCropper';
 
 describe('imageCropper', async () => {
@@ -11,5 +11,5 @@ describe('imageCropper', async () => {
     x: 18, y: 17, w: 14, h: 16,
   };
   const croppedImgResult = await ImageCropper.cropImage(imgUrl, cropSelection);
-  expected(croppedImgResult).toBe(croppedImgUrl);
+  checkExpected(croppedImgResult).toBe(croppedImgUrl);
 });

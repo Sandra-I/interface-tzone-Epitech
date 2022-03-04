@@ -40,7 +40,7 @@ function checkSame(actual: any, expected: any): boolean {
   }
 }
 
-export function expected(actual: any) {
+export function checkExpected(actual: any) {
   return {
     toBe: (expected: any) => checkSame(actual, expected),
 
