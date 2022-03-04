@@ -15,23 +15,7 @@ export default class Popup {
     const existingElement = document.getElementById(id);
     if (existingElement) throw new Error("Can't create the popup, id already exist !");
     this.popupContent.id = id;
-    // foutre ça dans une classe (centraliser)
-    // si un truc en particulier rajouter un id pour gérer son style
-    this.popupContent.className = 'tz-normal-text tz-global';
-    this.popupContent.style.opacity = '1';
-    this.popupContent.style.position = 'fixed';
-    this.popupContent.style.top = '0';
-    this.popupContent.style.right = '0';
-    this.popupContent.style.zIndex = '99999';
-    this.popupContent.style.color = 'black';
-    this.popupContent.style.borderRadius = '20px';
-    this.popupContent.style.fontWeight = '700';
-    this.popupContent.style.margin = '5px';
-    this.popupContent.style.padding = '10px';
-    this.popupContent.style.textAlign = 'center';
-    this.popupContent.style.fontSize = '14px';
-    this.popupContent.style.fontFamily = 'arial';
-    this.popupContent.style.boxShadow = '1px 4px 10px #444444';
+    this.popupContent.className = 'tz-normal-text tz-global popup-style';
 
     this.popupContent.innerHTML = html;
 

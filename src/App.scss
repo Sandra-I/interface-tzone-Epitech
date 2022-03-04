@@ -3,26 +3,32 @@
     .app {
         color: var(--white);
         background-color: var(--bg_color);
-        font-size: calc(8px + 2vmin);
-        min-width: 300px;
-        .app-header {
+        min-width: 400px;
+        .app-header, .app-footer  {
             background-color: green;
             box-sizing: border-box;
             width: 100%;
             height: 15%;
         }
         .app-body {
-            padding: 10px;
-        }
-        .app-footer {
-            background-color: green;
-            box-sizing: border-box;
-            width: 100%;
-            height: 15%;
+            font-size: calc(10px + 2vmin);
         }
     }
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--title_font);
+    color: var(--font_color);
+}
+
+a {
+    color: var(--blue);
+}
 
 .app-logo {
     height: 40vmin;
@@ -44,24 +50,8 @@
     }
 }
 
-.params > * {
-    padding: 0 0 2% 5%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-.short {
-    border: dashed 1px;
-    padding: 5px;
-    width: 35%;
-}
-
 .tz-normal-text {
     font-family: var(--main_font);
-}
-
-.tz-title {
-    font-family: var(--title_font);
 }
 
 .tz-small-text {

@@ -1,10 +1,11 @@
 import * as React from 'react';
+// import { Link } from 'react-router-dom';
 import SwitchCheckbox from '../components/SwitchCheckbox';
 import Translate from '../components/Translate';
 
 const Parameters = () => (
-  <>
-    <h3 className="tz-title">Paramètres</h3>
+  <div className="card">
+    <h1>Paramètres</h1>
     <div className="params">
       <SwitchCheckbox />
       <Translate />
@@ -13,9 +14,8 @@ const Parameters = () => (
         <span className="short">ALT + S</span>
       </div>
     </div>
-    {/* <Link to="/history"><button>Historique</button></Link>
-            <br/>
-            <button>Deconnexion</button> */}
-  </>
+    {/* <Link to="/history"><button type="button">Historique</button></Link> */}
+    {/* <button type="button">Deconnexion</button> */}
+  </div>
 );
 export default Parameters;
