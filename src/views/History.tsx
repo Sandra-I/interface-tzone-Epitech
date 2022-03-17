@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 
 const History = () => (
   <>
-    <h3 className="tz-title">Historique</h3>
-    <Link to="/popup.html"><button type="submit">Retour</button></Link>
+    <h1>Historique</h1>
+    <Link to="/index.html"><button type="submit">Retour</button></Link>
   </>
 );
 export default History;

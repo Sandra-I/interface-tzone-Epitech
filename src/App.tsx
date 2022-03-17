@@ -5,23 +5,27 @@ import {
   Switch,
   Route,
 } from 'react-router-dom';
-import Parameters from './Views/Parameters';
-// import History from "./Views/History";
+import Parameters from './views/Parameters';
+// import History from './views/History';
 
 const App = () => (
   <div className="tz-body tz-global">
     <Router>
-      <div className="App">
-        <div className="App-header">
+      <div className="app">
+        <div className="app-header">
+          HEADER
+        </div>
+        <div className="app-body">
           <Switch>
-            <Route path="/popup.html">
+            <Route path="/index.html">
               <Parameters />
             </Route>
             {/* <Route path="/history">
-                            <History/>
-                        </Route> */}
+              <History />
+            </Route> */}
           </Switch>
         </div>
+        <div className="app-footer">FOOTER</div>
       </div>
     </Router>
   </div>

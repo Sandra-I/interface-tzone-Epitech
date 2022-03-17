@@ -5,7 +5,7 @@ import {
   useState,
 } from 'react';
 import './SwitchCheckbox.scss';
-import OptionsService from './optionsService';
+import OptionsService from '../utils/optionsService';
 
 const SwitchCheckbox: React.FC = () => {
   const [checkOptions, setCheckOptions] = useState(new Map([

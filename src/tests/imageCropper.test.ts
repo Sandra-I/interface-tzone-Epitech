@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable import/no-extraneous-dependencies */
-import ImageCropper from '../components/ImageCropper';
+import ImageCropper from '../utils/ImageCropper';
 import { Selection } from '../models/Selection';
 import 'jest-canvas-mock';
 
