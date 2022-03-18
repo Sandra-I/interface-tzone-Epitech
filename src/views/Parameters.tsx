@@ -2,7 +2,6 @@ import * as React from 'react';
 // import { Link } from 'react-router-dom';
 import SwitchCheckbox from '../components/SwitchCheckbox';
 import Translate from '../components/Translate';
-import ConnectionButton from '../components/ConnectionButton';
 
 const Parameters = () => (
   <div className="card">
@@ -16,8 +15,7 @@ const Parameters = () => (
       </div>
     </div>
     {/* <Link to="/history"><button>Historique</button></Link> */}
-    <br />
-    <ConnectionButton />
+    {/* <br /> */}
   </div>
 );
 export default Parameters;

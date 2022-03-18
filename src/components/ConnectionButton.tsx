@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
-import './ConnectionButton.scss';
+import '../styles/elements/button.scss';
 
 const ConnectionButton: React.FC = () => {
   const [name, setName] = useState<string>('');

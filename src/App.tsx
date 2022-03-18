@@ -6,6 +6,7 @@ import {
   Route,
 } from 'react-router-dom';
 import Parameters from './views/Parameters';
+import ConnectionButton from './components/ConnectionButton';
 // import History from './views/History';
 
 const App = () => (
@@ -25,7 +26,11 @@ const App = () => (
             </Route> */}
           </Switch>
         </div>
-        <div className="app-footer">FOOTER</div>
+        <div className="app-footer">
+          <div className="button-div">
+            <ConnectionButton />
+          </div>
+        </div>
       </div>
     </Router>
   </div>

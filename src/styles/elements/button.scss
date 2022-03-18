@@ -1,0 +1,45 @@
+.myButton {
+    border-radius: 22px;
+    min-width: 150px;
+    padding: 10px 20px;
+    border: none;
+    background-color: var(--font_color_greyed);
+    opacity: .7;
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    font-weight: 500;
+    font-family: var(--title_font);
+    transition: all .2s;
+    &:not(.disabled){
+        cursor: pointer;
+        opacity: 1;
+        background-color: var(--font_color);
+        &:hover {
+            opacity: .7;
+        }
+    }
+}
+
+// .myButton {
+// 	-webkit-border-radius: 22;
+// 	-moz-border-radius: 22;
+// 	border-radius: 22px;
+// 	// background:linear-gradient(to bottom, #282c34 5%, #282c34 100%);
+// 	font-family: Arial;
+// 	color: #ffffff;
+// 	font-size: 15px;
+// 	background: #282c34;
+// 	padding: 10px 20px 10px 20px;
+// 	text-decoration: none;
+// 	cursor: pointer;
+// 	&:hover {
+// 		background: #cdcfd1;
+// 		text-decoration: none;
+
+// 	}
+// 	&:active {
+// 		position:relative;
+// 		top:1px;
+
+// 	}
+// }
