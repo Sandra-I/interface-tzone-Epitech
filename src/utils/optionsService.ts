@@ -6,7 +6,6 @@ export default class OptionsService {
   private static options: Options = {
     checkOptions: {
       preview: false,
-      retrivePolice: false,
       retriveFormat: false,
     },
     translateLanguage: null,
