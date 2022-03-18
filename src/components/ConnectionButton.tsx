@@ -7,13 +7,11 @@ const ConnectionButton: React.FC = () => {
   const [isConnected, setIsConnected] = useState<boolean>(false);
 
   function connection() {
-    console.log('connection', isConnected);
     setName('Toto ');
     setIsConnected(true);
   }
 
   function deconnection() {
-    console.log('disconnection', isConnected);
     setName('');
     setIsConnected(false);
   }
