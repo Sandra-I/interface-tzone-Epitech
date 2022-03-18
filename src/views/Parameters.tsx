@@ -14,8 +14,8 @@ const Parameters = () => (
         <span className="short">ALT + S</span>
       </div>
     </div>
-    {/* <Link to="/history"><button type="button">Historique</button></Link> */}
-    {/* <button type="button">Deconnexion</button> */}
+    {/* <Link to="/history"><button>Historique</button></Link> */}
+    {/* <br /> */}
   </div>
 );
 export default Parameters;
