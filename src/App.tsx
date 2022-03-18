@@ -6,7 +6,7 @@ import {
   Route,
 } from 'react-router-dom';
 import Parameters from './views/Parameters';
-import ConnectionButton from './components/ConnectionButton';
+import AuthButton from './components/AuthButton';
 // import History from './views/History';
 
 const App = () => (
@@ -28,7 +28,7 @@ const App = () => (
         </div>
         <div className="app-footer">
           <div className="button-div">
-            <ConnectionButton />
+            <AuthButton />
           </div>
         </div>
       </div>
