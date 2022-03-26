@@ -5,7 +5,8 @@
         background-color: var(--bg_color);
         min-width: 400px;
         .app-header {
-            background-color: green;
+            height: 88px;
+            align-items: center;
         }
         .app-header, .app-footer  {
             display: flex;
