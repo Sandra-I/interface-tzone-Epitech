@@ -30,10 +30,10 @@ lint:
     - echo 'Job => Lint'
     - npm run lint
 
-test:
-  stage: test
-  dependencies:
-    - build
-  script:
-    - echo 'Job => Test'
-    - npm run test
+# test:
+#   stage: test
+#   dependencies:
+#     - build
+#   script:
+#     - echo 'Job => Test'
+#     - npm run test

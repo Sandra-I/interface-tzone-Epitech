@@ -1,11 +1,25 @@
 .tz-body {
     font-family: var(--main_font);
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: var(--title_font);
+        color: var(--font_color);
+    }
+
+    a {
+        color: var(--blue);
+    }
     .app {
         color: var(--white);
         background-color: var(--bg_color);
         min-width: 400px;
         .app-header {
-            background-color: green;
+            height: 88px;
+            align-items: center;
         }
         .app-header, .app-footer  {
             display: flex;
@@ -18,20 +32,6 @@
             font-size: calc(10px + 2vmin);
         }
     }
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-family: var(--title_font);
-    color: var(--font_color);
-}
-
-a {
-    color: var(--blue);
 }
 
 .app-logo {
