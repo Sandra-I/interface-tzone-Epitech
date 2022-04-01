@@ -3,7 +3,7 @@
 import ImageCropper from './utils/ImageCropper';
 import { DataMessage, MessageType } from './models/DataMessage';
 import { Selection } from './models/Selection';
-import API from './api/api';
+import API from './services/text-service';
 import OptionsService from './utils/optionsService';
 import UnknownMessageError from './errors/unknownMessageError';
 
