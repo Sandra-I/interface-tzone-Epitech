@@ -3,7 +3,7 @@ import { APIResponce } from '../models/apiResponce';
 import { APIResponceWithTraduction } from '../models/apiResponceWithTraduction';
 import * as config from '../../app.config.json';
 
-export default class API {
+export default class TextService {
   private static url = config.backendurldev
 
   /**
