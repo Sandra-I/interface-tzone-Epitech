@@ -9,7 +9,7 @@ import { useState } from 'react';
 import Parameters from './views/Parameters';
 import AccountButton from './components/AccountButton';
 import AuthButton from './components/AuthButton';
-// import History from './views/History';
+import History from './views/History';
 
 const App: React.FC = () => {
   const [name, setName] = useState<string>('');
@@ -41,9 +41,9 @@ const App: React.FC = () => {
               <Route path="/index.html">
                 <Parameters />
               </Route>
-              {/* <Route path="/history">
+              <Route path="/history">
                 <History />
-              </Route> */}
+              </Route>
             </Switch>
           </div>
           <div className="app-footer">

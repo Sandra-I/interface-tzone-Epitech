@@ -1,5 +1,5 @@
 import * as React from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import SwitchCheckbox from '../components/SwitchCheckbox';
 import Translate from '../components/Translate';
 import { MessageType } from '../models/DataMessage';
@@ -15,9 +15,8 @@ const Parameters = () => (
         <span className="short">ALT + S</span>
       </div>
     </div>
-    {/* <Link to="/history"><button>Historique</button></Link> */}
-    {/* <br /> */}
-    <button className="myButton" onClick={triggerSelectionEvent}>Faire une capture</button>
+    <Link to="/history"><button className="myButton">Historique</button></Link>
+      <button className="myButton" onClick={triggerSelectionEvent}>Faire une capture</button>
   </div>
 );
 

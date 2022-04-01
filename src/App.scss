@@ -16,7 +16,7 @@
     .app {
         color: var(--white);
         background-color: var(--bg_color);
-        min-width: 400px;
+        width: 400px;
         .app-header {
             height: 88px;
             align-items: center;
@@ -29,7 +29,7 @@
             }
         }
         .app-body {
-            font-size: calc(10px + 2vmin);
+            font-size: 1.2em;
         }
     }
 }
@@ -77,4 +77,15 @@
     &::-webkit-scrollbar-thumb {
         background: #c1c1c1 !important;
     }
+}
+.read-or-hide{
+    color: rgb(192,192,192);
+    cursor: pointer;
+}
+.containerHistory {
+    overflow-wrap: break-word;
+    margin: 5%;
+}
+html {
+    height: 200px;
 }
