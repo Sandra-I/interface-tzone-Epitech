@@ -6,10 +6,13 @@ import {
 } from 'react';
 import './SwitchCheckbox.scss';
 import OptionsService from '../utils/optionsService';
+import { useTranslation } from "react-i18next";
 
 const SwitchCheckbox: React.FC = () => {
+  const { t } = useTranslation();
+  
   const [checkOptions, setCheckOptions] = useState(new Map([
-    ['preview', { name: 'Prévisualisation', check: false }],
+    ['preview', { name: "Prévisualisation", check: false }],
   ]));
 
   useEffect(() => {
@@ -47,7 +50,7 @@ const SwitchCheckbox: React.FC = () => {
     <>
       { Array.from(checkOptions.keys()).map((key: any) => (
         <div key={key}>
-          <label htmlFor={key}>{checkOptions.get(key)!.name}</label>
+          <label htmlFor={key}>{t(key)}</label>
           <input
             name={key}
             checked={checkOptions.get(key)!.check}

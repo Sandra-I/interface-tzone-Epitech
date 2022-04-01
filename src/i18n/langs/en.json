@@ -1,0 +1,13 @@
+{
+    "parameters": "Parameters",
+    "preview": "Preview",
+    "translateInto": "Translate my text into",
+    "keyShortcutScreenshot": "Keyboard shortcut 'Capture'",
+    "doScreenshot": "Make a screenshot",
+    "login": "Login",
+    "logout": "Logout",
+    "mainText": "Main text",
+    "result": "Result",
+    "history": "History",
+    "back": "Back"
+}
