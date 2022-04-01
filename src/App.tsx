@@ -27,7 +27,7 @@ const App: React.FC = () => {
           <div className="app-body">
             <Switch>
               <Route path="/index.html">
-                <Parameters />
+                <Parameters user={user!} />
               </Route>
               {/* <Route path="/history">
                 <History />
