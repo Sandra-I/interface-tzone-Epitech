@@ -5,14 +5,14 @@ export interface User {
   email: string;
   isAdmin: boolean;
   planId: string;
-  history: [{
-    text: String,
-    translation: {
-      lang: String,
-      text: String
+  history: {
+    text: string,
+    translation?: {
+      lang: string,
+      text: string
     },
     date: Date
-  }],
+  }[],
   payment: {
     date: Date;
     total: number;
