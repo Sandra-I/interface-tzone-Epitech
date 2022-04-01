@@ -45,9 +45,6 @@
     p {
         display: flex;
         align-items: center;
-        a {
-            text-decoration-line: none;
-            color: var(--font_color);
-        }
+        color: var(--font_color);
     }
 }
