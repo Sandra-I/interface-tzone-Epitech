@@ -1,4 +1,5 @@
 {
     "backendurl": "https://tzone.yamikamisama.fr",
-    "backendurldev": "https://tzone.yamikamisama.fr/dev" 
+    "backendurldev": "https://tzone.yamikamisama.fr/dev",
+    "nestapi": "https://tzone-nestjs-api.herokuapp.com"
 }
