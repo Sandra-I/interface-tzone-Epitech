@@ -57,6 +57,7 @@
 .dropdown-content {
   display: none;
   position: absolute;
+  background-color: var(--bg_color);
   width: 150px;
   overflow: auto;
   border-radius: 3px;
