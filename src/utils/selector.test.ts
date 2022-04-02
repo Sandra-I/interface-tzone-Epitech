@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import Selector from '../utils/selector';
+import Selector from './selector';
 
 describe('selector', () => {
   let selector: Selector = new Selector();

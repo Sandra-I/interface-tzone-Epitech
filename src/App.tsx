@@ -19,16 +19,18 @@ const App: React.FC = () => {
   const [user, setUser] = useState<User>();
   const { t } = useTranslation();
 
+  function chromeTabsQueryCallback(tabs: chrome.tabs.Tab[]) {
+    const tab = tabs[0];
+    if (tab && tab.id) {
+      // Tell the page script ta make a screenshot
+      chrome.tabs.sendMessage(tab.id, { msg: MessageType.SCREENSHOT_SELECTION, tabId: tab.id });
+    } else {
+      throw Error("Can't find active tab !");
+    }
+  }
+
   function triggerSelectionEvent() {
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      const tab = tabs[0];
-      if (tab && tab.id) {
-        // Tell the page script ta make a screenshot
-        chrome.tabs.sendMessage(tab.id, { msg: MessageType.SCREENSHOT_SELECTION, tabId: tab.id });
-      } else {
-        throw Error("Can't find active tab !");
-      }
-    });
+    chrome.tabs.query({ active: true, currentWindow: true }, chromeTabsQueryCallback);
   }
 
   return (
@@ -56,7 +58,14 @@ const App: React.FC = () => {
           </div>
           <div className="app-footer">
             <div className="button-div">
-              <button type="button" className="myButton" onClick={triggerSelectionEvent}>{t('doScreenshot')}</button>
+              <button
+                id="screenshot_button"
+                type="button"
+                className="myButton"
+                onClick={triggerSelectionEvent}
+              >
+                {t('doScreenshot')}
+              </button>
             </div>
           </div>
         </div>

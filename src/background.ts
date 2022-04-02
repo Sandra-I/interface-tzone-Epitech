@@ -9,8 +9,6 @@ import UnknownMessageError from './errors/unknownMessageError';
 
 declare type NotificationOptions = any;
 
-export * from './tests/check-result';
-
 // Load config
 OptionsService.init();
 const savedConf = localStorage.getItem('options');

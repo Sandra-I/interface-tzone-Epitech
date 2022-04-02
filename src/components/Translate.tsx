@@ -27,6 +27,8 @@ const Translate: React.FC = () => {
   }, []);
 
   function handleSubmit(e: React.ChangeEvent<HTMLSelectElement>) {
+    /** Use to keep the event during tests */
+    e.persist();
     OptionsService.getOptions().then((_options) => {
       OptionsService.updateOptions({ ..._options, translateLanguage: e.target.value || null });
     });

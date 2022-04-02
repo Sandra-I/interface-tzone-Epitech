@@ -17,7 +17,7 @@ const languageRessources = {
 };
 
 const AvailableLanguages = class AvailableLanguages {
-  static readonly LANGS = Object.keys(languageRessources)
+  static readonly LANGS = Object.keys(languageRessources);
 };
 
 i18n
