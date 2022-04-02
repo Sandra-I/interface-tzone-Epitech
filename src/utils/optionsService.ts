@@ -9,7 +9,7 @@ export default class OptionsService {
       retriveFormat: false,
     },
     translateLanguage: null,
-  }
+  };
 
   private static isBackground = false;
 

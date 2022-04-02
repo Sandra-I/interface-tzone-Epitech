@@ -1,13 +1,15 @@
-import { fireEvent, render, RenderResult, screen } from '@testing-library/react';
-import AccountButton from './AccountButton';
+import {
+  fireEvent, render, screen,
+} from '@testing-library/react';
 import * as React from 'react';
+import AccountButton from './AccountButton';
 import '@testing-library/jest-dom/extend-expect';
 
-describe("AccountButton test", () => {
+describe('AccountButton test', () => {
   let component: any;
 
   beforeEach(() => {
-    component = render(<AccountButton name='Florent' />)
+    component = render(<AccountButton name="Florent" />);
   });
 
   it('renders account button', () => {
@@ -17,10 +19,8 @@ describe("AccountButton test", () => {
 
   it('should execute showAccount method', () => {
     window.open = jest.fn();
-    let button = component.container.getElementsByClassName('accountButton')[0];
+    const button = component.container.getElementsByClassName('accountButton')[0];
     fireEvent.click(button);
     expect(window.open).toHaveBeenCalled();
   });
-
-})
-
+});

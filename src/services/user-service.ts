@@ -14,15 +14,17 @@ export default class UserService {
    */
   static async getGoogleConnexion(setUser: Function): Promise<void> {
     this.popup = window.open(`${this.url}/google`, 'window', 'width=500,height=500') as Window;
-    const callback = (res: MessageEvent) => this.logCallback(res, setUser)
+    const callback = (res: MessageEvent) => this.logCallback(res, setUser);
     window.addEventListener('message', callback);
-    const interval = setInterval(() => {this.intervalFunction(callback, interval)});
+    const interval = setInterval(() => { this.intervalFunction(callback, interval); });
   }
 
+  // eslint-disable-next-line no-undef
   private static intervalFunction(callback: Function, interval: NodeJS.Timer) {
     if (this.popup?.closed) {
       clearInterval(interval);
-      window.removeEventListener('message', callback as EventListenerOrEventListenerObject );
+      // eslint-disable-next-line no-undef
+      window.removeEventListener('message', callback as EventListenerOrEventListenerObject);
     }
   }
 

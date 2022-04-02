@@ -64,5 +64,4 @@ describe('selector', () => {
     expect(selector.selectorBackground.bottomRight.style.width).toEqual('75px');
     expect(selector.selectorBackground.bottomRight.style.height).toEqual('100%');
   });
-  
 });

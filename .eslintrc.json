@@ -2,7 +2,8 @@
     "env": {
         "browser": true,
         "es2021": true,
-        "webextensions": true
+        "webextensions": true,
+        "jest": true
     },
     "extends": [
         "plugin:react/recommended",
@@ -21,6 +22,7 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "linebreak-style": "off",
         "no-use-before-define": "off",
         "@typescript-eslint/no-use-before-define": ["error"],
         "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],

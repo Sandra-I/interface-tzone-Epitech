@@ -4,7 +4,7 @@ import { APIResponceWithTraduction } from '../models/apiResponceWithTraduction';
 import * as config from '../../app.config.json';
 
 export default class TextService {
-  private static url = config.backendurldev
+  private static url = config.backendurldev;
 
   /**
    * API call to request a conversion, image to text from the backend
