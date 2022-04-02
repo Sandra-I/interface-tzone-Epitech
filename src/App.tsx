@@ -4,6 +4,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Link,
 } from 'react-router-dom';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -75,6 +76,13 @@ const App: React.FC = () => {
                 {t('doScreenshot')}
               </button>
             </div>
+            {user?.permissions.history && (
+              <div className="button-div">
+                <Link to="/history">
+                  <button className="myButton" type="button">Historique</button>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </Router>

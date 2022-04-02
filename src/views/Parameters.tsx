@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import SwitchCheckbox from '../components/SwitchCheckbox';
 import Translate from '../components/Translate';
@@ -22,7 +21,6 @@ const Parameters: React.FC<{user: User}> = ({ user }) => {
           <span className="short">ALT + S</span>
         </div>
       </div>
-      { user?.permissions.history && <Link to="/history"><button type="button">Historique</button></Link> }
     </div>
   );
 };
