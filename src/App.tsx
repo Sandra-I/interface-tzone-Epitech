@@ -14,10 +14,18 @@ import { MessageType } from './models/DataMessage';
 import { User } from './models/user';
 import DropDownAccount from './components/DropDownAccount';
 import History from './views/History';
+import UserService from './services/user-service';
 
 const App: React.FC = () => {
   const [user, setUser] = useState<User>();
   const { t } = useTranslation();
+
+  React.useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      UserService.getMe(setUser).catch(() => localStorage.removeItem('token'));
+    }
+  }, []);
 
   function chromeTabsQueryCallback(tabs: chrome.tabs.Tab[]) {
     const tab = tabs[0];
