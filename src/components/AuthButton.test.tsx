@@ -8,15 +8,16 @@ const setUser = () => null;
 window.open = jest.fn();
 
 describe('AccountButton test', () => {
-  let component: any;
+  let component = render(<AuthButton setUser={setUser} />);
 
   beforeEach(() => {
     component = render(<AuthButton setUser={setUser} />);
   });
 
   it('renders auth button', () => {
-    const linkElement = screen.getByText(/Connexion/i);
-    expect(linkElement).toBeInTheDocument();
+    UserService.user = undefined;
+    const element = component.container.querySelector('#auth_button')!;
+    expect(element).toContainHTML('login');
   });
 
   it('should execute login method', () => {

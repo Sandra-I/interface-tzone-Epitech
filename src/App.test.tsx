@@ -5,7 +5,7 @@ import UserService from './services/user-service';
 import '@testing-library/jest-dom/extend-expect';
 
 describe('App component tests', () => {
-  let component: any;
+  let component = render(<App />);
 
   beforeEach(() => { component = render(<App />); });
 
@@ -17,7 +17,7 @@ describe('App component tests', () => {
   it('should render account button', async () => {
     const element = () => component.container.getElementsByClassName('accountButton')[0];
     expect(element()).toBeUndefined();
-    const button = component.container.getElementsByClassName('myButton')[0];
+    const button = component.container.querySelector('#auth_button')!;
     UserService.getGoogleConnexion = jest.fn((setUser) => setUser({ firstName: 'Toto' }));
     fireEvent.click(button);
     await waitFor(() => expect(element()).toBeInTheDocument());
