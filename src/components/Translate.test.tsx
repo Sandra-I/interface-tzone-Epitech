@@ -22,12 +22,12 @@ describe('Translate Test', () => {
   OptionsService.updateOptions = jest.fn();
 
   it('renders Translate input', async () => {
-    const element = () => component.container.querySelector('#langSelector');
+    const element = () => component.container.querySelector('#translatedLangSelector');
     expect(element()).toBeInTheDocument();
   });
 
   it('should update option', async () => {
-    const input = component.container.querySelector('#langSelector')!;
+    const input = component.container.querySelector('#translatedLangSelector')!;
     await act(async () => { fireEvent.change(input, { target: { value: 'COUOCU' } }); });
     await waitFor(() => expect(OptionsService.updateOptions).toHaveBeenCalledTimes(1));
   });
