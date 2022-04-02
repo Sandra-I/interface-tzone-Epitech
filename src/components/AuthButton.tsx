@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import UserService from '../services/user-service';
 import '../styles/elements/button.scss';
 
-
 const AuthButton: React.FC<{setUser: Function}> = ({ setUser }) => {
   const { t } = useTranslation();
   function login() {

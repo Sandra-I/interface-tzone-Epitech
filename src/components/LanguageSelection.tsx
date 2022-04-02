@@ -5,8 +5,8 @@ import Select, { MultiValue, PropsValue } from 'react-select';
 import AvailableLanguages from '../i18n/I18nInit';
 
 export interface LangOption {
-    readonly value: string;
-    readonly label: string;
+  readonly value: string;
+  readonly label: string;
 }
 
 const LanguageSelection: React.FC = () => {
@@ -36,6 +36,7 @@ const LanguageSelection: React.FC = () => {
     <div style={{ width: '82px' }}>
       <Select
         id="langSelector"
+        inputId="langSelectorInput"
         theme={(theme) => ({
           ...theme,
           color: 'white',
@@ -52,13 +53,13 @@ const LanguageSelection: React.FC = () => {
         options={multiValue}
         formatOptionLabel={labelFormat}
         onChange={
-                (newValue) => {
-                  if (newValue) {
-                    i18n.changeLanguage(newValue.value);
-                    localStorage.setItem('lang', newValue.value);
-                  }
-                }
+          (newValue) => {
+            if (newValue) {
+              i18n.changeLanguage(newValue.value);
+              localStorage.setItem('lang', newValue.value);
             }
+          }
+        }
       />
     </div>
   );

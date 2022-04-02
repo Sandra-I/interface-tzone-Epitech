@@ -22,4 +22,20 @@ describe('App component tests', () => {
     fireEvent.click(button);
     await waitFor(() => expect(element()).toBeInTheDocument());
   });
+
+  it('should call chrome.tabs.query', () => {
+    chrome.tabs.query = jest.fn();
+    const button = component.container.querySelector('#screenshot_button')!;
+    fireEvent.click(button);
+    expect(chrome.tabs.query).toHaveBeenCalled();
+  });
+
+  it('should call chrome.tabs.sendMessage', async () => {
+    /** @ts-ignore - incomplete implementation for testing */
+    chrome.tabs.query = jest.fn((options, callback) => callback([{ id: 123 }]));
+    chrome.tabs.sendMessage = jest.fn();
+    const button = component.container.querySelector('#screenshot_button')!;
+    fireEvent.click(button);
+    await waitFor(() => expect(chrome.tabs.sendMessage).toHaveBeenCalled());
+  });
 });
