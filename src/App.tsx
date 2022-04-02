@@ -8,37 +8,41 @@ import {
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Parameters from './views/Parameters';
-import AccountButton from './components/AccountButton';
 import AuthButton from './components/AuthButton';
 import LanguageSelection from './components/LanguageSelection';
 import { MessageType } from './models/DataMessage';
 import { User } from './models/user';
+import DropDownAccount from './components/DropDownAccount';
 import History from './views/History';
-
-function chromeTabsQueryCallback(tabs: chrome.tabs.Tab[]) {
-  const tab = tabs[0];
-  if (tab && tab.id) {
-    // Tell the page script ta make a screenshot
-    chrome.tabs.sendMessage(tab.id, { msg: MessageType.SCREENSHOT_SELECTION, tabId: tab.id });
-  } else {
-    throw Error("Can't find active tab !");
-  }
-}
-
-function triggerSelectionEvent() {
-  chrome.tabs.query({ active: true, currentWindow: true }, chromeTabsQueryCallback);
-}
 
 const App: React.FC = () => {
   const [user, setUser] = useState<User>();
   const { t } = useTranslation();
+
+  function chromeTabsQueryCallback(tabs: chrome.tabs.Tab[]) {
+    const tab = tabs[0];
+    if (tab && tab.id) {
+      // Tell the page script ta make a screenshot
+      chrome.tabs.sendMessage(tab.id, { msg: MessageType.SCREENSHOT_SELECTION, tabId: tab.id });
+    } else {
+      throw Error("Can't find active tab !");
+    }
+  }
+
+  function triggerSelectionEvent() {
+    chrome.tabs.query({ active: true, currentWindow: true }, chromeTabsQueryCallback);
+  }
+
   return (
     <div className="tz-body tz-global">
       <Router>
         <div className="app">
           <div className="app-header">
             <div className="button-div">
-              <span>{user && <AccountButton name={user.firstName} />}</span>
+              {!user && <AuthButton setUser={setUser} />}
+              {user && <DropDownAccount setUser={setUser} user={user} />}
+            </div>
+            <div className="button-div">
               <LanguageSelection />
             </div>
           </div>
@@ -62,9 +66,6 @@ const App: React.FC = () => {
               >
                 {t('doScreenshot')}
               </button>
-            </div>
-            <div className="button-div">
-              <AuthButton setUser={setUser} />
             </div>
           </div>
         </div>

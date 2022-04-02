@@ -4,10 +4,12 @@
     "translateInto": "Traduire mon texte en",
     "keyShortcutScreenshot": "Raccourci clavier 'Capture'",
     "doScreenshot": "Faire une capture",
-    "login": "Connection",
+    "login": "Connexion",
     "logout": "Déconnexion",
     "mainText": "Texte Original",
     "result": "Résultat",
     "history": "Historique",
-    "back": "Retour"
+    "back": "Retour",
+    "myAccount": "Mon compte",
+    "seeProfile": "Voir mon profil"
 }
