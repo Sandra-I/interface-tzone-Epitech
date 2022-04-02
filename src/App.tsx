@@ -13,7 +13,7 @@ import LanguageSelection from './components/LanguageSelection';
 import { MessageType } from './models/DataMessage';
 import { User } from './models/user';
 import DropDownAccount from './components/DropDownAccount';
-// import History from './views/History';
+import History from './views/History';
 
 const App: React.FC = () => {
   const [user, setUser] = useState<User>();
@@ -49,9 +49,9 @@ const App: React.FC = () => {
               <Route path="/index.html">
                 <Parameters user={user!} />
               </Route>
-              {/* <Route path="/history">
-                <History />
-              </Route> */}
+              <Route path="/history">
+                <History user={user} />
+              </Route>
             </Switch>
           </div>
           <div className="app-footer">
