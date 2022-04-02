@@ -3,16 +3,14 @@ import '../styles/elements/button.scss';
 
 const AccountButton: React.FC<{name: string}> = ({ name }) => {
   function showAccount() {
-    console.warn('Account button');
+    const url = 'https://main.deqtbus9d66sw.amplifyapp.com/account';
+    const token = localStorage.getItem('token');
+    window.open(`${url}?token=${token}`, '_blank');
   }
 
   return (
     <div role="button" className="accountButton" onClick={showAccount} onKeyUp={showAccount} tabIndex={0}>
-      <p>
-        <a href="https://main.deqtbus9d66sw.amplifyapp.com/login" target="_blank" rel="noreferrer">
-          {name.toUpperCase()}
-        </a>
-      </p>
+      <p>{name.substring(0, 2).toUpperCase()}</p>
     </div>
   );
 };

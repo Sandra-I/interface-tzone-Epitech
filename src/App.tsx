@@ -12,6 +12,7 @@ import AccountButton from './components/AccountButton';
 import AuthButton from './components/AuthButton';
 import LanguageSelection from './components/LanguageSelection';
 import { MessageType } from './models/DataMessage';
+import { User } from './models/user';
 // import History from './views/History';
 
 function triggerSelectionEvent() {
@@ -27,36 +28,22 @@ function triggerSelectionEvent() {
 }
 
 const App: React.FC = () => {
+  const [user, setUser] = useState<User>();
   const { t } = useTranslation();
-  const [name, setName] = useState<string>('');
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-
-  function login() {
-    console.warn('login test');
-    setIsAuthenticated(true);
-    setName('tz');
-  }
-
-  function logout() {
-    console.warn('logout test');
-    setIsAuthenticated(false);
-    setName('');
-  }
-
   return (
     <div className="tz-body tz-global">
       <Router>
         <div className="app">
           <div className="app-header">
             <div className="button-div">
-              <span>{isAuthenticated && <AccountButton name={name} />}</span>
+              <span>{user && <AccountButton name={user.firstName} />}</span>
               <LanguageSelection />
             </div>
           </div>
           <div className="app-body">
             <Switch>
               <Route path="/index.html">
-                <Parameters />
+                <Parameters user={user!} />
               </Route>
               {/* <Route path="/history">
                 <History />
@@ -68,7 +55,7 @@ const App: React.FC = () => {
               <button type="button" className="myButton" onClick={triggerSelectionEvent}>{t('doScreenshot')}</button>
             </div>
             <div className="button-div">
-              <AuthButton onClick={() => (!isAuthenticated ? login() : logout())} isAuthenticated={isAuthenticated} />
+              <AuthButton setUser={setUser} />
             </div>
           </div>
         </div>
