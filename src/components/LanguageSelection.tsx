@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import Select, { MultiValue, PropsValue } from 'react-select';
-
 import AvailableLanguages from '../i18n/I18nInit';
+import './LanguageSelection.scss';
 
 export interface LangOption {
   readonly value: string;
