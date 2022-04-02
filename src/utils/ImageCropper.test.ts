@@ -27,16 +27,16 @@ describe('imageCropper', () => {
     expect(() => ImageCropper.hasCtx(null)).toThrowError('Unable to find graphic context of generated canvas');
   });
 
-  it('should call multiple functions', () => {
+  it('should call multiple functions', async () => {
     jest.spyOn(ImageCropper, 'getImg');
     jest.spyOn(ImageCropper, 'getCanvas');
     jest.spyOn(HTMLCanvasElement.prototype, 'getContext');
-    jest.spyOn(ImageCropper, 'loadAndSend');
-    ImageCropper.cropImage(imgUrl, selection);
+    jest.spyOn(ImageCropper, 'sendImage');
+    await ImageCropper.cropImage(imgUrl, selection);
     expect(ImageCropper.getImg).toHaveBeenCalled();
     expect(ImageCropper.getCanvas).toHaveBeenCalled();
     expect(HTMLCanvasElement.prototype.getContext).toHaveBeenCalled();
-    expect(ImageCropper.loadAndSend).toHaveBeenCalled();
+    expect(ImageCropper.sendImage).toHaveBeenCalled();
   });
 
   it('should get specific image after cbeing cropped', () => {
