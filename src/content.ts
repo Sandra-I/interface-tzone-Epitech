@@ -73,7 +73,8 @@ function showPopup(data: APIResponce, options?: object) {
   removePopup();
   const htlm = '<div style="width: 320px;margin: 5px;">'
         + '<h1 class="tz-title">Texte copié</h1><br>'
-        + '<textarea style="resize: none;overflow: auto;width: 320px;background-color: white; color: black;" cols="40" rows="5" class="tz-result-text" readonly>'
+        + '<textarea style="resize: none;overflow: auto;width: 320px;background-color: white; color: black;"'
+        + ' cols="40" rows="5" class="tz-result-text" readonly>'
         + `${data.text}`
         + '</textarea>'
         + '</div>';
@@ -107,6 +108,7 @@ function copyText(text: string): void {
   document.body.removeChild(elem);
 }
 
+// eslint-disable-next-line no-unused-vars
 chrome.runtime.onMessage.addListener(async (dataMsg: DataMessage<any>, sender, sendResponce) => {
   if (isCurrentlySelection) {
     console.error('Already selecting an area !');

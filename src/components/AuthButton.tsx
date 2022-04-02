@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import UserService from '../services/user-service';
 import '../styles/elements/button.scss';
 
@@ -11,10 +12,12 @@ const AuthButton: React.FC<{setUser: Function}> = ({ setUser }) => {
     UserService.logout(setUser);
   }
 
+  const { t } = useTranslation();
+
   return (
     <>
       <button type="button" className="myButton" onClick={UserService.user ? logout : login}>
-        {!UserService.user ? 'Connexion' : 'Déconnexion'}
+        {!UserService.user ? t('login') : t('logout')}
       </button>
     </>
   );

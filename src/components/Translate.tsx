@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Options } from '../models/options';
 import OptionsService from '../utils/optionsService';
 
@@ -31,12 +32,16 @@ const Translate: React.FC = () => {
     });
   }
 
+  const { t } = useTranslation();
+
   return (
     <div>
       <form className="form">
         {!loading && (
           <label htmlFor="langSelector">
-            Traduire mon texte en :
+            {t('translateInto')}
+            {' '}
+            :
             <select id="langSelector" onChange={handleSubmit} defaultValue={options?.translateLanguage || ''}>
               {Object.keys(langueAvailable).map(
                 (key) => <option key={key} value={langueAvailable[key]}>{key}</option>,
