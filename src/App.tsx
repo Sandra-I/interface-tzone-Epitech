@@ -18,13 +18,16 @@ import UserService from './services/user-service';
 
 const App: React.FC = () => {
   const [user, setUser] = useState<User>();
+  const [loading, setLoading] = useState(true);
   const { t } = useTranslation();
 
   React.useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      UserService.getMe(setUser).catch(() => localStorage.removeItem('token'));
-    }
+      UserService.getMe(setUser)
+        .catch(() => { localStorage.removeItem('token'); })
+        .finally(() => { setLoading(false); });
+    } else setLoading(false);
   }, []);
 
   function chromeTabsQueryCallback(tabs: chrome.tabs.Tab[]) {
@@ -45,37 +48,42 @@ const App: React.FC = () => {
     <div className="tz-body tz-global">
       <Router>
         <div className="app">
-          <div className="app-header">
-            <div className="button-div">
-              {!user && <AuthButton setUser={setUser} />}
-              {user && <DropDownAccount setUser={setUser} user={user} />}
-            </div>
-            <div className="button-div">
-              <LanguageSelection />
-            </div>
-          </div>
-          <div className="app-body">
-            <Switch>
-              <Route path="/index.html">
-                <Parameters user={user!} />
-              </Route>
-              <Route path="/history">
-                <History user={user} />
-              </Route>
-            </Switch>
-          </div>
-          <div className="app-footer">
-            <div className="button-div">
-              <button
-                id="screenshot_button"
-                type="button"
-                className="myButton"
-                onClick={triggerSelectionEvent}
-              >
-                {t('doScreenshot')}
-              </button>
-            </div>
-          </div>
+          {!loading && (
+            <>
+              <div className="app-header">
+                <div className="button-div">
+                  {!user && <AuthButton setUser={setUser} />}
+                  {user && <DropDownAccount setUser={setUser} user={user} />}
+                </div>
+                <div className="button-div">
+                  <LanguageSelection />
+                </div>
+              </div>
+              <div className="app-body">
+                <Switch>
+                  <Route path="/index.html">
+                    <Parameters user={user!} />
+                  </Route>
+                  <Route path="/history">
+                    <History user={user} />
+                  </Route>
+                </Switch>
+              </div>
+              <div className="app-footer">
+                <div className="button-div">
+                  <button
+                    id="screenshot_button"
+                    type="button"
+                    className="myButton"
+                    onClick={triggerSelectionEvent}
+                  >
+                    {t('doScreenshot')}
+                  </button>
+                </div>
+              </div>
+            </>
+          )}
+          {loading && <div className="ring_loader" />}
         </div>
       </Router>
     </div>
