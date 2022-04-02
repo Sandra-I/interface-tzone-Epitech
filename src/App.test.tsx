@@ -3,6 +3,7 @@ import * as React from 'react';
 import App from './App';
 import UserService from './services/user-service';
 import '@testing-library/jest-dom/extend-expect';
+import { UserMockFull } from './tests/user-mock';
 
 describe('App component tests', () => {
   let component = render(<App />);
@@ -18,7 +19,7 @@ describe('App component tests', () => {
     const element = () => component.container.getElementsByClassName('accountButton')[0];
     expect(element()).toBeUndefined();
     const button = component.container.querySelector('#auth_button')!;
-    UserService.getGoogleConnexion = jest.fn((setUser) => setUser({ firstName: 'Toto' }));
+    UserService.getGoogleConnexion = jest.fn((setUser) => setUser(UserMockFull));
     fireEvent.click(button);
     await waitFor(() => expect(element()).toBeInTheDocument());
   });
@@ -37,5 +38,14 @@ describe('App component tests', () => {
     const button = component.container.querySelector('#screenshot_button')!;
     fireEvent.click(button);
     await waitFor(() => expect(chrome.tabs.sendMessage).toHaveBeenCalled());
+  });
+
+  it('should be loading', async () => {
+    localStorage.setItem('token', '123');
+    UserService.getMe = jest.fn(async () => new Promise((res) => setTimeout(() => res(), 100)));
+    component = render(<App />);
+    const loading = () => component.container.getElementsByClassName('ring_loader')[0];
+    expect(loading()).toBeTruthy();
+    await waitFor(() => expect(loading()).toBeUndefined());
   });
 });
