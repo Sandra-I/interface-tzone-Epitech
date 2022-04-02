@@ -15,6 +15,7 @@
     }
     .app {
         color: var(--white);
+        min-height: 200px;
         background-color: var(--bg_color);
         width: 400px;
         .app-header {
@@ -90,3 +91,29 @@
 html {
     height: 200px;
 }
+
+.ring_loader {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    &:after {
+      content: " ";
+      margin: auto;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 4px solid var(--font_color);
+      border-color: var(--font_color) transparent var(--font_color) transparent;
+      animation: rotate 1.2s linear infinite;
+    }
+}
+
+@keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
