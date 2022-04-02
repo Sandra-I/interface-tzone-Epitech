@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "TZone is a Chrome extension that allows you to select an area of the screen and retrieve the text present in this area directly in the clipboard.",
   "scripts": {
-    "test": "npx jest --colors --coverage",
+    "test": "npx jest --colors",
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
     "start": "webpack --watch --mode development",
