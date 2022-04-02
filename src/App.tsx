@@ -8,11 +8,11 @@ import {
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Parameters from './views/Parameters';
-import AccountButton from './components/AccountButton';
 import AuthButton from './components/AuthButton';
 import LanguageSelection from './components/LanguageSelection';
 import { MessageType } from './models/DataMessage';
 import { User } from './models/user';
+import DropDownAccount from './components/DropDownAccount';
 // import History from './views/History';
 
 const App: React.FC = () => {
@@ -37,10 +37,10 @@ const App: React.FC = () => {
         <div className="app">
           <div className="app-header">
             <div className="button-div">
-              <AuthButton setUser={setUser} />
+              {!user && <AuthButton setUser={setUser} />}
+              {user && <DropDownAccount setUser={setUser} user={user} />}
             </div>
             <div className="button-div">
-              <span>{user && <AccountButton name={user.firstName} />}</span>
               <LanguageSelection />
             </div>
           </div>
