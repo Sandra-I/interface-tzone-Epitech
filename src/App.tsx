@@ -13,7 +13,7 @@ import AuthButton from './components/AuthButton';
 import LanguageSelection from './components/LanguageSelection';
 import { MessageType } from './models/DataMessage';
 import { User } from './models/user';
-// import History from './views/History';
+import History from './views/History';
 
 function triggerSelectionEvent() {
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
@@ -45,9 +45,9 @@ const App: React.FC = () => {
               <Route path="/index.html">
                 <Parameters user={user!} />
               </Route>
-              {/* <Route path="/history">
-                <History />
-              </Route> */}
+              <Route path="/history">
+                <History user={user} />
+              </Route>
             </Switch>
           </div>
           <div className="app-footer">

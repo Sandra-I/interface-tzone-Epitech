@@ -23,8 +23,6 @@ const Parameters: React.FC<{user: User}> = ({ user }) => {
         </div>
       </div>
       { user?.permissions.history && <Link to="/history"><button type="button">Historique</button></Link> }
-      {/* <Link to="/history"><button>Historique</button></Link> */}
-      {/* <br /> */}
     </div>
   );
 };
