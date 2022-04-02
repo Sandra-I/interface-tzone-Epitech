@@ -15,26 +15,30 @@ import { MessageType } from './models/DataMessage';
 import { User } from './models/user';
 // import History from './views/History';
 
-function triggerSelectionEvent() {
-  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-    const tab = tabs[0];
-    if (tab && tab.id) {
-      // Tell the page script ta make a screenshot
-      chrome.tabs.sendMessage(tab.id, { msg: MessageType.SCREENSHOT_SELECTION, tabId: tab.id });
-    } else {
-      throw Error("Can't find active tab !");
-    }
-  });
-}
-
 const App: React.FC = () => {
   const [user, setUser] = useState<User>();
   const { t } = useTranslation();
+
+  function triggerSelectionEvent() {
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      const tab = tabs[0];
+      if (tab && tab.id) {
+        // Tell the page script ta make a screenshot
+        chrome.tabs.sendMessage(tab.id, { msg: MessageType.SCREENSHOT_SELECTION, tabId: tab.id });
+      } else {
+        throw Error("Can't find active tab !");
+      }
+    });
+  }
+
   return (
     <div className="tz-body tz-global">
       <Router>
         <div className="app">
           <div className="app-header">
+            <div className="button-div">
+              <AuthButton setUser={setUser} />
+            </div>
             <div className="button-div">
               <span>{user && <AccountButton name={user.firstName} />}</span>
               <LanguageSelection />
@@ -53,9 +57,6 @@ const App: React.FC = () => {
           <div className="app-footer">
             <div className="button-div">
               <button type="button" className="myButton" onClick={triggerSelectionEvent}>{t('doScreenshot')}</button>
-            </div>
-            <div className="button-div">
-              <AuthButton setUser={setUser} />
             </div>
           </div>
         </div>

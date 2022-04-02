@@ -23,7 +23,7 @@
         }
         .app-header, .app-footer  {
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between;
             .button-div {
                 margin: 15px;
             }
