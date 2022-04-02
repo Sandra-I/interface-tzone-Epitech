@@ -1,7 +1,7 @@
 import { User } from '../models/user';
 
 /** @ts-ignore */
-export const UserMockWithHistory: User = {
+export const UserMockFull: User = {
   _id: '123',
   firstName: 'Toto',
   lastName: 'Pizza',
