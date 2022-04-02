@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import Selector from '../utils/selector';
+import Selector from './selector';
 
 describe('selector', () => {
   let selector: Selector = new Selector();
@@ -64,4 +64,5 @@ describe('selector', () => {
     expect(selector.selectorBackground.bottomRight.style.width).toEqual('75px');
     expect(selector.selectorBackground.bottomRight.style.height).toEqual('100%');
   });
+  
 });
