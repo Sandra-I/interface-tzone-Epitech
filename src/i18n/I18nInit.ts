@@ -1,23 +1,22 @@
-
-import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
 
 import * as enTranslation from './langs/en.json';
 import * as frTranslation from './langs/fr.json';
 
-let storageLang = localStorage.getItem("lang")
-if(!storageLang) storageLang = "fr"
+let storageLang = localStorage.getItem('lang');
+if (!storageLang) storageLang = 'fr';
 
 const languageRessources = {
   fr: {
-    translation: frTranslation
+    translation: frTranslation,
   },
   en: {
-    translation: enTranslation
-  }
-}
+    translation: enTranslation,
+  },
+};
 
-const AvailableLanguages = class AvailableLanguages{
+const AvailableLanguages = class AvailableLanguages {
   static readonly LANGS = Object.keys(languageRessources)
 };
 
@@ -32,8 +31,8 @@ i18n
     fallbackLng: storageLang,
 
     interpolation: {
-      escapeValue: false // react already safes from xss => https://www.i18next.com/translation-function/interpolation#unescape
-    }
+      escapeValue: false, // react already safes from xss => https://www.i18next.com/translation-function/interpolation#unescape
+    },
   });
-  
+
 export default AvailableLanguages;

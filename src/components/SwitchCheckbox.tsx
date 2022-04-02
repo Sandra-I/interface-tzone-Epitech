@@ -5,14 +5,14 @@ import {
   useState,
 } from 'react';
 import './SwitchCheckbox.scss';
+import { useTranslation } from 'react-i18next';
 import OptionsService from '../utils/optionsService';
-import { useTranslation } from "react-i18next";
 
 const SwitchCheckbox: React.FC = () => {
   const { t } = useTranslation();
-  
+
   const [checkOptions, setCheckOptions] = useState(new Map([
-    ['preview', { name: "Prévisualisation", check: false }],
+    ['preview', { name: 'Prévisualisation', check: false }],
   ]));
 
   useEffect(() => {
