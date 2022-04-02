@@ -9,21 +9,27 @@ export default class OptionsService {
       retriveFormat: false,
     },
     translateLanguage: null,
-  }
+  };
 
   private static isBackground = false;
 
   static init() {
     OptionsService.isBackground = true;
-    chrome.runtime.onMessage.addListener((dataMsg: DataMessage<NotificationOptions>, sender, reply) => {
-      if (dataMsg.msg === MessageType.OPTIONS_REQUEST) {
-        reply(OptionsService.options);
-      } else if (dataMsg.msg === MessageType.OPTIONS_UPDATE) {
-        const optionsString = JSON.stringify(dataMsg.data);
-        OptionsService.options = JSON.parse(optionsString);
-        localStorage.setItem('options', optionsString);
-      }
-    });
+    chrome.runtime.onMessage.addListener(this.messageListener);
+  }
+
+  static messageListener(
+    dataMsg: DataMessage<NotificationOptions>,
+    sender: chrome.runtime.MessageSender,
+    reply: Function,
+  ) {
+    if (dataMsg.msg === MessageType.OPTIONS_REQUEST) {
+      reply(OptionsService.options);
+    } else if (dataMsg.msg === MessageType.OPTIONS_UPDATE) {
+      const optionsString = JSON.stringify(dataMsg.data);
+      OptionsService.options = JSON.parse(optionsString);
+      localStorage.setItem('options', optionsString);
+    }
   }
 
   static getOptions() {

@@ -8,7 +8,7 @@ export default class ImageCropper {
    * @param bounds Selection area of the image to crop
    * @return The cropped image corresponding to the bounds selected
    */
-  public static cropImage(imgUrl: string, bounds: Selection): Promise<string | null> {
+  public static async cropImage(imgUrl: string, bounds: Selection): Promise<string | null> {
     const img = this.getImg(imgUrl);
     const canvas = this.getCanvas(bounds);
     const ctx = canvas.getContext('2d');

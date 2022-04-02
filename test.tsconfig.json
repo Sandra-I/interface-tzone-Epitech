@@ -1,5 +1,7 @@
 {
+    "extends": "./tsconfig",
     "compilerOptions": {
+        "allowJs": true,
         "module": "commonjs",
         "lib": ["es2018", "dom"],
         "target": "es6"

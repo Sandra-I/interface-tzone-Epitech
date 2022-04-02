@@ -14,20 +14,26 @@ export default class UserService {
    */
   static async getGoogleConnexion(setUser: Function): Promise<void> {
     this.popup = window.open(`${this.url}/google`, 'window', 'width=500,height=500') as Window;
-    const callback = (result: MessageEvent) => {
-      const { token } = result.data;
-      if (token) {
-        localStorage.setItem('token', token);
-        this.getMe(setUser);
-      }
-    };
+    const callback = (res: MessageEvent) => this.logCallback(res, setUser);
     window.addEventListener('message', callback);
-    const interval = setInterval(() => {
-      if (this.popup?.closed) {
-        window.removeEventListener('message', callback);
-        clearInterval(interval);
-      }
-    });
+    const interval = setInterval(() => { this.intervalFunction(callback, interval); });
+  }
+
+  // eslint-disable-next-line no-undef
+  private static intervalFunction(callback: Function, interval: NodeJS.Timer) {
+    if (this.popup?.closed) {
+      clearInterval(interval);
+      // eslint-disable-next-line no-undef
+      window.removeEventListener('message', callback as EventListenerOrEventListenerObject);
+    }
+  }
+
+  static logCallback(result: MessageEvent, setUser: Function) {
+    const { token } = result.data;
+    if (token) {
+      localStorage.setItem('token', token);
+      this.getMe(setUser);
+    }
   }
 
   /**

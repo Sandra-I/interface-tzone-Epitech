@@ -2,7 +2,8 @@
     "env": {
         "browser": true,
         "es2021": true,
-        "webextensions": true
+        "webextensions": true,
+        "jest": true
     },
     "extends": [
         "plugin:react/recommended",
@@ -37,7 +38,8 @@
         ],
         "max-len": [2, { "code": 120, "ignoreComments": true }],
         "react/sort-comp": [0],
-        "no-console": [2, { "allow": ["warn", "error", "info"] }]
+        "no-console": [2, { "allow": ["warn", "error", "info"] }],
+        "linebreak-style":"off"
     },
     "settings": {
         "import/resolver": {

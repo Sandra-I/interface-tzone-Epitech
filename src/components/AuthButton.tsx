@@ -4,6 +4,7 @@ import UserService from '../services/user-service';
 import '../styles/elements/button.scss';
 
 const AuthButton: React.FC<{setUser: Function}> = ({ setUser }) => {
+  const { t } = useTranslation();
   function login() {
     UserService.getGoogleConnexion(setUser);
   }
@@ -12,11 +13,9 @@ const AuthButton: React.FC<{setUser: Function}> = ({ setUser }) => {
     UserService.logout(setUser);
   }
 
-  const { t } = useTranslation();
-
   return (
     <>
-      <button type="button" className="myButton" onClick={UserService.user ? logout : login}>
+      <button id="auth_button" type="button" className="myButton" onClick={UserService.user ? logout : login}>
         {!UserService.user ? t('login') : t('logout')}
       </button>
     </>
