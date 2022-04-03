@@ -38,8 +38,6 @@ export default class OptionsService {
         res(OptionsService.options);
       } else {
         chrome.runtime.sendMessage({ msg: MessageType.OPTIONS_REQUEST, data: null, tabId: null }, (response) => {
-          console.log(response);
-          
           res(response);
         });
       }
