@@ -91,21 +91,37 @@ function copyText(text: string): void {
   elem.select();
   document.execCommand('copy');
   document.body.removeChild(elem);
+  document.body.click();
+}
+
+function getCopyTextAsString(text: string): string {
+  const newText = text.replace(/\n/g, ' ');
+  return `(function copyText() {
+    const elem = document.createElement('textarea');
+    elem.value = '${newText}';
+    document.body.appendChild(elem);
+    elem.select();
+    document.execCommand('copy');
+    document.body.removeChild(elem);
+    document.body.click();
+    })();`;
 }
 
 function showPopupWithTranslation(data: APIResponceWithTraduction) {
   removePopup();
-  const htlm = '<div id="tzone_preview_result_container" style="width: 320px;margin: 5px;">'
+  const htlm = '<div id = "tzone_preview_result_container" style = "width: 320px;margin: 5px;" > '
     + '<h1 id="tzone_preview_result_title">Résultat</h1><br>'
     + '<div id="tzone_preview_result_traduction_title">'
-    + `<b>Texte original (${data.original.lang}):</b> <button onclick="${copyText(data.original.text)}"`
+    + `<b>Texte original (${data.original.lang}):</b>`
+    + ` <button onclick="${getCopyTextAsString(data.original.text)}"`
     + '>Copier</button><br></div>'
     + '<textarea style="resize: none;overflow: auto; background-color: white; color: black;"'
     + 'class="tzone_preview_result_content" > '
     + `${data.original.text}`
     + '</textarea><br><br>'
     + '<div id="tzone_preview_result_traduction_title">'
-    + `<b>Texte traduit (${data.translated.lang}):</b> <button onclick="${copyText(data.translated.text)}"`
+    + `<b>Texte traduit (${data.translated.lang}):</b>`
+    + `<button onclick="${getCopyTextAsString(data.translated.text)}"`
     + '>Copier</button><br></div>'
     + '<textarea style="resize: none;overflow: auto; background-color: white; color: black;"'
     + 'class="tzone_preview_result_content" > '
