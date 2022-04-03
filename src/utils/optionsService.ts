@@ -6,7 +6,7 @@ export default class OptionsService {
   public static readonly defaultOptions: Options = {
     checkOptions: {
       preview: false,
-      retriveFormat: false,
+      // retriveFormat: false,
     },
     translateLanguage: null,
   };

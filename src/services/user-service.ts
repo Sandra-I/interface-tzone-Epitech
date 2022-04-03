@@ -1,6 +1,7 @@
 import axios from 'axios';
 import * as config from '../../app.config.json';
 import { User } from '../models/user';
+import OptionsService from '../utils/optionsService';
 
 export default class UserService {
   private static url = config.nestapi;
@@ -57,6 +58,8 @@ export default class UserService {
     this.user = undefined;
     setUser(undefined);
     localStorage.removeItem('token');
+    localStorage.setItem('options', '{"checkOptions":{"preview":true},"translateLanguage":null}');
+    OptionsService.updateOptions({ checkOptions: { preview: true }, translateLanguage: null });
   }
 
   /**
