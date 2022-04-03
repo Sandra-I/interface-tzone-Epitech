@@ -11,5 +11,11 @@
     "history": "History",
     "back": "Back",
     "myAccount": "My Account",
-    "seeProfile": "See my profile"
+    "seeProfile": "See my profile",
+    "emptyHistory": "Your history is empty.",
+    "seeMore": "...see more",
+    "seeLess": "see less",
+    "copiedText": "Copied text",
+    "copy": "Copy",
+    "close": "Close"
 }

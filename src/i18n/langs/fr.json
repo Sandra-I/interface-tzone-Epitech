@@ -11,5 +11,11 @@
     "history": "Historique",
     "back": "Retour",
     "myAccount": "Mon compte",
-    "seeProfile": "Voir mon profil"
+    "seeProfile": "Voir mon profil",
+    "emptyHistory": "Votre historique est vide.",
+    "seeMore": "...voir plus",
+    "seeLess": "voir moins",
+    "copiedText": "Text copié",
+    "copy": "Copier",
+    "close": "Fermer"
 }

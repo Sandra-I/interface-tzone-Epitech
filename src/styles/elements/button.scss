@@ -18,6 +18,13 @@
             opacity: .7;
         }
     }
+    &.back_button {
+        display: flex;
+        background-color:transparent;
+        & div {
+            margin-right: 10px;
+        }
+    }
 }
 
 .accountButton {
