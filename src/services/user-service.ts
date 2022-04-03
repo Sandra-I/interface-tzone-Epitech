@@ -58,4 +58,17 @@ export default class UserService {
     setUser(undefined);
     localStorage.removeItem('token');
   }
+
+  /**
+ * API update history of user
+ */
+  static async updateHistory(text: string) {
+    const myToken = localStorage.getItem('token')!;
+    const response = await axios.post<User>(`${this.url}/user/history`, { text }, {
+      headers: {
+        Authorization: `Bearer ${myToken}`,
+      },
+    });
+    this.user!.history = response.data.history;
+  }
 }
