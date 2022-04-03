@@ -1,0 +1,10 @@
+version: "3.8"
+services:
+  app:
+    build: .
+    volumes:
+      - tzonedist:/app
+
+volumes:
+  tzonedist:
+    external: true
