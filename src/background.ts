@@ -32,15 +32,6 @@ chrome.commands.onCommand.addListener(async (command: string) => {
   });
 });
 
-function copyText(text: string): void {
-  const elem = document.createElement('textarea');
-  elem.value = text;
-  document.body.appendChild(elem);
-  elem.select();
-  document.execCommand('copy');
-  document.body.removeChild(elem);
-}
-
 // Responce of selection call
 chrome.runtime.onMessage.addListener((dataMsg: DataMessage<Selection | NotificationOptions>, sender, response) => {
   // if it's the result of a selection then
@@ -53,13 +44,10 @@ chrome.runtime.onMessage.addListener((dataMsg: DataMessage<Selection | Notificat
         OptionsService.getOptions().then((options) => {
           if (options.translateLanguage) {
             API.getTextFromImageWithTraduction(croppedImageData, options.translateLanguage).then((result) => {
-              copyText(result.data.original.text);
               if (sender.tab && sender.tab.id) {
                 chrome.tabs.sendMessage(sender.tab.id, { msg: MessageType.API_SUCCESS, tabId: sender.tab.id });
-                if (options.checkOptions.preview) {
-                  chrome.tabs.sendMessage(sender.tab.id,
-                    { msg: MessageType.SHOW_PREVIEW_WITH_TRANSLATION, tabId: sender.tab.id, data: result.data });
-                }
+                chrome.tabs.sendMessage(sender.tab.id,
+                  { msg: MessageType.SHOW_PREVIEW_WITH_TRANSLATION, tabId: sender.tab.id, data: result.data });
               }
             }).catch((err: Error) => {
               console.error(err);
@@ -69,16 +57,13 @@ chrome.runtime.onMessage.addListener((dataMsg: DataMessage<Selection | Notificat
             });
           } else {
             API.getTextFromImage(croppedImageData).then((result) => {
-              copyText(result.data.text);
               if (sender.tab && sender.tab.id) {
                 chrome.tabs.sendMessage(sender.tab.id, { msg: MessageType.API_SUCCESS, tabId: sender.tab.id });
-                // if (options.checkOptions.preview || true) {
                 chrome.tabs.sendMessage(sender.tab.id, {
                   msg: MessageType.SHOW_PREVIEW,
                   tabId: sender.tab.id,
                   data: result.data,
                 });
-                // }
               }
             }).catch((err) => {
               console.error(err);
