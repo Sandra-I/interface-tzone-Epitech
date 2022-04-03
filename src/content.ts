@@ -12,6 +12,7 @@ import './App.scss';
 import UnknownMessageError from './errors/unknownMessageError';
 import { APIResponce } from './models/apiResponce';
 import { APIResponceWithTraduction } from './models/apiResponceWithTraduction';
+import OptionsService from './utils/optionsService';
 
 const selector = new Selector();
 
@@ -131,37 +132,36 @@ function showPopupWithTranslation(data: APIResponceWithTraduction) {
   popup.show();
 }
 
-
 // eslint-disable-next-line no-unused-vars
 chrome.runtime.onMessage.addListener(async (dataMsg: DataMessage<any>, sender, sendResponce) => {
   if (isCurrentlySelection) {
     console.error('Already selecting an area !');
   } else {
-    switch (dataMsg.msg) {
-      case MessageType.SCREENSHOT_SELECTION:
-        isCurrentlySelection = true;
-        selector.select().pipe(first()).subscribe((rec: Selection) => {
-          isCurrentlySelection = false;
-          addLoadingAnimation();
-          setTimeout(() => chrome.runtime.sendMessage({
-            msg: MessageType.SCREENSHOT_SELECTION_RESULT,
-            data: rec,
-            tabId: dataMsg.tabId,
-          }), 10);
-        });
-        break;
-      case MessageType.API_ERROR:
-        removeLoadingAnimation();
-        removePopup();
-        Swal.fire({
-          icon: 'error',
-          title: 'API Error',
-          text: `Impossible de convertire en text la capture : ${dataMsg.data?.message}`,
-        });
-        break;
-      case MessageType.SHOW_PREVIEW:
-        chrome.storage.local.get('preview', (result) => {
-          if (result.preview) { // todo: check if is not member premium
+    OptionsService.getOptions().then((options) => {
+      switch (dataMsg.msg) {
+        case MessageType.SCREENSHOT_SELECTION:
+          isCurrentlySelection = true;
+          selector.select().pipe(first()).subscribe((rec: Selection) => {
+            isCurrentlySelection = false;
+            addLoadingAnimation();
+            setTimeout(() => chrome.runtime.sendMessage({
+              msg: MessageType.SCREENSHOT_SELECTION_RESULT,
+              data: rec,
+              tabId: dataMsg.tabId,
+            }), 10);
+          });
+          break;
+        case MessageType.API_ERROR:
+          removeLoadingAnimation();
+          removePopup();
+          Swal.fire({
+            icon: 'error',
+            title: 'API Error',
+            text: `Impossible de convertire en text la capture : ${dataMsg.data?.message}`,
+          });
+          break;
+        case MessageType.SHOW_PREVIEW:
+          if (options.checkOptions.preview) { // todo: check if is not member premium
             showPopup(dataMsg.data, {
               buttons: [
                 {
@@ -176,20 +176,21 @@ chrome.runtime.onMessage.addListener(async (dataMsg: DataMessage<any>, sender, s
               ],
             });
           } else {
+            copyText(dataMsg.data.text);
             showPopup(dataMsg.data, {
               timeout: 2, fadeTime: 3,
             });
           }
-        });
-        break;
-      case MessageType.SHOW_PREVIEW_WITH_TRANSLATION:
-        showPopupWithTranslation(dataMsg.data);
-        break;
-      case MessageType.API_SUCCESS:
-        removeLoadingAnimation();
-        break;
-      default:
-        throw new UnknownMessageError(`Can't find action for unknow MessageType "${dataMsg.msg}"`);
-    }
+          break;
+        case MessageType.SHOW_PREVIEW_WITH_TRANSLATION:
+          showPopupWithTranslation(dataMsg.data);
+          break;
+        case MessageType.API_SUCCESS:
+          removeLoadingAnimation();
+          break;
+        default:
+          throw new UnknownMessageError(`Can't find action for unknow MessageType "${dataMsg.msg}"`);
+      }
+    });
   }
 });

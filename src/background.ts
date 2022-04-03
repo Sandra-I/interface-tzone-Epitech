@@ -37,15 +37,6 @@ chrome.commands.onCommand.addListener(async (command: string) => {
   });
 });
 
-function copyText(text: string): void {
-  const elem = document.createElement('textarea');
-  elem.value = text;
-  document.body.appendChild(elem);
-  elem.select();
-  document.execCommand('copy');
-  document.body.removeChild(elem);
-}
-
 // Responce of selection call
 chrome.runtime.onMessage.addListener((dataMsg: DataMessage<Selection | NotificationOptions>, sender, response) => {
   // if it's the result of a selection then
@@ -75,13 +66,11 @@ chrome.runtime.onMessage.addListener((dataMsg: DataMessage<Selection | Notificat
               updateHistory(result.data.text);
               if (sender.tab && sender.tab.id) {
                 chrome.tabs.sendMessage(sender.tab.id, { msg: MessageType.API_SUCCESS, tabId: sender.tab.id });
-                // if (options.checkOptions.preview || true) {
                 chrome.tabs.sendMessage(sender.tab.id, {
                   msg: MessageType.SHOW_PREVIEW,
                   tabId: sender.tab.id,
                   data: result.data,
                 });
-                // }
               }
             }).catch((err) => {
               console.error(err);

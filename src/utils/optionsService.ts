@@ -3,13 +3,15 @@ import { DataMessage, MessageType } from '../models/DataMessage';
 
 declare type NotificationOptions = any;
 export default class OptionsService {
-  private static options: Options = {
+  public static readonly defaultOptions: Options = {
     checkOptions: {
       preview: false,
       retriveFormat: false,
     },
     translateLanguage: null,
   };
+
+  private static options: Options = OptionsService.defaultOptions;
 
   private static isBackground = false;
 

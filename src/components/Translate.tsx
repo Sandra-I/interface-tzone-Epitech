@@ -21,10 +21,13 @@ const Translate: React.FC = () => {
   const [options, setOptions] = useState<Options>();
 
   useEffect(() => {
-    OptionsService.getOptions().then((_options) => {
-      setLoading(false);
-      setOptions(_options);
-    });
+    const optionsString = localStorage.getItem('options');
+    if (optionsString) {
+      setOptions(JSON.parse(optionsString));
+    } else {
+      setOptions(OptionsService.defaultOptions);
+    }
+    setLoading(false);
   }, []);
 
   function handleSubmit(e: React.ChangeEvent<HTMLSelectElement>) {
