@@ -27,8 +27,7 @@
       ],
       "js": [
         "content.js"
-      ],
-      "css": ["background.css"]
+      ]
     }
   ],
   "commands": {
