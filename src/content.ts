@@ -71,31 +71,15 @@ function removePopup() {
 
 function showPopup(data: APIResponce, options?: object) {
   removePopup();
-  const htlm = '<div style="width: 320px;margin: 5px;">'
-        + '<h1 class="tz-title">Texte copié</h1><br>'
-        + '<textarea style="resize: none;overflow: auto;width: 320px;background-color: white; color: black;"'
-        + ' cols="40" rows="5" class="tz-result-text" readonly>'
-        + `${data.text}`
-        + '</textarea>'
-        + '</div>';
+  const htlm = '<div id="tzone_preview_result_container" style="width: 320px;margin: 5px;">'
+    + '<h1 id="tzone_preview_result_title">Texte copié</h1><br>'
+    + '<textarea class="tzone_preview_result_content"'
+    + 'style = "resize: none;overflow: auto; background-color: white; color: black;"'
+    + ' cols="40" rows="5" class="tz-result-text" readonly>'
+    + `${data.text}`
+    + '</textarea>'
+    + '</div>';
   const popup = new Popup('tzone-preview', htlm, options);
-  popup.show();
-}
-
-function showPopupWithTranslation(data: APIResponceWithTraduction) {
-  removePopup();
-  const htlm = '<div style="width: 320px;margin: 5px;">'
-        + '<h1 class="tz-title">Résultat</h1><br>'
-        + `<b>Texte original (${data.original.lang}):</b><br>`
-        + '<p style="overflow: auto;width: 320px;" class="tz-result-text">'
-        + `${data.original.text}`
-        + '</p><br><br>'
-        + `<b>Texte traduit (${data.translated.lang}):</b><br>`
-        + '<p style="overflow: auto;width: 320px;" class="tz-result-text">'
-        + `${data.translated.text}`
-        + '</textarea>'
-        + '</div>';
-  const popup = new Popup('tzone-preview', htlm, { buttons: [{ actionType: 'exit', name: 'Ok' }] });
   popup.show();
 }
 
@@ -107,6 +91,30 @@ function copyText(text: string): void {
   document.execCommand('copy');
   document.body.removeChild(elem);
 }
+
+function showPopupWithTranslation(data: APIResponceWithTraduction) {
+  removePopup();
+  const htlm = '<div id="tzone_preview_result_container" style="width: 320px;margin: 5px;">'
+    + '<h1 id="tzone_preview_result_title">Résultat</h1><br>'
+    + '<div id="tzone_preview_result_traduction_title">'
+    + `<b>Texte original (${data.original.lang}):</b> <button onclick="${copyText(data.original.text)}"`
+    + '>Copier</button><br></div>'
+    + '<textarea style="resize: none;overflow: auto; background-color: white; color: black;"'
+    + 'class="tzone_preview_result_content" > '
+    + `${data.original.text}`
+    + '</textarea><br><br>'
+    + '<div id="tzone_preview_result_traduction_title">'
+    + `<b>Texte traduit (${data.translated.lang}):</b> <button onclick="${copyText(data.translated.text)}"`
+    + '>Copier</button><br></div>'
+    + '<textarea style="resize: none;overflow: auto; background-color: white; color: black;"'
+    + 'class="tzone_preview_result_content" > '
+    + `${data.translated.text}`
+    + '</textarea>'
+    + '</div>';
+  const popup = new Popup('tzone-preview', htlm, { buttons: [{ actionType: 'exit', name: 'Ok' }] });
+  popup.show();
+}
+
 
 // eslint-disable-next-line no-unused-vars
 chrome.runtime.onMessage.addListener(async (dataMsg: DataMessage<any>, sender, sendResponce) => {

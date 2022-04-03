@@ -9,8 +9,10 @@ export default class Popup {
   constructor(
     private id: string,
     html: string,
-    private options?: {buttons?: {name: string, actionType: 'exit' | 'callback', callback?: any}[],
-    timeout?: number, fadeTime?: number},
+    private options?: {
+      buttons?: { name: string, actionType: 'exit' | 'callback', callback?: any }[],
+      timeout?: number, fadeTime?: number
+    },
   ) {
     const existingElement = document.getElementById(id);
     if (existingElement) throw new Error("Can't create the popup, id already exist !");
@@ -18,27 +20,13 @@ export default class Popup {
     // this.popupContent.className = 'tz-normal-text tz-global popup-style';
 
     this.popupContent.className = 'tz-normal-text tz-global';
-    this.popupContent.style.opacity = '1';
-    this.popupContent.style.position = 'fixed';
-    this.popupContent.style.top = '0';
-    this.popupContent.style.right = '0';
-    this.popupContent.style.zIndex = '99999';
-    this.popupContent.style.backgroundColor = '#F3FFDE';
-    this.popupContent.style.color = 'black';
-    this.popupContent.style.borderRadius = '20px';
-    this.popupContent.style.fontWeight = '700';
-    this.popupContent.style.margin = '5px';
-    this.popupContent.style.padding = '10px';
-    this.popupContent.style.textAlign = 'center';
-    this.popupContent.style.fontSize = '14px';
-    this.popupContent.style.fontFamily = 'arial';
-    this.popupContent.style.boxShadow = '1px 4px 10px #444444';
 
     this.popupContent.innerHTML = html;
 
     if (options) {
       if (options.buttons) {
         const buttons = document.createElement('div');
+        buttons.id = 'tzone_preview_result_buttons';
         options.buttons.forEach((button) => {
           const buttonElement = document.createElement('button');
           buttonElement.innerHTML = button.name;
@@ -57,6 +45,12 @@ export default class Popup {
     const existingElement = document.getElementById(this.id);
     if (!existingElement) {
       document.body.appendChild(this.popupContent);
+      this.popupContent.addEventListener('click', (e) => e.stopPropagation());
+      const callback = () => {
+        this.hide();
+        document.removeEventListener('click', callback);
+      };
+      document.addEventListener('click', callback);
     }
     if (this.options && this.options.timeout) {
       setTimeout(() => {
