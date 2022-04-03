@@ -1,0 +1,39 @@
+image: node:latest
+
+# This folder is cached between builds for faster runs
+# http://docs.gitlab.com/ce/ci/yaml/README.html#cache
+cache:
+  paths:
+  - node_modules/
+
+stages:
+  - build
+  - lint
+  - test
+
+build:
+  stage: build
+  script:
+    - echo 'Hello, $GITLAB_USER_LOGIN!'
+    - echo 'Commit branch, $CI_COMMIT_BRANCH'
+    - echo 'Job => Build'
+    - yarn install
+    - npm run build
+
+  # artifacts:
+  #     paths:
+  #       - dist/
+
+lint:
+  stage: lint
+  script:
+    - echo 'Job => Lint'
+    - npm run lint
+
+test:
+  stage: test
+  dependencies:
+    - build
+  script:
+    - echo 'Job => Test'
+    - npm run test

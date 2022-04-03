@@ -1,0 +1,21 @@
+{
+    "parameters": "Paramètres",
+    "preview": "Prévisualisation",
+    "translateInto": "Traduire mon texte en",
+    "keyShortcutScreenshot": "Raccourci clavier 'Capture'",
+    "doScreenshot": "Faire une capture",
+    "login": "Connexion",
+    "logout": "Déconnexion",
+    "mainText": "Texte Original",
+    "result": "Résultat",
+    "history": "Historique",
+    "back": "Retour",
+    "myAccount": "Mon compte",
+    "seeProfile": "Voir mon profil",
+    "emptyHistory": "Votre historique est vide.",
+    "seeMore": "...voir plus",
+    "seeLess": "voir moins",
+    "copiedText": "Text copié",
+    "copy": "Copier",
+    "close": "Fermer"
+}

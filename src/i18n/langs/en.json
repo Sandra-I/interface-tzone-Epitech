@@ -1,0 +1,21 @@
+{
+    "parameters": "Parameters",
+    "preview": "Preview",
+    "translateInto": "Translate my text into",
+    "keyShortcutScreenshot": "Keyboard shortcut 'Capture'",
+    "doScreenshot": "Take a screenshot",
+    "login": "Login",
+    "logout": "Logout",
+    "mainText": "Main text",
+    "result": "Result",
+    "history": "History",
+    "back": "Back",
+    "myAccount": "My Account",
+    "seeProfile": "See my profile",
+    "emptyHistory": "Your history is empty.",
+    "seeMore": "...see more",
+    "seeLess": "see less",
+    "copiedText": "Copied text",
+    "copy": "Copy",
+    "close": "Close"
+}

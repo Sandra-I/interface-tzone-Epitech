@@ -1,0 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Poppins:wght@300;400;500;600&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,400;1,300&display=swap");
+
+:root {
+    --title_font: 'Poppins', sans-serif;
+    --main_font: 'Montserrat', sans-serif;
+    --tiny_font: 'Source Sans Pro', sans-serif;
+    --result_font: 'Roboto Mono', sans-serif;
+}

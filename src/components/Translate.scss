@@ -1,0 +1,14 @@
+#translatedLangSelectorLabel {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    & #translatedLangSelector {
+        padding: 4px;
+        border-radius: 7px;
+        font-size: 14px;
+        font-weight: 500;
+        font-family: var(--main_font);
+        cursor: pointer;
+    }
+}

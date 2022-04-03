@@ -1,0 +1,6 @@
+#langSelector * {
+    cursor: pointer;
+    & * input {
+        caret-color: transparent;
+    }
+}

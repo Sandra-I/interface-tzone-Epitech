@@ -1,0 +1,15 @@
+.popup-style {
+    opacity: '1';
+    position: 'fixed';
+    top: '0';
+    right: '0';
+    z-index: '99999';
+    color: 'orange';
+    border-radius: '20px';
+    font-weight: '700';
+    margin: '5px';
+    padding: '10px';
+    text-align: 'center';
+    font-size: '14px';
+    box-shadow: '1px 4px 10px #444444';
+}
