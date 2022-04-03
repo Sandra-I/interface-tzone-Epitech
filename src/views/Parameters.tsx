@@ -4,15 +4,16 @@ import SwitchCheckbox from '../components/SwitchCheckbox';
 import Translate from '../components/Translate';
 import { User } from '../models/user';
 
-const Parameters: React.FC<{user: User}> = ({ user }) => {
+const Parameters: React.FC<{ user: User }> = ({ user }) => {
+  const [previewDisabled, setPreviewDisabled] = React.useState(false);
   const { t } = useTranslation();
 
   return (
     <div className="card">
       <h1>{t('parameters')}</h1>
       <div className="params">
-        <SwitchCheckbox />
-        { user?.permissions.translation && <Translate /> }
+        <SwitchCheckbox user={user} previewDisabled={previewDisabled} />
+        {user?.permissions.translation && <Translate setPreviewDisabled={setPreviewDisabled} />}
         <div>
           <span>
             {t('keyShortcutScreenshot')}

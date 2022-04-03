@@ -7,7 +7,7 @@ import './Translate.scss';
 
 type LangueAvailable = { [key: string]: string };
 
-const Translate: React.FC = () => {
+const Translate: React.FC<{ setPreviewDisabled: Function }> = ({ setPreviewDisabled }) => {
   const langueAvailable: LangueAvailable = {
     Aucun: '',
     France: 'FR',
@@ -35,6 +35,7 @@ const Translate: React.FC = () => {
     e.persist();
     OptionsService.getOptions().then((_options) => {
       OptionsService.updateOptions({ ..._options, translateLanguage: e.target.value || null });
+      setPreviewDisabled(!!e.target.value);
     });
   }
 

@@ -116,12 +116,6 @@ html {
     }
 }
 
-body:hover * {
-    ::-webkit-scrollbar-thumb {
-        background-color: var(--dark_grey_opac_10);
-    }
-}
-
 #tzone-preview {
     all: initial;
     * {
