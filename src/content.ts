@@ -116,7 +116,6 @@ function showPopupWithTranslation(data: APIResponceWithTraduction) {
   popup.show();
 }
 
-
 // eslint-disable-next-line no-unused-vars
 chrome.runtime.onMessage.addListener(async (dataMsg: DataMessage<any>, sender, sendResponce) => {
   if (isCurrentlySelection) {
