@@ -6,6 +6,7 @@ import { User } from '../models/user';
 
 const Parameters: React.FC<{user: User}> = ({ user }) => {
   const { t } = useTranslation();
+
   return (
     <div className="card">
       <h1>{t('parameters')}</h1>

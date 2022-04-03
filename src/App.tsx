@@ -19,6 +19,7 @@ import UserService from './services/user-service';
 
 const App: React.FC = () => {
   const [user, setUser] = useState<User>();
+  const [showMainPageButton, setShowMainPageButton] = useState(true);
   const [loading, setLoading] = useState(true);
   const { t } = useTranslation();
 
@@ -66,25 +67,47 @@ const App: React.FC = () => {
                     <Parameters user={user!} />
                   </Route>
                   <Route path="/history">
-                    <History user={user} />
+                    <History user={user!} />
                   </Route>
                 </Switch>
               </div>
               <div className="app-footer">
-                <div className="button-div">
-                  <button
-                    id="screenshot_button"
-                    type="button"
-                    className="myButton"
-                    onClick={triggerSelectionEvent}
-                  >
-                    {t('doScreenshot')}
-                  </button>
-                </div>
-                {user?.permissions.history && (
+                {showMainPageButton && (
+                  <div className="button-div">
+                    <button
+                      id="screenshot_button"
+                      type="button"
+                      className="myButton"
+                      onClick={triggerSelectionEvent}
+                    >
+                      {t('doScreenshot')}
+                    </button>
+                  </div>
+                )}
+                {user?.permissions.history && showMainPageButton && (
                   <div className="button-div">
                     <Link to="/history">
-                      <button className="myButton" type="button">Historique</button>
+                      <button
+                        className="myButton"
+                        type="button"
+                        onClick={() => setShowMainPageButton(false)}
+                      >
+                        {t('history')}
+                      </button>
+                    </Link>
+                  </div>
+                )}
+                {!showMainPageButton && (
+                  <div className="button-div">
+                    <Link to="/index.html">
+                      <button
+                        className="myButton back_button"
+                        type="button"
+                        onClick={() => setShowMainPageButton(true)}
+                      >
+                        <div>🠔</div>
+                        <div>{t('back')}</div>
+                      </button>
                     </Link>
                   </div>
                 )}
