@@ -13,7 +13,7 @@ describe('Translate Test', () => {
   let component: any;
 
   beforeEach(async () => {
-    await act(async () => { component = render(<Translate />); });
+    await act(async () => { component = render(<Translate setPreviewDisabled={() => null} />); });
   });
 
   afterEach(() => { jest.clearAllMocks(); });

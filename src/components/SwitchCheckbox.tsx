@@ -7,47 +7,45 @@ import {
 import './SwitchCheckbox.scss';
 import { useTranslation } from 'react-i18next';
 import OptionsService from '../utils/optionsService';
-import UserService from '../services/user-service';
 import { User } from '../models/user';
-import { Options } from '../models/options';
 
-const SwitchCheckbox: React.FC = () => {
+const SwitchCheckbox: React.FC<{ user: User, previewDisabled: boolean }> = ({ user, previewDisabled }) => {
   const { t } = useTranslation();
 
-  const [user, setUser] = useState<User>();
+  // const [user, setUser] = useState<User>();
   const [checkOptions, setCheckOptions] = useState(new Map([
-    ['preview', { name: 'Prévisualisation', check: false }],
+    ['preview', { name: 'Prévisualisation', check: true }],
   ]));
 
-  UserService.getMe(setUser);
-
-  const getOptions = () => {
-    const optionsString = localStorage.getItem('options');
-    if (optionsString) {
-      const options: Options = JSON.parse(optionsString);
-      return options;
-    }
-    return OptionsService.defaultOptions;
-  };
+  // const getOptions = () => {
+  //   const optionsString = localStorage.getItem('options');
+  //   if (optionsString) {
+  //     const options: Options = JSON.parse(optionsString);
+  //     return options;
+  //   }
+  //   return OptionsService.defaultOptions;
+  // };
 
   useEffect(() => {
-    const optionsString = localStorage.getItem('options');
-    const newCheckOptions = new Map(checkOptions);
-    if (optionsString) {
-      const options = JSON.parse(optionsString);
-      if (options.checkOptions) {
-        Array.from(checkOptions.keys()).forEach((key) => {
-          const value: any = checkOptions.get(key);
-          newCheckOptions.set(key, { name: value.name, check: options.checkOptions[key] });
-        });
+    if (user?.permissions.quickCapture) {
+      const optionsString = localStorage.getItem('options');
+      const newCheckOptions = new Map(checkOptions);
+      if (optionsString) {
+        const options = JSON.parse(optionsString);
+        if (options.checkOptions) {
+          Array.from(checkOptions.keys()).forEach((key) => {
+            const value: any = checkOptions.get(key);
+            newCheckOptions.set(key, { name: value.name, check: options.checkOptions[key] });
+          });
+        }
       }
+      setCheckOptions(newCheckOptions);
     }
-    setCheckOptions(newCheckOptions);
   }, []);
 
   const setOption = (optionsMap: Map<string, any>) => {
     OptionsService.getOptions().then((options) => {
-      const optionsToSave: {[key: string]: boolean} = {};
+      const optionsToSave: { [key: string]: boolean } = {};
       Array.from(optionsMap.keys()).forEach((key) => {
         optionsToSave[key] = optionsMap.get(key).check;
       });
@@ -64,9 +62,6 @@ const SwitchCheckbox: React.FC = () => {
 
   const isEnable = (key: string) => {
     if (key === 'preview') {
-      if (getOptions().translateLanguage) {
-        return false;
-      }
       return user?.permissions.quickCapture;
     }
     return true;
@@ -74,9 +69,6 @@ const SwitchCheckbox: React.FC = () => {
 
   const isChecked = (key: string) => {
     if (key === 'preview') {
-      if (getOptions().translateLanguage) {
-        return true;
-      }
       if (!user?.permissions.quickCapture) {
         return true;
       }
@@ -86,29 +78,32 @@ const SwitchCheckbox: React.FC = () => {
 
   return (
     <>
-      { Array.from(checkOptions.keys()).map((key: any) => (
-        <div key={key}>
-          <label htmlFor={key} style={{ opacity: isEnable(key) ? 1 : 0.7 }}>{t(key)}</label>
-          <input
-            name={key}
-            checked={isChecked(key)}
-            onChange={(e) => handleChange(e)}
-            className="react-switch-checkbox"
-            id={key}
-            type="checkbox"
-            disabled={!isEnable(key)}
-          />
-          <label
-            className={`react-switch-label ${
-              isChecked(key) ? 'background-color-of-switch' : ''
-            }`}
-            style={{ opacity: isEnable(key) ? 1 : 0.7 }}
-            htmlFor={key}
-          >
-            {/* Flo s'en occupera */}
-            <span className="react-switch-button" />
-          </label>
-        </div>
+      {Array.from(checkOptions.keys()).map((key: any) => (
+        <>
+          {key === 'preview' && user?.permissions.quickCapture && (
+            <div key={key}>
+              <label htmlFor={key} style={{ opacity: !previewDisabled && isEnable(key) ? 1 : 0.7 }}>{t(key)}</label>
+              <input
+                name={key}
+                checked={previewDisabled || isChecked(key)}
+                onChange={(e) => handleChange(e)}
+                className="react-switch-checkbox"
+                id={key}
+                type="checkbox"
+                disabled={!isEnable(key)}
+              />
+              <label
+                className={`react-switch-label ${previewDisabled || isChecked(key)
+                  ? 'background-color-of-switch' : ''}`}
+                style={{ opacity: !previewDisabled && isEnable(key) ? 1 : 0.7 }}
+                htmlFor={key}
+              >
+                {/* Flo s'en occupera */}
+                <span className="react-switch-button" />
+              </label>
+            </div>
+          )}
+        </>
       ))}
     </>
   );
