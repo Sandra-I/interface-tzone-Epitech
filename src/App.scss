@@ -1,5 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Poppins:wght@300;400;500;600&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,400;1,300&display=swap");
 
+#tzone_extensino_popup {
+    &::-webkit-scrollbar {
+        position: absolute;
+        width: 10px;
+        background-color: var(--bg_color);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--middle_grey_opac);
+        border-radius: 5px;
+        transition: all 0.2s;
+    }
+}
+
 .tz-body {
     font-family: var(--main_font);
     h1,
@@ -20,6 +34,8 @@
         min-height: 200px;
         background-color: var(--bg_color);
         width: 400px;
+
+
         .app-header {
             height: 88px;
             align-items: center;
@@ -61,31 +77,6 @@
     }
 }
 
-// .tz-normal-text {
-//     font-family: var(--main_font);
-// }
-
-// .tz-small-text {
-//     font-family: var(--tiny_font);
-// }
-
-// .tz-title {
-//     font-family: var(--title_font);
-// }
-
-// .tz-result-text {
-//     font-family: var(--result_font);
-//     background: var(--white) !important;
-//     color: var(--black) !important;
-
-//     &::-webkit-scrollbar {
-//         background-color: #f1f1f1 !important;
-//     }
-//     &::-webkit-scrollbar-thumb {
-//         background: #c1c1c1 !important;
-//     }
-// }
-
 .read-or-hide {
     color: rgb(192, 192, 192);
     cursor: pointer;
@@ -124,18 +115,6 @@ html {
     }
 }
 
-::-webkit-scrollbar {
-    position: absolute;
-    width: 10px;
-    background-color: var(--bg_color);
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: var(--middle_grey_opac);
-    border-radius: 5px;
-    transition: all 0.2s;
-}
-
 body:hover * {
     ::-webkit-scrollbar-thumb {
         background-color: var(--dark_grey_opac_10);
@@ -154,11 +133,11 @@ body:hover * {
     h5,
     h6,
     b {
-        font-family: 'Poppins', sans-serif;
+        font-family: "Poppins", sans-serif;
         color: #ffac78;
     }
-    background-color:#141d2a;
-    font-family: 'Montserrat', sans-serif;
+    background-color: #141d2a;
+    font-family: "Montserrat", sans-serif;
     opacity: 1;
     position: fixed;
     top: 0;
@@ -193,7 +172,7 @@ body:hover * {
             width: 4px;
             background-color: #141d2a;
         }
-        
+
         ::-webkit-scrollbar-thumb {
             background-color: #b5b3b370;
             border-radius: 5px;
@@ -205,7 +184,7 @@ body:hover * {
         justify-content: space-around;
         margin-top: 10px;
     }
-    & #tzone_preview_result_buttons button, 
+    & #tzone_preview_result_buttons button,
     #tzone_preview_result_traduction_title button {
         border-radius: 22px;
         padding: 5px 15px;
@@ -216,11 +195,10 @@ body:hover * {
         color: rgb(255, 255, 255);
         font-size: 16px;
         font-weight: 500;
-        font-family: 'Poppins', sans-serif;
-        transition: all .2s;
+        font-family: "Poppins", sans-serif;
+        transition: all 0.2s;
         &:hover {
-            opacity: .7;
+            opacity: 0.7;
         }
-        
     }
 }
