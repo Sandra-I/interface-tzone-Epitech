@@ -6,6 +6,7 @@ import { Selection } from './models/Selection';
 import API from './services/text-service';
 import OptionsService from './utils/optionsService';
 import UnknownMessageError from './errors/unknownMessageError';
+import UserService from './services/user-service';
 
 declare type NotificationOptions = any;
 
@@ -13,6 +14,10 @@ declare type NotificationOptions = any;
 OptionsService.init();
 const savedConf = localStorage.getItem('options');
 if (savedConf) OptionsService.updateOptions(JSON.parse(savedConf));
+
+const updateHistory = (text: string) => {
+  UserService.updateHistory(text);
+};
 
 // Listen command keys
 chrome.commands.onCommand.addListener(async (command: string) => {
@@ -44,6 +49,7 @@ chrome.runtime.onMessage.addListener((dataMsg: DataMessage<Selection | Notificat
         OptionsService.getOptions().then((options) => {
           if (options.translateLanguage) {
             API.getTextFromImageWithTraduction(croppedImageData, options.translateLanguage).then((result) => {
+              updateHistory(result.data.original.text);
               if (sender.tab && sender.tab.id) {
                 chrome.tabs.sendMessage(sender.tab.id, { msg: MessageType.API_SUCCESS, tabId: sender.tab.id });
                 chrome.tabs.sendMessage(sender.tab.id,
@@ -57,6 +63,7 @@ chrome.runtime.onMessage.addListener((dataMsg: DataMessage<Selection | Notificat
             });
           } else {
             API.getTextFromImage(croppedImageData).then((result) => {
+              updateHistory(result.data.text);
               if (sender.tab && sender.tab.id) {
                 chrome.tabs.sendMessage(sender.tab.id, { msg: MessageType.API_SUCCESS, tabId: sender.tab.id });
                 chrome.tabs.sendMessage(sender.tab.id, {
