@@ -55,8 +55,6 @@ const SwitchCheckbox: React.FC = () => {
     });
   };
 
-  useEffect(() => setOption(checkOptions), [checkOptions]);
-
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { id, checked: check } = e.target;
     const newCheckOptions = new Map(checkOptions);
